@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yht.demo.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.User">
+        <id column="id_" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="name_" property="name" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="password_" property="password" />
+        <result column="status_" property="status" />
+        <result column="sex_" property="sex" />
+        <result column="icon_url" property="iconUrl" />
+        <result column="balance_" property="balance" />
+        <result column="client_name" property="clientName" />
+        <result column="client_type" property="clientType" />
+        <result column="client_version" property="clientVersion" />
+        <result column="level_id" property="levelId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+    </resultMap>
+
+</mapper>

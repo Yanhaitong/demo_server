@@ -23,7 +23,7 @@ public class MpGenerator {
         gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         gc.setMapperName("%sMapper");
-        gc.setXmlName("%sMapper2");
+        gc.setXmlName("%sMapper");
         gc.setFileOverride(true);
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
@@ -44,7 +44,7 @@ public class MpGenerator {
         PackageConfig pc = new PackageConfig();
         //pc.setModuleName(scanner("模块名"));//父包模块名
         pc.setParent("com.yht.demo");//父包名。// 自定义包路径  如果为空，将下面子包名必须写全部， 否则就只需写子包名
-        pc.setXml("mapper2");
+        pc.setXml("mapper");
         pc.setEntity("entity");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
@@ -69,7 +69,7 @@ public class MpGenerator {
         });*/
  /*       cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);*/
-        mpg.setTemplate(new TemplateConfig().setXml(null));
+        mpg.setTemplate(new TemplateConfig());
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
