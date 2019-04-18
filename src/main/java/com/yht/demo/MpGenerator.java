@@ -1,24 +1,17 @@
 package com.yht.demo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.util.Scanner;
 
 /**
- * @author luohuiqi
- * 2019年1月2日
- * 控制台输入相应模块以及实体，Controller，service等名称，自动生成代码
+ * mybatis代码生成器
  */
 public class MpGenerator {
-
     /**
      * <p>
      * 读取控制台内容
@@ -27,7 +20,7 @@ public class MpGenerator {
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
         StringBuilder help = new StringBuilder();
-        help.append("帅哥，请输入一下你的" + tip + "：");
+        help.append("请输入" + tip + "：");
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
@@ -45,64 +38,76 @@ public class MpGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("luohuiqi");
-        gc.setOpen(false);
-        gc.setSwagger2(true);
-        gc.setBaseResultMap(true);
-        gc.setIdType(IdType.AUTO);
-
-        gc.setEntityName(scanner("实体类名"));
-        gc.setControllerName(scanner("Controlller名"));
-        gc.setServiceName(scanner("Service名"));
-        gc.setServiceImplName(scanner("ServiceImpl名"));
-        gc.setMapperName(scanner("Mapper名"));
-        gc.setXmlName(scanner("XML名"));
+        gc.setOutputDir(projectPath + "/src/main/java");//生成文件的输出目录
+        gc.setAuthor("yanht");//开发人员
+        gc.setOpen(true);//是否打开输出目录
+        gc.setServiceName("I%sService");//service 命名方式
+        gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
+        // 自定义文件命名，注意 %s 会自动填充表实体属性！
+        gc.setMapperName("%sMapper");
+        gc.setXmlName("%sMapper");
+        gc.setFileOverride(true);
+        gc.setActiveRecord(true);
+        gc.setEnableCache(false);// XML 二级缓存
+        gc.setBaseResultMap(true);// XML ResultMap
+        gc.setBaseColumnList(false);// XML columList
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl("jdbc:mysql://47.93.225.228:3306/order?useUnicode=true&characterEncoding=utf-8&useSSL=false");
+        // dsc.setSchemaName("public"); 数据库 schema name
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("Yanht_201922");
         mpg.setDataSource(dsc);
+
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.yht.demo")
-                .setMapper("dao")
-                .setService("service")
-                .setController("controller")
-                .setEntity("model")
-                .setXml("dao.mapping");
+        //pc.setModuleName(scanner("模块名"));//父包模块名
+        pc.setParent("com.yht.demo");//父包名。// 自定义包路径  如果为空，将下面子包名必须写全部， 否则就只需写子包名
+        pc.setEntity("entity");
+        pc.setService("service");
+        pc.setServiceImpl("service.impl");
+        pc.setController("controller");//设置控制器包名
         mpg.setPackageInfo(pc);
+
+        // 自定义配置
+/*        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+            }
+        };
+        List<FileOutConfig> focList = new ArrayList<>();
+        focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输入文件名称
+                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });*/
+ /*       cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);*/
+        mpg.setTemplate(new TemplateConfig().setXml(null));
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        // 表名生成策略(下划线转驼峰命名)
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        // 列名生成策略(下划线转驼峰命名)
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        // 是否启动Lombok配置
-        strategy.setEntityLombokModel(true);
-        // 是否启动REST风格配置
-        strategy.setRestControllerStyle(true);
-        // 自定义实体父类
-        strategy.setSuperEntityClass("com.baomidou.mybatisplus.extension.activerecord.Model");
-        // 自定义controller父类
-        strategy.setSuperControllerClass("pro.nbbt.base.controller.BaseController");
-        // 自定义service父接口
-        strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
-        // 自定义service实现类
-        strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
-        // 自定义mapper接口
-        strategy.setSuperMapperClass("com.baomidou.mybatisplus.core.mapper.BaseMapper");
-        strategy.setInclude(scanner("order_"));
-        strategy.setSuperEntityColumns("id_");
+        strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
+        //  strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");//自定义继承的Entity类全称，带包名
+        strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
+        strategy.setRestControllerStyle(true);//生成 @RestController 控制器
+        strategy.setSuperControllerClass("com.yht.demo.common.BaseController");//自定义继承的Controller类全称，带包名
+        strategy.setInclude("order_");//需要包含的表名，允许正则表达式
+        //strategy.setSuperEntityColumns("id");//自定义基础的Entity类，公共字段
+        strategy.setControllerMappingHyphenStyle(true);//驼峰转连字符
+        strategy.setTablePrefix("");//表前缀
         mpg.setStrategy(strategy);
-
-        // 执行
+        //mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
+
+
 }

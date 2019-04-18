@@ -51,7 +51,7 @@ spring:
 
 #mybatis-plus的配置
 mybatis-plus:
-  mapper-locations: classpath*:mapper/*.xml
+  mapper-locations: classpath*:mapping/*.xml
   type-aliases-package: com.yht.demo.entity
   global-config:
     id-type: 0
