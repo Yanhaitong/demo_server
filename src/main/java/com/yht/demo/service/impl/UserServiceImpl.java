@@ -85,10 +85,10 @@ public class UserServiceImpl extends BaseService implements IUserService {
             String mobileNo = stringRedisTemplate.opsForValue().get(token);
             stringRedisTemplate.delete("SMS" + mobileNo);
             stringRedisTemplate.delete(token);
-            return Result.success("退出登录成功");
+            return Result.success("退出成功");
         }catch (Exception e){
             log.error("loginOut===========" + e.getMessage());
-            return Result.error(500,"退出登录失败");
+            return Result.error(500,"退出失败");
         }
 
     }
