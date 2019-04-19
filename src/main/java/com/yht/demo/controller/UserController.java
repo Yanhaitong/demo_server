@@ -39,11 +39,9 @@ public class UserController extends BaseController {
     public void captcha(@PathVariable String mark, HttpServletRequest request, HttpServletResponse response) {
         log.info("captcha:" + mark);
         try {
-
             if (mark == null || "".equals(mark.trim())) {
                 return;
             }
-
             String verifyCode = CaptchaUtil.outputImage(response.getOutputStream());
             CacheUtil.saveCaptcha(mark + verifyCode.toLowerCase());
         } catch (Exception e) {
@@ -66,12 +64,6 @@ public class UserController extends BaseController {
         if (StringUtils.isEmpty(userReceiveDTO.getMobileNo()) || StringUtils.isEmpty(userReceiveDTO.getCode())) {
             return Result.error(500, "退出失败，参数错误！");
         }
-
-        //获取验证码
-        //String localCode = stringRedisTemplate.opsForValue().get("SMS" + userDto.getMobileNo());
-        //if (StringUtils.isEmpty(localCode) || !localCode.equals(userDto.getCode())) {
-        //return Result.error(500, "验证码错误！");
-        //}
 
         return userService.verifyCodeLoginOrRegister(userReceiveDTO);
     }

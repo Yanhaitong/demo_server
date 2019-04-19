@@ -11,6 +11,7 @@ import com.yht.demo.mapper.UserMapper;
 import com.yht.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -39,9 +40,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
             String smsContent = systemConfigMapper.getValueByKey("SMS" + clientName);
             SMSUtils.sendVerifyLoginSMS(mobileNo, smsContent);
             return Result.success("发送成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("sendVerificationCode===========" + e.getMessage());
-            return Result.error(500,"发送失败");
+            return Result.error(500, "发送失败");
         }
     }
 
@@ -49,6 +50,12 @@ public class UserServiceImpl extends BaseService implements IUserService {
     public Result verifyCodeLoginOrRegister(UserReceiveDTO userReceiveDTO) {
 
         try {
+            //获取验证码
+            String localCode = stringRedisTemplate.opsForValue().get("SMS" + userReceiveDTO.getMobileNo());
+            if (StringUtils.isEmpty(localCode) || !localCode.equals(userReceiveDTO.getCode())) {
+                return Result.error(500, "验证码错误！");
+            }
+
             //redis保存token对应的手机号(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
             stringRedisTemplate.opsForValue().set(token, userReceiveDTO.getMobileNo());
@@ -72,9 +79,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
             Map<String, Object> map = new HashMap<>();
             map.put("token", token);
             return Result.success(map);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("verifyCodeLoginOrRegister===========" + e.getMessage());
-            return Result.error(500,"登录失败");
+            return Result.error(500, "登录失败");
         }
 
     }
@@ -86,9 +93,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
             stringRedisTemplate.delete("SMS" + mobileNo);
             stringRedisTemplate.delete(token);
             return Result.success("退出成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("loginOut===========" + e.getMessage());
-            return Result.error(500,"退出失败");
+            return Result.error(500, "退出失败");
         }
 
     }
