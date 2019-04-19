@@ -1,7 +1,8 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.User;
+import com.yht.demo.entity.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    User getUserInfo(@Param("mobileNo") String mobileNo, @Param("clientName") String clientName);
 }

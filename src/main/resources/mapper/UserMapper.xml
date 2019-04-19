@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.User">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.User">
         <id column="id_" property="id" />
         <result column="role_id" property="roleId" />
         <result column="name_" property="name" />
