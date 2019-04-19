@@ -50,7 +50,12 @@
             <version>2.0</version>
         </dependency>
 
-
+        <!-- 图片压缩 -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
 
         <!-- mysql 驱动 -->
         <dependency>

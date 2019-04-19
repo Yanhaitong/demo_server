@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yht.demo.mapper.AmaldarCertificationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.AmaldarCertification">
+        <id column="id_" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="status_" property="status" />
+        <result column="name_" property="name" />
+        <result column="scan_count_portrait" property="scanCountPortrait" />
+        <result column="scan_count_emblem" property="scanCountEmblem" />
+        <result column="id_card_address" property="idCardAddress" />
+        <result column="id_card_validity" property="idCardValidity" />
+        <result column="id_card_birth" property="idCardBirth" />
+        <result column="id_card_nationality" property="idCardNationality" />
+        <result column="id_card_gender" property="idCardGender" />
+        <result column="issuing_agencies" property="issuingAgencies" />
+        <result column="id_card_no" property="idCardNo" />
+        <result column="id_card_portrait" property="idCardPortrait" />
+        <result column="id_card_emblem" property="idCardEmblem" />
+        <result column="living_identify_image" property="livingIdentifyImage" />
+        <result column="confidence_idCard" property="confidenceIdcard" />
+        <result column="thresholds_idCard" property="thresholdsIdcard" />
+        <result column="confidence_ref1" property="confidenceRef1" />
+        <result column="thresholds_ref1" property="thresholdsRef1" />
+        <result column="identity_auth_error" property="identityAuthError" />
+        <result column="company_logo" property="companyLogo" />
+        <result column="company_work_card" property="companyWorkCard" />
+        <result column="company_license" property="companyLicense" />
+        <result column="labor_contract" property="laborContract" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+    </resultMap>
+
+</mapper>

@@ -13,4 +13,11 @@ public class Constant {
     public static String QINIU_ICON_DOMAIN="icon.cainiaodk.com";
     public static String QINIU_ICON_URL="https://icon.cainiaodk.com/";
     public static String QINIU_ICON_BUCKET="icon";
+
+
+    public static String QINIU_CAINIAO_DOMAIN="cainiao.cainiaodk.com";
+    public static String QINIU_CAINIAO_URL="https://cainiao.cainiaodk.com/";
+    public static String QINIU_CAINIAO_BUCKET="cainiao";
+    public static String QINIU_CAINIAO_KEY="";
+
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yht.demo.mapper.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.Order">
+        <id column="id_" property="id" />
+        <result column="status_" property="status" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="apply_time" property="applyTime" />
+        <result column="name_" property="name" />
+        <result column="age_" property="age" />
+        <result column="sex_" property="sex" />
+        <result column="loan_amount" property="loanAmount" />
+        <result column="loan_period" property="loanPeriod" />
+        <result column="loan_purpose" property="loanPurpose" />
+        <result column="id_number" property="idNumber" />
+        <result column="current_city" property="currentCity" />
+        <result column="phone_attribution" property="phoneAttribution" />
+        <result column="family_city" property="familyCity" />
+        <result column="level_education" property="levelEducation" />
+        <result column="company_name" property="companyName" />
+        <result column="professional_type" property="professionalType" />
+        <result column="income_amount" property="incomeAmount" />
+        <result column="income_type" property="incomeType" />
+        <result column="working_years" property="workingYears" />
+        <result column="social_security" property="socialSecurity" />
+        <result column="accumulation_fund" property="accumulationFund" />
+        <result column="estate_info" property="estateInfo" />
+        <result column="estate_values" property="estateValues" />
+        <result column="car_info" property="carInfo" />
+        <result column="car_values" property="carValues" />
+        <result column="insurance_info" property="insuranceInfo" />
+        <result column="insurance_values" property="insuranceValues" />
+        <result column="credit_card_limit" property="creditCardLimit" />
+        <result column="sesame_scores" property="sesameScores" />
+        <result column="weilidai_limit" property="weilidaiLimit" />
+        <result column="share_id" property="shareId" />
+        <result column="partner_id" property="partnerId" />
+        <result column="order_source" property="orderSource" />
+        <result column="apply_ip" property="applyIp" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
+    </resultMap>
+
+</mapper>
