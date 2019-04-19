@@ -17,8 +17,6 @@ public interface IOrderService extends IService<Order> {
 
     Result getHomePageOrderList(OrderListReceiveDTO orderListReceiveDTO);
 
-    Result getHomePageNavigationList(OrderListReceiveDTO orderListReceiveDTO);
-
     Result getHomePageCityList(OrderListReceiveDTO orderListReceiveDTO);
 
     Result getHomePageSearchConditions(OrderListReceiveDTO orderListReceiveDTO);

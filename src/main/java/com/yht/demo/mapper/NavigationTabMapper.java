@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author yanht
- * @since 2019-04-19
+ * @since 2019-04-20
  */
 public interface NavigationTabMapper extends BaseMapper<NavigationTab> {
 

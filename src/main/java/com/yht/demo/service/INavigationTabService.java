@@ -1,7 +1,9 @@
 package com.yht.demo.service;
 
+import com.yht.demo.common.Result;
 import com.yht.demo.entity.NavigationTab;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yht.demo.entity.dto.OrderListReceiveDTO;
 
 /**
  * <p>
@@ -9,8 +11,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author yanht
- * @since 2019-04-19
+ * @since 2019-04-20
  */
 public interface INavigationTabService extends IService<NavigationTab> {
 
+    Result getHomePageNavigationList(OrderListReceiveDTO orderListReceiveDTO);
 }

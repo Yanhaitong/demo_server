@@ -26,19 +26,23 @@ import java.util.Map;
 @Service
 public class AmaldarCertificationServiceImpl extends BaseService implements IAmaldarCertificationService {
 
-
     @Override
-    public Result getAmaldarCertificationInfo() {
+    public Result getAmaldarCertificationInfo(String token, String client) {
         return null;
     }
 
     @Override
-    public Result idCardValidation() {
+    public Result idCardValidation(String token, String client, String idCardSide, MultipartFile file) {
         return null;
     }
 
     @Override
-    public Result getBizToken() {
+    public Result getBizToken(String token, String client) {
+        return null;
+    }
+
+    @Override
+    public Result getVerifyResult(String token, String client) {
         return null;
     }
 
@@ -193,4 +197,5 @@ public class AmaldarCertificationServiceImpl extends BaseService implements IAma
 
         return id_card_portrait_image;
     }
+
 }

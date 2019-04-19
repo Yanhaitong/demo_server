@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author yanht
- * @since 2019-04-19
+ * @since 2019-04-20
  */
 @Service
 public class NavigationTabServiceImpl extends ServiceImpl<NavigationTabMapper, NavigationTab> implements INavigationTabService {

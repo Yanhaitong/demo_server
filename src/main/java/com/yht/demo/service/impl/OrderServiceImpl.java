@@ -25,11 +25,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Result getHomePageNavigationList(OrderListReceiveDTO orderListReceiveDTO) {
-        return null;
-    }
-
-    @Override
     public Result getHomePageCityList(OrderListReceiveDTO orderListReceiveDTO) {
         return null;
     }
