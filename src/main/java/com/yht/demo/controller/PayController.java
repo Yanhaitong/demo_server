@@ -6,6 +6,7 @@ import com.yht.demo.entity.dto.OrderListReceiveDTO;
 import com.yht.demo.mapper.TopUpAmountMapper;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.yht.demo.common.BaseController;
  * @author yanht
  * @since 2019-04-20
  */
+@Api("订单支付管理")
 @RestController
 @RequestMapping("/pay")
 public class PayController extends BaseController {

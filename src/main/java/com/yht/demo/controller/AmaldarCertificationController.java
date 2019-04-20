@@ -3,6 +3,7 @@ package com.yht.demo.controller;
 
 import com.yht.demo.common.Result;
 import com.yht.demo.service.IAmaldarCertificationService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author yanht
  * @since 2019-04-19
  */
+@Api("身份认证信息管理")
 @RestController
 @RequestMapping("/amaldarCertification")
 public class AmaldarCertificationController extends BaseController {

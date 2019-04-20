@@ -7,6 +7,7 @@ import com.yht.demo.common.utils.CacheUtil;
 import com.yht.demo.common.utils.CaptchaUtil;
 import com.yht.demo.entity.dto.UserReceiveDTO;
 import com.yht.demo.service.IUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author yanht
  * @since 2019-04-19
  */
+@Api("用户管理")
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {
