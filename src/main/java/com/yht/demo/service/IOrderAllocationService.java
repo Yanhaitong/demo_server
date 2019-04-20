@@ -1,7 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.AmaldarOrderListReceiveDTO;
 
 /**
  * <p>
@@ -14,4 +14,6 @@ import com.yht.demo.entity.dto.OrderListReceiveDTO;
 public interface IOrderAllocationService {
 
     Result vieForOrder(String token, String orderId, String clientName);
+
+    Result amaldarOrderList(AmaldarOrderListReceiveDTO amaldarOrderListReceiveDTO);
 }

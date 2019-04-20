@@ -13,9 +13,9 @@
         <result column="update_time" property="updateTime"/>
         <result column="del_flag" property="delFlag"/>
     </resultMap>
-
-    <select id="getSearchConditionsList" parameterType="java.lang.String">
+    <select id="getSearchConditionsList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.SearchConditionsReturnDTO">
         SELECT
+        search_type as searchType,
         name_ as name
         FROM
         search_conditions

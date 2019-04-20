@@ -23,4 +23,15 @@
         <result column="del_flag" property="delFlag" />
     </resultMap>
 
+    <select id="getUserInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            user_
+        WHERE
+            mobile_no = #{mobileNo}
+            and client_name = #{clientName}
+            limit 1
+    </select>
+
 </mapper>

@@ -16,4 +16,27 @@
         <result column="del_flag" property="delFlag" />
     </resultMap>
 
+    <sql id="Order_Column_List">
+        o.name_ as name, o.age_ as age, o.loan_amount as loanAmount,
+        o.loan_purpose as loanPurpose, o.current_city as currentCity,
+        o.professional_type as professionalType, o.level_education as levelEducation,
+        o.family_city as familyCity, o.income_amount as incomeAmount, o.income_type as incomeType,
+        o.working_years as workingYears, o.social_security as socialSecurity, o.accumulation_fund as accumulationFund,
+        o.estate_info as estateInfo, o.estate_values as estateValues, o.car_info as carInfo, o.car_values as carValues
+    </sql>
+
+    <!--获取我的订单列表-->
+    <select id="amaldarOrderList" parameterType="java.lang.Integer" resultType="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
+        SELECT
+        <include refid="Order_Column_List"/>
+        FROM
+        order_allocation oa
+        LEFT JOIN user_ u ON oa.user_id = u.id_
+        LEFT JOIN order_ o ON oa.order_id = o.id_
+        WHERE
+        u.id_ = #{userId}
+        order by oa.create_time desc
+    </select>
+
+
 </mapper>

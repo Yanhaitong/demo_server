@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
 import com.yht.demo.entity.dto.OrderDetailsReturnDTO;
+import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.SearchConditionsReturnDTO;
 import com.yht.demo.entity.model.User;
 import com.yht.demo.mapper.OrderMapper;
+import com.yht.demo.mapper.SearchConditionsMapper;
 import com.yht.demo.mapper.UserMapper;
 import com.yht.demo.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
     private OrderMapper orderMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private SearchConditionsMapper searchConditionsMapper;
 
     @Override
     public Result getHomePageOrderList(OrderListReceiveDTO orderListReceiveDTO) {
@@ -42,27 +46,20 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
     }
 
     @Override
-    public Result getHomePageCityList(OrderListReceiveDTO orderListReceiveDTO) {
-        return null;
-    }
-
-    @Override
-    public Result getHomePageSearchConditions(OrderListReceiveDTO orderListReceiveDTO) {
-        return null;
-    }
-
-    @Override
     public Result getOrderDetailsById(String orderId) {
         OrderDetailsReturnDTO orderDetailsReturnDTO = orderMapper.getOrderDetailsById(orderId);
         return Result.success(orderDetailsReturnDTO);
     }
 
     @Override
-    public Result amaldarOrderList(String token, String clientName) {
-        String mobileNo = RedisUtils.getMobileByToken(token);
-        User userInfo = userMapper.getUserInfo(mobileNo, clientName);
-        OrderDetailsReturnDTO orderDetailsReturnDTO = orderMapper.amaldarOrderList(userInfo.getId());
-        return Result.success(orderDetailsReturnDTO);
+    public Result getHomePageCityList(OrderListReceiveDTO orderListReceiveDTO) {
+        return null;
+    }
+
+    @Override
+    public Result getHomePageSearchConditions(String clientName) {
+        List<SearchConditionsReturnDTO> searchConditionsReturnDTOList = searchConditionsMapper.getSearchConditionsList(clientName);
+        return Result.success(searchConditionsReturnDTOList);
     }
 
 }

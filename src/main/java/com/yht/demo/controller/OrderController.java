@@ -8,10 +8,7 @@ import com.yht.demo.service.IOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -38,6 +35,15 @@ public class OrderController extends BaseController {
         return orderService.getHomePageOrderList(orderListReceiveDTO);
     }
 
+    @PostMapping("/getOrderDetailsById")
+    @ApiOperation(value = "获取订单详情")
+    public Result getOrderDetailsById(@RequestParam String orderId) {
+        if (orderId == null){
+            return Result.error(500, "请求错误");
+        }
+        return orderService.getOrderDetailsById(orderId);
+    }
+
     @PostMapping("/getHomePageCityList")
     @ApiOperation(value = "获取首页城市列表")
     public Result getHomePageCityList(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
@@ -49,31 +55,12 @@ public class OrderController extends BaseController {
 
     @PostMapping("/getHomePageSearchConditions")
     @ApiOperation(value = "获取首页搜索条件")
-    public Result getHomePageSearchConditions(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
+    public Result getHomePageSearchConditions(@RequestParam String clientName) {
+        if (clientName == null){
             return Result.error(500, "请求错误");
         }
-        return orderService.getHomePageSearchConditions(orderListReceiveDTO);
+        return orderService.getHomePageSearchConditions(clientName);
     }
-
-    @PostMapping("/getOrderDetailsById")
-    @ApiOperation(value = "获取订单详情")
-    public Result getOrderDetailsById(String orderId) {
-        if (orderId == null){
-            return Result.error(500, "请求错误");
-        }
-        return orderService.getOrderDetailsById(orderId);
-    }
-
-    @PostMapping("/amaldarOrderList")
-    @ApiOperation(value = "经理已抢订单列表")
-    public Result amaldarOrderList(String token, String clientName) {
-        if (token == null){
-            return Result.error(500, "请求错误");
-        }
-        return orderService.amaldarOrderList(token, clientName);
-    }
-
 
 }
 

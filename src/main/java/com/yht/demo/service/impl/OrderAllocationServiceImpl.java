@@ -1,9 +1,13 @@
 package com.yht.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
+import com.yht.demo.entity.dto.AmaldarOrderListReceiveDTO;
+import com.yht.demo.entity.dto.OrderDetailsReturnDTO;
 import com.yht.demo.entity.model.MemberLevel;
 import com.yht.demo.entity.model.OrderRating;
 import com.yht.demo.entity.model.Order;
@@ -129,12 +133,12 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             try {
                 //发送短信
                 String smsContent = systemConfigMapper.getValueByKey("QIANGDANSMS" + userInfo.getClientName());
-                if (StringUtils.isNotBlank(smsContent)) {
+                /*if (StringUtils.isNotBlank(smsContent)) {
                     smsContent = smsContent.replace("{a}", order.getName());
                     smsContent = smsContent.replace("{b}", userInfo.getCompany());
                     smsContent = smsContent.replace("{c}", userInfo.getName());
                     SMSUtils.sendVerifyLoginSMS(mobileNo, smsContent);
-                }
+                }*/
                 log.info("抢单后发短信内容" + smsContent);
             } catch (Exception e) {
                 log.error("发送短信失败====================" + e.getMessage());
@@ -149,5 +153,22 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             log.error("抢单失败====================" + e.getMessage());
             return Result.error(500, "抢单失败！");
         }
+    }
+
+    @Override
+    public Result amaldarOrderList(AmaldarOrderListReceiveDTO amaldarOrderListReceiveDTO) {
+        String mobileNo = "18611556532";//RedisUtils.getMobileByToken(amaldarOrderListReceiveDTO.getToken());
+        if (mobileNo == null){
+            return Result.error(500, "登录信息已失效，请重新登录！");
+        }
+        User userInfo = userMapper.getUserInfo(mobileNo, amaldarOrderListReceiveDTO.getClientName());
+        if (userInfo == null){
+            return Result.error(500, "抢单失败,用户信息错误！！");
+        }
+        Page page = new Page();
+        page.setSize(amaldarOrderListReceiveDTO.getPageSize());
+        page.setCurrent(amaldarOrderListReceiveDTO.getPageNum());
+        IPage<OrderDetailsReturnDTO> orderDetailsReturnDTOIPage = orderAllocationMapper.amaldarOrderList(page, userInfo.getId());
+        return Result.success(orderDetailsReturnDTOIPage);
     }
 }

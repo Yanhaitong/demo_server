@@ -16,6 +16,9 @@ import lombok.Data;
 @Data
 public class OrderListReceiveDTO {
 
+    @ApiModelProperty(name = "canRobOrder", value = "可抢订单（0:否，1:是）", required = true)
+    private String canRobOrder;
+
     @ApiModelProperty(name = "loanAmountStart", value = "贷款额度开始", required = true)
     private String loanAmountStart;
     @ApiModelProperty(name = "loanAmountEnd", value = "贷款额度结束", required = true)

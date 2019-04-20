@@ -12,7 +12,7 @@ import lombok.Data;
  * @author yanht
  * @since 2019-04-19
  */
-@ApiModel(value = "返回首页列表参数")
+@ApiModel(value = "返回订单详细参数")
 @Data
 public class OrderDetailsReturnDTO {
 

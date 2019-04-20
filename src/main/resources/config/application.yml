@@ -5,7 +5,7 @@ server:
 spring:
   #datasource的配置
   datasource:
-    url: jdbc:mysql://47.93.225.228:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://47.93.225.228:3306/order?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: Yanht_201922
     driver-class-name: com.mysql.jdbc.Driver
@@ -51,7 +51,7 @@ spring:
 
 #mybatis-plus的配置
 mybatis-plus:
-  mapper-locations: classpath*:mapping/*.xml
+  mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.yht.demo.entity
   global-config:
     id-type: 0

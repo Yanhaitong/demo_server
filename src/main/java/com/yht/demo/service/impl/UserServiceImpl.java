@@ -5,6 +5,7 @@ import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
+import com.yht.demo.entity.dto.SearchConditionsReturnDTO;
 import com.yht.demo.entity.model.NavigationTab;
 import com.yht.demo.entity.dto.UserReceiveDTO;
 import com.yht.demo.entity.model.SearchConditions;
@@ -120,8 +121,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         parameterMap.put("navigationTabList", navigationTabList);
 
         //获取搜索条件信息
-        List<SearchConditions> searchConditionsList = searchConditionsMapper.getSearchConditionsList(clientName);
-        parameterMap.put("searchConditionsList", searchConditionsList);
+        List<SearchConditionsReturnDTO> searchConditionsReturnDTOList = searchConditionsMapper.getSearchConditionsList(clientName);
+        parameterMap.put("searchConditionsList", searchConditionsReturnDTOList);
 
         return Result.success(parameterMap);
     }

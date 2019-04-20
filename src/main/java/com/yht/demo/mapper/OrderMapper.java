@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yht.demo.entity.dto.OrderDetailsReturnDTO;
 import com.yht.demo.entity.dto.OrderListReceiveDTO;
 import com.yht.demo.entity.model.Order;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -17,9 +18,8 @@ import com.yht.demo.entity.model.Order;
  */
 public interface OrderMapper extends BaseMapper<Order> {
 
-    IPage<OrderDetailsReturnDTO> selectOrderListByMap(Page page, OrderListReceiveDTO orderListReceiveDTO);
+    IPage<OrderDetailsReturnDTO> selectOrderListByMap(@Param("page") Page page, @Param("orderListReceiveDTO") OrderListReceiveDTO orderListReceiveDTO);
 
     OrderDetailsReturnDTO getOrderDetailsById(String orderId);
 
-    OrderDetailsReturnDTO amaldarOrderList(Integer userId);
 }
