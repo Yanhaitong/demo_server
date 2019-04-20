@@ -17,29 +17,20 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <resultMap id="getNavigationTabResultMap" type="com.yht.demo.entity.model.NavigationTab">
-        <result column="client_name" property="clientName"/>
-        <result column="navigator_index" property="navigatorIndex"/>
-        <result column="navigator_name" property="navigatorName"/>
-        <result column="navigator_tag_name" property="navigatorTagName"/>
-        <result column="navigator_tag_color" property="navigatorTagColor"/>
-        <result column="navigator_icon" property="navigatorIcon"/>
-    </resultMap>
-
-    <select id="getNavigationTabList" parameterType="java.lang.String" resultMap="getNavigationTabResultMap">
+    <select id="getNavigationTabList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.NavigationTabReturnDTO">
         SELECT
-        client_name,
-        navigator_index,
-        navigator_name,
-        navigator_tag_name,
-        navigator_tag_color,
-        navigator_icon
+        client_name as clientName,
+        navigator_index as navigatorIndex,
+        navigator_name as navigatorName,
+        navigator_tag_name as navigatorTagName,
+        navigator_tag_color as navigatorTagColor,
+        navigator_icon as navigatorIcon
         FROM
         navigation_tab
         <where>
             is_valid = 1
-            <if test="client != null">
-                and client = #{client}
+            <if test="clientName != null">
+                and client_name = #{clientName}
             </if>
         </where>
     </select>

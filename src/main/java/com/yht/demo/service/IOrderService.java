@@ -17,8 +17,6 @@ public interface IOrderService {
 
     Result getHomePageOrderList(OrderListReceiveDTO orderListReceiveDTO);
 
-    Result getHomePageCityList(OrderListReceiveDTO orderListReceiveDTO);
-
     Result getHomePageSearchConditions(String clientName);
 
     Result getOrderDetailsById(String orderId);

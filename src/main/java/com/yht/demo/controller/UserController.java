@@ -74,13 +74,13 @@ public class UserController extends BaseController {
         return userService.loginOut(token);
     }
 
-    @PostMapping("/getUserInfo")
+    @PostMapping("/getAppInfo")
     @ApiOperation(value = "获取用户信息")
-    public Result getUserInfo(@RequestParam String token, @RequestParam String client) {
-        if (StringUtils.isEmpty(token)) {
+    public Result getAppInfo(@RequestParam String token, @RequestParam String clientName) {
+        if (StringUtils.isEmpty(token) || StringUtils.isEmpty(clientName)) {
             return Result.error(500, "退出失败，参数错误！");
         }
-        return userService.getUserInfo(token, client);
+        return userService.getAppInfo(token, clientName);
     }
 }
 

@@ -52,11 +52,6 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
     }
 
     @Override
-    public Result getHomePageCityList(OrderListReceiveDTO orderListReceiveDTO) {
-        return null;
-    }
-
-    @Override
     public Result getHomePageSearchConditions(String clientName) {
         List<SearchConditionsReturnDTO> searchConditionsReturnDTOList = searchConditionsMapper.getSearchConditionsList(clientName);
         return Result.success(searchConditionsReturnDTOList);

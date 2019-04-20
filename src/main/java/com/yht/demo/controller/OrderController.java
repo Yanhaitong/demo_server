@@ -44,15 +44,6 @@ public class OrderController extends BaseController {
         return orderService.getOrderDetailsById(orderId);
     }
 
-    @PostMapping("/getHomePageCityList")
-    @ApiOperation(value = "获取首页城市列表")
-    public Result getHomePageCityList(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
-            return Result.error(500, "请求错误");
-        }
-        return orderService.getHomePageCityList(orderListReceiveDTO);
-    }
-
     @PostMapping("/getHomePageSearchConditions")
     @ApiOperation(value = "获取首页搜索条件")
     public Result getHomePageSearchConditions(@RequestParam String clientName) {

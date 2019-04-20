@@ -1,19 +1,18 @@
 package com.yht.demo.service.impl;
 
 import com.yht.demo.common.BaseServiceImpl;
+import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
+import com.yht.demo.entity.dto.NavigationTabReturnDTO;
+import com.yht.demo.entity.model.City;
 import com.yht.demo.entity.dto.SearchConditionsReturnDTO;
-import com.yht.demo.entity.model.NavigationTab;
 import com.yht.demo.entity.dto.UserReceiveDTO;
-import com.yht.demo.entity.model.SearchConditions;
+import com.yht.demo.entity.model.NavigationTab;
 import com.yht.demo.entity.model.User;
-import com.yht.demo.mapper.NavigationTabMapper;
-import com.yht.demo.mapper.SearchConditionsMapper;
-import com.yht.demo.mapper.SystemConfigMapper;
-import com.yht.demo.mapper.UserMapper;
+import com.yht.demo.mapper.*;
 import com.yht.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     private NavigationTabMapper navigationTabMapper;
     @Autowired
     private SearchConditionsMapper searchConditionsMapper;
+    @Autowired
+    private CityMapper cityMapper;
 
     @Override
     public Result sendVerificationCode(String mobileNo, String clientName) {
@@ -108,17 +109,27 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getUserInfo(String token, String clientName) {
+    public Result getAppInfo(String token, String clientName) {
         Map<String, Object> parameterMap = new HashMap<>();
 
         //获取用户信息
-        String mobileNo = RedisUtils.getMobileByToken(token);
+        String mobileNo = "18611556532";//;RedisUtils.getMobileByToken(token);
+        if (mobileNo == null){
+            return Result.error(500, MsgConstant.MOBILE_NO_IS_NULL);
+        }
         User userInfo = userMapper.getUserInfo(mobileNo, clientName);
+        if (userInfo == null){
+            return Result.error(500, MsgConstant.USER_IS_NULL);
+        }
         parameterMap.put("userInfo", userInfo);
 
+        //城市列表
+        List<String> cityList = cityMapper.selectAllCityList();
+        parameterMap.put("cityList", cityList);
+
         //获取首页导航栏信息
-        List<NavigationTab> navigationTabList = navigationTabMapper.getNavigationTabList(clientName);
-        parameterMap.put("navigationTabList", navigationTabList);
+        List<NavigationTabReturnDTO> navigationTabReturnDTOList = navigationTabMapper.getNavigationTabList(clientName);
+        parameterMap.put("navigationTabList", navigationTabReturnDTOList);
 
         //获取搜索条件信息
         List<SearchConditionsReturnDTO> searchConditionsReturnDTOList = searchConditionsMapper.getSearchConditionsList(clientName);

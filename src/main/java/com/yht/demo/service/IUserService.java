@@ -21,5 +21,5 @@ public interface IUserService {
 
     Result loginOut(String mobileNo);
 
-    Result getUserInfo(String token, String clientName);
+    Result getAppInfo(String token, String clientName);
 }
