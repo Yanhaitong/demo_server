@@ -62,7 +62,10 @@ public class User extends Model<User> {
      * 性别（0:女性，1:男性）
      */
     private Integer sex;
-
+    /**
+     * 公司名称
+     */
+    private String company;
     /**
      * 头像url
      */

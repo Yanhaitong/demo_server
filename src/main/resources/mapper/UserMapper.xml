@@ -11,6 +11,7 @@
         <result column="password_" property="password" />
         <result column="status_" property="status" />
         <result column="sex_" property="sex" />
+        <result column="company_" property="company" />
         <result column="icon_url" property="iconUrl" />
         <result column="balance_" property="balance" />
         <result column="client_name" property="clientName" />

@@ -4,45 +4,122 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.Order">
-        <id column="id_" property="id" />
-        <result column="status_" property="status" />
-        <result column="mobile_no" property="mobileNo" />
-        <result column="apply_time" property="applyTime" />
-        <result column="vie_for_time" property="vieForTime" />
-        <result column="name_" property="name" />
-        <result column="age_" property="age" />
-        <result column="sex_" property="sex" />
-        <result column="loan_amount" property="loanAmount" />
-        <result column="loan_period" property="loanPeriod" />
-        <result column="loan_purpose" property="loanPurpose" />
-        <result column="id_number" property="idNumber" />
-        <result column="current_city" property="currentCity" />
-        <result column="phone_attribution" property="phoneAttribution" />
-        <result column="family_city" property="familyCity" />
-        <result column="level_education" property="levelEducation" />
-        <result column="company_name" property="companyName" />
-        <result column="professional_type" property="professionalType" />
-        <result column="income_amount" property="incomeAmount" />
-        <result column="income_type" property="incomeType" />
-        <result column="working_years" property="workingYears" />
-        <result column="social_security" property="socialSecurity" />
-        <result column="accumulation_fund" property="accumulationFund" />
-        <result column="estate_info" property="estateInfo" />
-        <result column="estate_values" property="estateValues" />
-        <result column="car_info" property="carInfo" />
-        <result column="car_values" property="carValues" />
-        <result column="insurance_info" property="insuranceInfo" />
-        <result column="insurance_values" property="insuranceValues" />
-        <result column="credit_card_limit" property="creditCardLimit" />
-        <result column="sesame_scores" property="sesameScores" />
-        <result column="weilidai_limit" property="weilidaiLimit" />
-        <result column="share_id" property="shareId" />
-        <result column="partner_id" property="partnerId" />
-        <result column="order_source" property="orderSource" />
-        <result column="apply_ip" property="applyIp" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="del_flag" property="delFlag" />
+        <id column="id_" property="id"/>
+        <result column="status_" property="status"/>
+        <result column="mobile_no" property="mobileNo"/>
+        <result column="apply_time" property="applyTime"/>
+        <result column="vie_for_time" property="vieForTime"/>
+        <result column="name_" property="name"/>
+        <result column="age_" property="age"/>
+        <result column="sex_" property="sex"/>
+        <result column="loan_amount" property="loanAmount"/>
+        <result column="loan_period" property="loanPeriod"/>
+        <result column="loan_purpose" property="loanPurpose"/>
+        <result column="id_number" property="idNumber"/>
+        <result column="current_city" property="currentCity"/>
+        <result column="phone_attribution" property="phoneAttribution"/>
+        <result column="family_city" property="familyCity"/>
+        <result column="level_education" property="levelEducation"/>
+        <result column="company_name" property="companyName"/>
+        <result column="professional_type" property="professionalType"/>
+        <result column="income_amount" property="incomeAmount"/>
+        <result column="income_type" property="incomeType"/>
+        <result column="working_years" property="workingYears"/>
+        <result column="social_security" property="socialSecurity"/>
+        <result column="accumulation_fund" property="accumulationFund"/>
+        <result column="estate_info" property="estateInfo"/>
+        <result column="estate_values" property="estateValues"/>
+        <result column="car_info" property="carInfo"/>
+        <result column="car_values" property="carValues"/>
+        <result column="insurance_info" property="insuranceInfo"/>
+        <result column="insurance_values" property="insuranceValues"/>
+        <result column="credit_card_limit" property="creditCardLimit"/>
+        <result column="sesame_scores" property="sesameScores"/>
+        <result column="weilidai_limit" property="weilidaiLimit"/>
+        <result column="share_id" property="shareId"/>
+        <result column="partner_id" property="partnerId"/>
+        <result column="order_source" property="orderSource"/>
+        <result column="apply_ip" property="applyIp"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"/>
     </resultMap>
+
+
+    <resultMap id="orderListResultMap" type="com.yht.demo.entity.model.Order">
+        <result column="apply_time" property="applyTime"/>
+        <result column="vie_for_time" property="vieForTime"/>
+        <result column="name_" property="name"/>
+        <result column="age_" property="age"/>
+        <result column="sex_" property="sex"/>
+        <result column="loan_amount" property="loanAmount"/>
+        <result column="loan_period" property="loanPeriod"/>
+        <result column="loan_purpose" property="loanPurpose"/>
+        <result column="id_number" property="idNumber"/>
+        <result column="current_city" property="currentCity"/>
+        <result column="phone_attribution" property="phoneAttribution"/>
+        <result column="family_city" property="familyCity"/>
+        <result column="level_education" property="levelEducation"/>
+        <result column="company_name" property="companyName"/>
+        <result column="professional_type" property="professionalType"/>
+        <result column="income_amount" property="incomeAmount"/>
+        <result column="income_type" property="incomeType"/>
+        <result column="working_years" property="workingYears"/>
+        <result column="social_security" property="socialSecurity"/>
+        <result column="accumulation_fund" property="accumulationFund"/>
+        <result column="estate_info" property="estateInfo"/>
+        <result column="estate_values" property="estateValues"/>
+        <result column="car_info" property="carInfo"/>
+        <result column="car_values" property="carValues"/>
+        <result column="insurance_info" property="insuranceInfo"/>
+        <result column="insurance_values" property="insuranceValues"/>
+        <result column="credit_card_limit" property="creditCardLimit"/>
+        <result column="sesame_scores" property="sesameScores"/>
+        <result column="weilidai_limit" property="weilidaiLimit"/>
+    </resultMap>
+
+
+    <select id="selectOrderListByMap" parameterType="com.yht.demo.entity.dto.OrderListReceiveDTO" resultMap="orderListResultMap">
+        SELECT
+        *
+        FROM
+        order_
+        <where>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="orderListReceiveDTO.loanAmountStart != null ">
+                and loan_amount &gt;= #{orderListReceiveDTO.loanAmountStart}
+            </if>
+            <if test="orderListReceiveDTO.loanAmountEnd != null">
+                and loan_amount &lt;= #{orderListReceiveDTO.loanAmountEnd}
+            </if>
+            <if test="orderListReceiveDTO.loanPeriodStart != null ">
+                and loan_period &gt;= #{orderListReceiveDTO.loanPeriodStart}
+            </if>
+            <if test="orderListReceiveDTO.loanPeriodEnd != null">
+                and loan_period &lt;= #{orderListReceiveDTO.loanPeriodEnd}
+            </if>
+            <if test="orderListReceiveDTO.ageStart != null ">
+                and age_ &gt;= #{orderListReceiveDTO.ageStart}
+            </if>
+            <if test="orderListReceiveDTO.ageEnd != null">
+                and age_ &lt;= #{orderListReceiveDTO.ageEnd}
+            </if>
+            <if test="orderListReceiveDTO.incomeAmountStart != null ">
+                and age_ &gt;= #{orderListReceiveDTO.incomeAmountStart}
+            </if>
+            <if test="orderListReceiveDTO.incomeAmountEnd != null">
+                and income_amount &lt;= #{orderListReceiveDTO.incomeAmountEnd}
+            </if>
+            <if test="orderListReceiveDTO.incomeType != null">
+                and income_type = #{orderListReceiveDTO.incomeType}
+            </if>
+            <if test="orderListReceiveDTO.qualificationInfo != null">
+                and incomeType = #{orderListReceiveDTO.qualificationInfo}
+            </if>
+        </where>
+        order by apply_time desc
+    </select>
 
 </mapper>

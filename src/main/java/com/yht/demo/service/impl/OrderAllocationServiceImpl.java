@@ -3,10 +3,10 @@ package com.yht.demo.service.impl;
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
+import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.entity.MemberLevel;
 import com.yht.demo.entity.OrderRating;
 import com.yht.demo.entity.PayRecord;
-import com.yht.demo.entity.TopUpAmount;
 import com.yht.demo.entity.model.Order;
 import com.yht.demo.entity.model.OrderAllocation;
 import com.yht.demo.entity.model.User;
@@ -44,6 +44,8 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     private MemberLevelMapper memberLevelMapperl;
     @Autowired
     private OrderRatingMapper orderRatingMapper;
+    @Autowired
+    private SystemConfigMapper systemConfigMapper;
 
     @Override
     public Result vieForOrder(String token, String orderId, String clientName) {
@@ -64,14 +66,14 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             MemberLevel memberLevel = memberLevelMapperl.selectById(userInfo.getLevelId());
             if (memberLevel == null) {
                 return Result.error(500, "抢单失败,会员等级异常！");
-            }else {
+            } else {
                 long vieForOrderCount = RedisUtils.getVieForOrderCount(userInfo.getId());
-                if (vieForOrderCount > memberLevel.getVieForCount()){
+                if (vieForOrderCount > memberLevel.getVieForCount()) {
                     return Result.error(500, "\"您今日已抢了" + memberLevel.getVieForCount() + "单，明天再来吧，劳逸结合效益高哦\"");
                 }
             }
             OrderRating orderRating = orderRatingMapper.selectByRating(order.getOrderRating());
-            if (orderRating == null){
+            if (orderRating == null) {
                 return Result.error(500, "抢单失败,订单等级异常！");
             }
 
@@ -125,25 +127,27 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             orderAllocation.setCreateTime(new Date());
             orderAllocationMapper.insert(orderAllocation);
 
-            //抢单成功插入充值记录表
-            PayRecord payRecord= new PayRecord();
-            payRecord.setClientName(clientName);
-            payRecord.setClientType(userInfo.getClientType());
-            payRecord.setMobileNo(order.getMobileNo());
-            payRecord.setOrderNo(String.valueOf(order.getId()));
-            payRecord.setMoney(orderRating.getPrice());
-            payRecord.setType(2);
-            payRecord.setUpdateTime(new Date());
-            payRecord.setCreateTime(new Date());
-            payRecordMapper.insert(payRecord);
+            try {
+                //发送短信
+                String smsContent = systemConfigMapper.getValueByKey("QIANGDANSMS" + userInfo.getClientName());
+                if (StringUtils.isNotBlank(smsContent)) {
+                    smsContent = smsContent.replace("{a}", order.getName());
+                    smsContent = smsContent.replace("{b}", userInfo.getCompany());
+                    smsContent = smsContent.replace("{c}", userInfo.getName());
+                    SMSUtils.sendVerifyLoginSMS(mobileNo, smsContent);
+                }
+                log.info("抢单后发短信内容" + smsContent);
+            } catch (Exception e) {
+                log.error("发送短信失败====================" + e.getMessage());
+            }
 
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("mobileNo", order.getMobileNo());
             parameterMap.put("balance", userInfo.getBalance());
             return Result.success(parameterMap);
 
-        }catch (Exception e){
-            log.error(e.getMessage());
+        } catch (Exception e) {
+            log.error("抢单失败====================" + e.getMessage());
             return Result.error(500, "抢单失败！");
         }
     }

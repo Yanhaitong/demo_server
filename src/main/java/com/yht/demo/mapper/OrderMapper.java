@@ -1,7 +1,11 @@
 package com.yht.demo.mapper;
 
+import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.OrderListReturnDTO;
 import com.yht.demo.entity.model.Order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface OrderMapper extends BaseMapper<Order> {
 
+    List<OrderListReturnDTO> selectOrderListByMap(OrderListReceiveDTO orderListReceiveDTO);
 }
