@@ -4,24 +4,38 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.NavigationTab">
-        <id column="id_" property="id" />
-        <result column="client_name" property="clientName" />
-        <result column="is_valid" property="isValid" />
-        <result column="navigator_index" property="navigatorIndex" />
-        <result column="navigator_name" property="navigatorName" />
-        <result column="navigator_tag_name" property="navigatorTagName" />
-        <result column="navigator_tag_color" property="navigatorTagColor" />
-        <result column="navigator_icon" property="navigatorIcon" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="del_flag" property="delFlag" />
+        <id column="id_" property="id"/>
+        <result column="client_name" property="clientName"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="navigator_index" property="navigatorIndex"/>
+        <result column="navigator_name" property="navigatorName"/>
+        <result column="navigator_tag_name" property="navigatorTagName"/>
+        <result column="navigator_tag_color" property="navigatorTagColor"/>
+        <result column="navigator_icon" property="navigatorIcon"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <select id="getNavigationTabList" parameterType="java.lang.String">
+    <resultMap id="getNavigationTabResultMap" type="com.yht.demo.entity.model.NavigationTab">
+        <result column="client_name" property="clientName"/>
+        <result column="navigator_index" property="navigatorIndex"/>
+        <result column="navigator_name" property="navigatorName"/>
+        <result column="navigator_tag_name" property="navigatorTagName"/>
+        <result column="navigator_tag_color" property="navigatorTagColor"/>
+        <result column="navigator_icon" property="navigatorIcon"/>
+    </resultMap>
+
+    <select id="getNavigationTabList" parameterType="java.lang.String" resultMap="getNavigationTabResultMap">
         SELECT
-            *
+        client_name,
+        navigator_index,
+        navigator_name,
+        navigator_tag_name,
+        navigator_tag_color,
+        navigator_icon
         FROM
-            navigation_tab
+        navigation_tab
         <where>
             is_valid = 1
             <if test="client != null">

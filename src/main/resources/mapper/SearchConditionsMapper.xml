@@ -4,25 +4,25 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.SearchConditions">
-        <id column="id_" property="id" />
-        <result column="search_type" property="searchType" />
-        <result column="is_valid" property="isValid" />
-        <result column="name_" property="name" />
-        <result column="client_" property="client" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="del_flag" property="delFlag" />
+        <id column="id_" property="id"/>
+        <result column="search_type" property="searchType"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="name_" property="name"/>
+        <result column="client_name" property="clientName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"/>
     </resultMap>
 
     <select id="getSearchConditionsList" parameterType="java.lang.String">
         SELECT
-        *
+        name_ as name
         FROM
         search_conditions
         <where>
             is_valid = 1
-            <if test="client != null">
-                and client = #{client}
+            <if test="clientName != null">
+                and client_name = #{clientName}
             </if>
         </where>
     </select>
