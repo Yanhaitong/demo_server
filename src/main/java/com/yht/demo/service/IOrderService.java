@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author yanht
  * @since 2019-04-19
  */
-public interface IOrderService extends IService<Order> {
+public interface IOrderService {
 
     Result getHomePageOrderList(OrderListReceiveDTO orderListReceiveDTO);
 

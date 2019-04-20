@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.OrderAllocation;
+import com.yht.demo.entity.model.OrderAllocation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

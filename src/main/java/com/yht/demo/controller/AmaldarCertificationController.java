@@ -2,8 +2,6 @@ package com.yht.demo.controller;
 
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.AmaldarCertification;
-import com.yht.demo.entity.dto.AmaldarCertificationReceiveDTO;
 import com.yht.demo.service.IAmaldarCertificationService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

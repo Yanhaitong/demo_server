@@ -28,14 +28,5 @@ public class NavigationTabController extends BaseController {
     @Autowired
     private INavigationTabService navigationTabService;
 
-    @PostMapping("/getHomePageNavigationList")
-    @ApiOperation(value = "获取首页导航栏")
-    public Result getHomePageNavigationList(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
-            return Result.error(500, "请求错误");
-        }
-        return navigationTabService.getHomePageNavigationList(orderListReceiveDTO);
-    }
-
 }
 

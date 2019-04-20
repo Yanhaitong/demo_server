@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.AmaldarCertification;
+import com.yht.demo.entity.model.AmaldarCertification;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

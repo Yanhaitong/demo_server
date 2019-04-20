@@ -1,9 +1,9 @@
 package com.yht.demo.service.impl;
 
-import com.yht.demo.entity.NavigationTab;
-import com.yht.demo.mapper.NavigationTabMapper;
+import com.yht.demo.common.BaseServiceImpl;
+import com.yht.demo.common.Result;
+import com.yht.demo.entity.dto.OrderListReceiveDTO;
 import com.yht.demo.service.INavigationTabService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
  * @since 2019-04-20
  */
 @Service
-public class NavigationTabServiceImpl extends ServiceImpl<NavigationTabMapper, NavigationTab> implements INavigationTabService {
+public class NavigationTabServiceImpl extends BaseServiceImpl implements INavigationTabService {
 
+    @Override
+    public Result getHomePageNavigationList(OrderListReceiveDTO orderListReceiveDTO) {
+        return null;
+    }
 }

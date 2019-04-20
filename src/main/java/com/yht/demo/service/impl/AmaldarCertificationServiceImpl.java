@@ -1,7 +1,7 @@
 package com.yht.demo.service.impl;
 
 import com.qiniu.util.Auth;
-import com.yht.demo.common.BaseService;
+import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.Constant;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.face.constant.FacePlusContst;
@@ -24,7 +24,7 @@ import java.util.Map;
  * @since 2019-04-19
  */
 @Service
-public class AmaldarCertificationServiceImpl extends BaseService implements IAmaldarCertificationService {
+public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements IAmaldarCertificationService {
 
     @Override
     public Result getAmaldarCertificationInfo(String token, String client) {

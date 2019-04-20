@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.OrderAllocationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.OrderAllocation">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.OrderAllocation">
         <id column="id_" property="id" />
         <result column="order_id" property="orderId" />
         <result column="original_price" property="originalPrice" />

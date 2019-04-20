@@ -1,7 +1,9 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.NavigationTab;
+import com.yht.demo.entity.model.NavigationTab;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface NavigationTabMapper extends BaseMapper<NavigationTab> {
 
+    List<NavigationTab> getNavigationTabList(String client);
 }

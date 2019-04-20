@@ -1,8 +1,6 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.AmaldarCertification;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

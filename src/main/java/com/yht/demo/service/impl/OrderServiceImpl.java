@@ -1,5 +1,6 @@
 package com.yht.demo.service.impl;
 
+import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.Result;
 import com.yht.demo.entity.dto.OrderListReceiveDTO;
 import com.yht.demo.entity.model.Order;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
  * @since 2019-04-19
  */
 @Service
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
 
     @Override
     public Result getHomePageOrderList(OrderListReceiveDTO orderListReceiveDTO) {

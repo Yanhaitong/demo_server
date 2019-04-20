@@ -1,4 +1,4 @@
-package com.yht.demo.entity;
+package com.yht.demo.entity.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -12,17 +12,17 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 抢单记录表
+ * app搜索条件
  * </p>
  *
  * @author yanht
- * @since 2019-04-19
+ * @since 2019-04-20
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("order_allocation")
-public class OrderAllocation extends Model<OrderAllocation> {
+@TableName("search_conditions")
+public class SearchConditions extends Model<SearchConditions> {
 
     private static final long serialVersionUID = 1L;
 
@@ -33,24 +33,24 @@ public class OrderAllocation extends Model<OrderAllocation> {
     private Integer id;
 
     /**
-     * 订单id
+     * 搜索类型（0:资质信息）
      */
-    private Integer orderId;
+    private Integer searchType;
 
     /**
-     * 原始价格
+     * 是否有效（0:无效，1:有效）
      */
-    private Integer originalPrice;
+    private Integer isValid;
 
     /**
-     * 实际成交价格
+     * 搜索名称
      */
-    private Integer practicalPrice;
+    private String name;
 
     /**
-     * 订单类型（0:普通订单，1:折扣单）
+     * 客户端
      */
-    private Integer orderType;
+    private String client;
 
     /**
      * 创建时间

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-public class BaseService {
+public class BaseServiceImpl {
     public Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired

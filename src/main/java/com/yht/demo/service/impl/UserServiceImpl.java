@@ -1,11 +1,16 @@
 package com.yht.demo.service.impl;
 
-import com.yht.demo.common.BaseService;
+import com.yht.demo.common.BaseServiceImpl;
+import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
+import com.yht.demo.entity.model.NavigationTab;
 import com.yht.demo.entity.dto.UserReceiveDTO;
+import com.yht.demo.entity.model.SearchConditions;
 import com.yht.demo.entity.model.User;
+import com.yht.demo.mapper.NavigationTabMapper;
+import com.yht.demo.mapper.SearchConditionsMapper;
 import com.yht.demo.mapper.SystemConfigMapper;
 import com.yht.demo.mapper.UserMapper;
 import com.yht.demo.service.IUserService;
@@ -13,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>
@@ -27,12 +29,16 @@ import java.util.UUID;
  * @since 2019-04-19
  */
 @Service
-public class UserServiceImpl extends BaseService implements IUserService {
+public class UserServiceImpl extends BaseServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private SystemConfigMapper systemConfigMapper;
+    @Autowired
+    private NavigationTabMapper navigationTabMapper;
+    @Autowired
+    private SearchConditionsMapper searchConditionsMapper;
 
     @Override
     public Result sendVerificationCode(String mobileNo, String clientName) {
@@ -98,5 +104,25 @@ public class UserServiceImpl extends BaseService implements IUserService {
             return Result.error(500, "退出失败");
         }
 
+    }
+
+    @Override
+    public Result getUserInfo(String token, String client) {
+        Map<String, Object> parameterMap = new HashMap<>();
+
+        //获取用户信息
+        String mobileNo = RedisUtils.getMobileByToken(token);
+        User userInfo = userMapper.getUserInfo(mobileNo, client);
+        parameterMap.put("userInfo", userInfo);
+
+        //获取首页导航栏信息
+        List<NavigationTab> navigationTabList = navigationTabMapper.getNavigationTabList(client);
+        parameterMap.put("navigationTabList", navigationTabList);
+
+        //获取搜索条件信息
+        List<SearchConditions> searchConditionsList = searchConditionsMapper.getSearchConditionsList(client);
+        parameterMap.put("searchConditionsList", searchConditionsList);
+
+        return Result.success(parameterMap);
     }
 }

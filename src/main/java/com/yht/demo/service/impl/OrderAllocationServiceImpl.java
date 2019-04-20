@@ -1,11 +1,9 @@
 package com.yht.demo.service.impl;
 
+import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.OrderAllocation;
 import com.yht.demo.entity.dto.OrderListReceiveDTO;
-import com.yht.demo.mapper.OrderAllocationMapper;
 import com.yht.demo.service.IOrderAllocationService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 2019-04-19
  */
 @Service
-public class OrderAllocationServiceImpl extends ServiceImpl<OrderAllocationMapper, OrderAllocation> implements IOrderAllocationService {
+public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrderAllocationService {
 
     @Override
     public Result vieForOrder(OrderListReceiveDTO orderListReceiveDTO) {
