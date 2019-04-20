@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.PayRecord;
+import com.yht.demo.entity.model.PayRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;

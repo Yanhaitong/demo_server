@@ -45,7 +45,7 @@ public class OrderController extends BaseController {
     }
 
     @PostMapping("/getHomePageSearchConditions")
-    @ApiOperation(value = "获取首页订单列表")
+    @ApiOperation(value = "获取首页搜索条件")
     public Result getHomePageSearchConditions(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
         if (orderListReceiveDTO == null){
             return Result.error(500, "请求错误");
@@ -53,31 +53,22 @@ public class OrderController extends BaseController {
         return orderService.getHomePageSearchConditions(orderListReceiveDTO);
     }
 
-    @PostMapping("/getAllOrderInfo")
-    @ApiOperation(value = "获取全部订单信息")
-    public Result getAllOrderInfo(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
+    @PostMapping("/getOrderDetailsById")
+    @ApiOperation(value = "获取订单详情")
+    public Result getOrderDetailsById(String orderId) {
+        if (orderId == null){
             return Result.error(500, "请求错误");
         }
-        return orderService.getAllOrderInfo(orderListReceiveDTO);
+        return orderService.getOrderDetailsById(orderId);
     }
 
-    @PostMapping("/getOrderInfoById")
-    @ApiOperation(value = "获取订单信息")
-    public Result getOrderInfoById(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
-            return Result.error(500, "请求错误");
-        }
-        return orderService.getAllOrderInfo(orderListReceiveDTO);
-    }
-
-    @PostMapping("/myOrderList")
+    @PostMapping("/amaldarOrderList")
     @ApiOperation(value = "经理已抢订单列表")
-    public Result myOrderList(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
+    public Result amaldarOrderList(String token, String clientName) {
+        if (token == null){
             return Result.error(500, "请求错误");
         }
-        return orderService.myOrderList(orderListReceiveDTO);
+        return orderService.amaldarOrderList(token, clientName);
     }
 
 

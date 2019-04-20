@@ -1,6 +1,6 @@
 package com.yht.demo.service;
 
-import com.yht.demo.entity.OrderRating;
+import com.yht.demo.entity.model.OrderRating;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

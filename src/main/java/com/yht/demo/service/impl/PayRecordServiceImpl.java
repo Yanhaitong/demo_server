@@ -3,7 +3,7 @@ package com.yht.demo.service.impl;
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.PayRecord;
+import com.yht.demo.entity.model.PayRecord;
 import com.yht.demo.mapper.PayRecordMapper;
 import com.yht.demo.service.IPayRecordService;
 import org.springframework.beans.factory.annotation.Autowired;

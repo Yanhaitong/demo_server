@@ -1,6 +1,6 @@
 package com.yht.demo.service.impl;
 
-import com.yht.demo.entity.OrderRating;
+import com.yht.demo.entity.model.OrderRating;
 import com.yht.demo.mapper.OrderRatingMapper;
 import com.yht.demo.service.IOrderRatingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

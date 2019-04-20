@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.MemberLevel;
+import com.yht.demo.entity.model.MemberLevel;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

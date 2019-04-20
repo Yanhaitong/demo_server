@@ -42,4 +42,10 @@ public class OrderListReceiveDTO {
     @ApiModelProperty(name = "qualificationInfo", value = "资质信息", required = true)
     private String qualificationInfo;
 
+    @ApiModelProperty(name = "pageSize", value = "每页个数", required = true)
+    private Integer pageSize;
+
+    @ApiModelProperty(name = "pageNum", value = "页数", required = true)
+    private Integer pageNum;
+
 }

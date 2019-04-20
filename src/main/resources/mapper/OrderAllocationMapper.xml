@@ -6,6 +6,8 @@
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.OrderAllocation">
         <id column="id_" property="id" />
         <result column="order_id" property="orderId" />
+        <result column="user_id" property="userId" />
+        <result column="client_name" property="clientName" />
         <result column="original_price" property="originalPrice" />
         <result column="practical_price" property="practicalPrice" />
         <result column="order_type" property="orderType" />

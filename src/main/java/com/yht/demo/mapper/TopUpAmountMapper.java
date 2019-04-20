@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.TopUpAmount;
+import com.yht.demo.entity.model.TopUpAmount;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;

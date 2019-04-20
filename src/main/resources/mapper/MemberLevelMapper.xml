@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.MemberLevelMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.MemberLevel">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.MemberLevel">
         <id column="id_" property="id" />
         <result column="vie_for_count" property="vieForCount" />
         <result column="create_time" property="createTime" />

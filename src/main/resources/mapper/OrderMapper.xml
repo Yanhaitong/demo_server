@@ -46,80 +46,75 @@
     </resultMap>
 
 
-    <resultMap id="orderListResultMap" type="com.yht.demo.entity.model.Order">
-        <result column="apply_time" property="applyTime"/>
-        <result column="vie_for_time" property="vieForTime"/>
-        <result column="name_" property="name"/>
-        <result column="age_" property="age"/>
-        <result column="sex_" property="sex"/>
-        <result column="loan_amount" property="loanAmount"/>
-        <result column="loan_period" property="loanPeriod"/>
-        <result column="loan_purpose" property="loanPurpose"/>
-        <result column="id_number" property="idNumber"/>
-        <result column="current_city" property="currentCity"/>
-        <result column="phone_attribution" property="phoneAttribution"/>
-        <result column="family_city" property="familyCity"/>
-        <result column="level_education" property="levelEducation"/>
-        <result column="company_name" property="companyName"/>
-        <result column="professional_type" property="professionalType"/>
-        <result column="income_amount" property="incomeAmount"/>
-        <result column="income_type" property="incomeType"/>
-        <result column="working_years" property="workingYears"/>
-        <result column="social_security" property="socialSecurity"/>
-        <result column="accumulation_fund" property="accumulationFund"/>
-        <result column="estate_info" property="estateInfo"/>
-        <result column="estate_values" property="estateValues"/>
-        <result column="car_info" property="carInfo"/>
-        <result column="car_values" property="carValues"/>
-        <result column="insurance_info" property="insuranceInfo"/>
-        <result column="insurance_values" property="insuranceValues"/>
-        <result column="credit_card_limit" property="creditCardLimit"/>
-        <result column="sesame_scores" property="sesameScores"/>
-        <result column="weilidai_limit" property="weilidaiLimit"/>
-    </resultMap>
+    <sql id="Order_Column_List">
+        name,age,loanAmount,loanPurpose,currentCity,professionalType,levelEducation,familyCity,incomeAmount,
+        incomeType,workingYears,socialSecurity,accumulationFund,estateInfo,estateValues,carInfo,carValues
+    </sql>
 
-
-    <select id="selectOrderListByMap" parameterType="com.yht.demo.entity.dto.OrderListReceiveDTO" resultMap="orderListResultMap">
+    <!--获取首页订单列表-->
+    <select id="selectOrderListByMap" parameterType="com.yht.demo.entity.dto.OrderListReceiveDTO" resultMap="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
         SELECT
-        *
+        <include refid="Order_Column_List"/>
         FROM
         order_
         <where>
             <if test="status != null">
                 and status = #{status}
             </if>
-            <if test="orderListReceiveDTO.loanAmountStart != null ">
-                and loan_amount &gt;= #{orderListReceiveDTO.loanAmountStart}
+            <if test="orderDetailsReturnDTO.loanAmountStart != null ">
+                and loan_amount &gt;= #{orderDetailsReturnDTO.loanAmountStart}
             </if>
-            <if test="orderListReceiveDTO.loanAmountEnd != null">
-                and loan_amount &lt;= #{orderListReceiveDTO.loanAmountEnd}
+            <if test="orderDetailsReturnDTO.loanAmountEnd != null">
+                and loan_amount &lt;= #{orderDetailsReturnDTO.loanAmountEnd}
             </if>
-            <if test="orderListReceiveDTO.loanPeriodStart != null ">
-                and loan_period &gt;= #{orderListReceiveDTO.loanPeriodStart}
+            <if test="orderDetailsReturnDTO.loanPeriodStart != null ">
+                and loan_period &gt;= #{orderDetailsReturnDTO.loanPeriodStart}
             </if>
-            <if test="orderListReceiveDTO.loanPeriodEnd != null">
-                and loan_period &lt;= #{orderListReceiveDTO.loanPeriodEnd}
+            <if test="orderDetailsReturnDTO.loanPeriodEnd != null">
+                and loan_period &lt;= #{orderDetailsReturnDTO.loanPeriodEnd}
             </if>
-            <if test="orderListReceiveDTO.ageStart != null ">
-                and age_ &gt;= #{orderListReceiveDTO.ageStart}
+            <if test="orderDetailsReturnDTO.ageStart != null ">
+                and age_ &gt;= #{orderDetailsReturnDTO.ageStart}
             </if>
-            <if test="orderListReceiveDTO.ageEnd != null">
-                and age_ &lt;= #{orderListReceiveDTO.ageEnd}
+            <if test="orderDetailsReturnDTO.ageEnd != null">
+                and age_ &lt;= #{orderDetailsReturnDTO.ageEnd}
             </if>
-            <if test="orderListReceiveDTO.incomeAmountStart != null ">
-                and age_ &gt;= #{orderListReceiveDTO.incomeAmountStart}
+            <if test="orderDetailsReturnDTO.incomeAmountStart != null ">
+                and age_ &gt;= #{orderDetailsReturnDTO.incomeAmountStart}
             </if>
-            <if test="orderListReceiveDTO.incomeAmountEnd != null">
-                and income_amount &lt;= #{orderListReceiveDTO.incomeAmountEnd}
+            <if test="orderDetailsReturnDTO.incomeAmountEnd != null">
+                and income_amount &lt;= #{orderDetailsReturnDTO.incomeAmountEnd}
             </if>
-            <if test="orderListReceiveDTO.incomeType != null">
-                and income_type = #{orderListReceiveDTO.incomeType}
+            <if test="orderDetailsReturnDTO.incomeType != null">
+                and income_type = #{orderDetailsReturnDTO.incomeType}
             </if>
-            <if test="orderListReceiveDTO.qualificationInfo != null">
-                and incomeType = #{orderListReceiveDTO.qualificationInfo}
+            <if test="orderDetailsReturnDTO.qualificationInfo != null">
+                and incomeType = #{orderDetailsReturnDTO.qualificationInfo}
             </if>
         </where>
         order by apply_time desc
+    </select>
+
+    <!--获取订单详情-->
+    <select id="getOrderDetailsById" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
+        SELECT
+        <include refid="Order_Column_List"/>
+        FROM
+        order_
+        where
+        id_ = #{orderId}
+    </select>
+
+    <!--获取我的订单列表-->
+    <select id="amaldarOrderList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
+        SELECT
+        <include refid="Order_Column_List"/>
+        FROM
+        order_allocation oa
+        LEFT JOIN user_ u ON oa.user_id = u.id_
+        LEFT JOIN order_ o ON oa.order_id = o.id_
+        WHERE
+        u.id_ = #{userId}
     </select>
 
 </mapper>

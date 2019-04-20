@@ -21,7 +21,7 @@ public interface IOrderService {
 
     Result getHomePageSearchConditions(OrderListReceiveDTO orderListReceiveDTO);
 
-    Result getAllOrderInfo(OrderListReceiveDTO orderListReceiveDTO);
+    Result getOrderDetailsById(String orderId);
 
-    Result myOrderList(OrderListReceiveDTO orderListReceiveDTO);
+    Result amaldarOrderList(String token, String clientName);
 }

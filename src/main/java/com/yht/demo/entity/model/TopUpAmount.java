@@ -1,4 +1,4 @@
-package com.yht.demo.entity;
+package com.yht.demo.entity.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;

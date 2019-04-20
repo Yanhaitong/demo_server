@@ -1,6 +1,6 @@
 package com.yht.demo.service.impl;
 
-import com.yht.demo.entity.MemberLevel;
+import com.yht.demo.entity.model.MemberLevel;
 import com.yht.demo.mapper.MemberLevelMapper;
 import com.yht.demo.service.IMemberLevelService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

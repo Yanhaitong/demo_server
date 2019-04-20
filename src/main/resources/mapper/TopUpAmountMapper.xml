@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.TopUpAmountMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.TopUpAmount">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.TopUpAmount">
         <id column="id_" property="id"/>
         <result column="client_name" property="clientName"/>
         <result column="mili_" property="mili"/>

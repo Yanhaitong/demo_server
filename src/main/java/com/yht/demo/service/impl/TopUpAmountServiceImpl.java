@@ -2,7 +2,7 @@ package com.yht.demo.service.impl;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.TopUpAmount;
+import com.yht.demo.entity.model.TopUpAmount;
 import com.yht.demo.mapper.SystemConfigMapper;
 import com.yht.demo.mapper.TopUpAmountMapper;
 import com.yht.demo.service.ITopUpAmountService;
