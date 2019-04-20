@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yht.demo.mapper.OrderRatingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.OrderRating">
+        <id column="id_" property="id"/>
+        <result column="rating_" property="rating"/>
+        <result column="price_" property="price"/>
+    </resultMap>
+
+    <select id="selectByRating" parameterType="java.lang.String">
+        SELECT
+        *
+        FROM
+        order_rating
+        <where>
+            <if test="orderRating != null">
+                rating = #{orderRating}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+</mapper>

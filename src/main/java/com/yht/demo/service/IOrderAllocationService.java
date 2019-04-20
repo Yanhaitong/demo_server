@@ -13,5 +13,5 @@ import com.yht.demo.entity.dto.OrderListReceiveDTO;
  */
 public interface IOrderAllocationService {
 
-    Result vieForOrder(OrderListReceiveDTO orderListReceiveDTO);
+    Result vieForOrder(String token, String orderId, String clientName);
 }

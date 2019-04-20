@@ -8,6 +8,7 @@
         <result column="status_" property="status" />
         <result column="mobile_no" property="mobileNo" />
         <result column="apply_time" property="applyTime" />
+        <result column="vie_for_time" property="vieForTime" />
         <result column="name_" property="name" />
         <result column="age_" property="age" />
         <result column="sex_" property="sex" />

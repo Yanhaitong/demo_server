@@ -30,11 +30,11 @@ public class OrderAllocationController extends BaseController {
 
     @PostMapping("/vieForOrder")
     @ApiOperation(value = "经理抢单接口")
-    public Result vieForOrder(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
-            return Result.error(500, "请求错误");
+    public Result vieForOrder(String token, String orderId, String clientName) {
+        if (token == null || orderId == null || clientName == null){
+            return Result.error(500, "请求参数错误");
         }
-        return orderAllocationService.vieForOrder(orderListReceiveDTO);
+        return orderAllocationService.vieForOrder(token, orderId, clientName);
     }
 }
 

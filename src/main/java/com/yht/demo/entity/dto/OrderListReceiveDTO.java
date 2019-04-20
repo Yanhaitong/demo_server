@@ -1,16 +1,8 @@
 package com.yht.demo.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -23,5 +15,31 @@ import java.time.LocalDateTime;
 @ApiModel(value = "查询首页订单列表参数")
 @Data
 public class OrderListReceiveDTO {
+
+    @ApiModelProperty(name = "loanAmountStart", value = "贷款额度开始", required = true)
+    private String loanAmountStart;
+    @ApiModelProperty(name = "loanAmountEnd", value = "贷款额度结束", required = true)
+    private String loanAmountEnd;
+
+    @ApiModelProperty(name = "loanPeriodStart", value = "贷款期限开始", required = true)
+    private String loanPeriodStart;
+    @ApiModelProperty(name = "loanPeriodEnd", value = "贷款期限结束", required = true)
+    private String loanPeriodEnd;
+
+    @ApiModelProperty(name = "ageStart", value = "年龄区间开始", required = true)
+    private String ageStart;
+    @ApiModelProperty(name = "ageEnd", value = "年龄区间结束", required = true)
+    private String ageEnd;
+
+    @ApiModelProperty(name = "incomeAmountStart", value = "月收入开始", required = true)
+    private String incomeAmountStart;
+    @ApiModelProperty(name = "incomeAmountEnd", value = "月收入结束", required = true)
+    private String incomeAmountEnd;
+
+    @ApiModelProperty(name = "incomeType", value = "收入形式（0:银行代发，1:转账工资，2:现金发放）", required = true)
+    private String incomeType;
+
+    @ApiModelProperty(name = "qualificationInfo", value = "资质信息", required = true)
+    private String qualificationInfo;
 
 }

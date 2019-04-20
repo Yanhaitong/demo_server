@@ -107,20 +107,20 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getUserInfo(String token, String client) {
+    public Result getUserInfo(String token, String clientName) {
         Map<String, Object> parameterMap = new HashMap<>();
 
         //获取用户信息
         String mobileNo = RedisUtils.getMobileByToken(token);
-        User userInfo = userMapper.getUserInfo(mobileNo, client);
+        User userInfo = userMapper.getUserInfo(mobileNo, clientName);
         parameterMap.put("userInfo", userInfo);
 
         //获取首页导航栏信息
-        List<NavigationTab> navigationTabList = navigationTabMapper.getNavigationTabList(client);
+        List<NavigationTab> navigationTabList = navigationTabMapper.getNavigationTabList(clientName);
         parameterMap.put("navigationTabList", navigationTabList);
 
         //获取搜索条件信息
-        List<SearchConditions> searchConditionsList = searchConditionsMapper.getSearchConditionsList(client);
+        List<SearchConditions> searchConditionsList = searchConditionsMapper.getSearchConditionsList(clientName);
         parameterMap.put("searchConditionsList", searchConditionsList);
 
         return Result.success(parameterMap);
