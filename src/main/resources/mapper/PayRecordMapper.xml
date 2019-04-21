@@ -19,11 +19,11 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <select id="getPayRecordList" parameterType="java.lang.String" resultMap="com.yht.demo.entity.dto.ResultPayRecordDTO">
+    <select id="getPayRecordList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultPayRecordDTO">
         SELECT
         type,
         money,
-        createTime
+        create_time as createTime
         FROM
         pay_record
         <where>

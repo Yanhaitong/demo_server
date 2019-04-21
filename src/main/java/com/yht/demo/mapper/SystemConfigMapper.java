@@ -2,6 +2,7 @@ package com.yht.demo.mapper;
 
 import com.yht.demo.entity.model.SystemConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SystemConfigMapper extends BaseMapper<SystemConfig> {
 
-    String getValueByKey(String key);
+    String getValueByKey(@Param("key") String key);
 }

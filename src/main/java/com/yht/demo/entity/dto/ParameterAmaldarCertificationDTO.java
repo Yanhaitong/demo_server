@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@ApiModel(value = "接收用户登录参数")
+@ApiModel(value = "接收经理认证的参数")
 @Data
 public class ParameterAmaldarCertificationDTO {
 
