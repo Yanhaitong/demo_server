@@ -12,5 +12,5 @@ import com.yht.demo.common.Result;
  */
 public interface ITopUpAmountService {
 
-    Result topUpInfo(String clientName);
+    Result topUpAmountInfo(String clientName);
 }

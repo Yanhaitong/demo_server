@@ -4,10 +4,8 @@ package com.yht.demo.controller;
 import com.yht.demo.common.BaseController;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.common.utils.CacheUtil;
-import com.yht.demo.common.utils.CaptchaUtil;
 import com.yht.demo.entity.dto.ParameterUserDTO;
-import com.yht.demo.entity.dto.ParameterUserInfoDTO;
+import com.yht.demo.entity.dto.ParameterBaseDTO;
 import com.yht.demo.entity.dto.ResultAPPInfoDTO;
 import com.yht.demo.service.IUserService;
 import io.swagger.annotations.Api;
@@ -15,9 +13,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>
@@ -79,11 +74,11 @@ public class UserController extends BaseController {
 
     @PostMapping("/getAppInfo")
     @ApiOperation(value = "获取用户信息")
-    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
-        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken()) || StringUtils.isEmpty(parameterUserInfoDTO.getClientName())) {
+    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        if (StringUtils.isEmpty(parameterBaseDTO.getToken()) || StringUtils.isEmpty(parameterBaseDTO.getClientName())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return userService.getAppInfo(parameterUserInfoDTO);
+        return userService.getAppInfo(parameterBaseDTO);
     }
 }
 

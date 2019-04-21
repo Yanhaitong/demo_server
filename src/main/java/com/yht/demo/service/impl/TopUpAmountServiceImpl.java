@@ -2,6 +2,7 @@ package com.yht.demo.service.impl;
 
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.yht.demo.common.Result;
+import com.yht.demo.entity.dto.ResultTopUpAmountDTO;
 import com.yht.demo.entity.model.TopUpAmount;
 import com.yht.demo.mapper.SystemConfigMapper;
 import com.yht.demo.mapper.TopUpAmountMapper;
@@ -31,11 +32,11 @@ public class TopUpAmountServiceImpl extends Serializers.Base implements ITopUpAm
     private SystemConfigMapper systemConfigMapper;
 
     @Override
-    public Result topUpInfo(String clientName) {
+    public Result topUpAmountInfo(String clientName) {
         Map<String, Object> parameterMap = new HashMap<>();
 
-        List<TopUpAmount> topUpAmountList = topUpAmountMapper.getTopUpAmount(clientName);
-        parameterMap.put("topUpAmountList", topUpAmountList);
+        List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(clientName);
+        parameterMap.put("topUpAmountList", topUpAmountDTOList);
 
         String alipay = systemConfigMapper.getValueByKey("alipay");
         parameterMap.put("alipay", alipay);
@@ -45,4 +46,5 @@ public class TopUpAmountServiceImpl extends Serializers.Base implements ITopUpAm
 
         return Result.success(parameterMap);
     }
+
 }

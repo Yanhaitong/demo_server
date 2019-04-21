@@ -1,16 +1,17 @@
 package com.yht.demo.controller;
 
 
+import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
+import com.yht.demo.entity.dto.ParameterBaseDTO;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import com.yht.demo.common.BaseController;
 
 /**
@@ -31,22 +32,22 @@ public class PayController extends BaseController {
     @Autowired
     private IPayRecordService payRecordService;
 
-    /*@PostMapping("/topUpInfo")
-    @ApiOperation(value = "充值信息")
-    public Result topUpInfo(String clientName) {
-        if (clientName == null){
-            return Result.error(500, "请求错误");
+    @PostMapping("/topUpAmountInfo")
+    @ApiOperation(value = "充值金额信息")
+    public Result topUpAmountInfo(@RequestParam String clientName) {
+        if (StringUtils.isEmpty(clientName)){
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return topUpAmountService.topUpInfo(clientName);
+        return topUpAmountService.topUpAmountInfo(clientName);
     }
 
     @PostMapping("/getPayRecordList")
     @ApiOperation(value = "获取支付记录列表")
-    public Result getPayRecordList(String token, String clientName) {
-        if (clientName == null || token == null){
-            return Result.error(500, "请求错误");
+    public Result getPayRecordList(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        if (StringUtils.isEmpty(parameterBaseDTO.getToken()) || StringUtils.isEmpty(parameterBaseDTO.getClientName())){
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return payRecordService.getPayRecordList(token, clientName);
-    }*/
+        return payRecordService.getPayRecordList(parameterBaseDTO);
+    }
 }
 

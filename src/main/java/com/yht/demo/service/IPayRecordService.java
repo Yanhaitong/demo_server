@@ -1,6 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
+import com.yht.demo.entity.dto.ParameterBaseDTO;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.yht.demo.common.Result;
  */
 public interface IPayRecordService {
 
-    Result getPayRecordList(String token, String clientName);
+    Result getPayRecordList(ParameterBaseDTO parameterBaseDTO);
 }

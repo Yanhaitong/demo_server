@@ -1,7 +1,9 @@
 package com.yht.demo.mapper;
 
+import com.yht.demo.entity.dto.ResultTopUpAmountDTO;
 import com.yht.demo.entity.model.TopUpAmount;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,5 +17,5 @@ import java.util.List;
  */
 public interface TopUpAmountMapper extends BaseMapper<TopUpAmount> {
 
-    List<TopUpAmount> getTopUpAmount(String clientName);
+    List<ResultTopUpAmountDTO> getTopUpAmount(@Param("clientName") String clientName);
 }

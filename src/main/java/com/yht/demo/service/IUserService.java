@@ -2,7 +2,7 @@ package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
 import com.yht.demo.entity.dto.ParameterUserDTO;
-import com.yht.demo.entity.dto.ParameterUserInfoDTO;
+import com.yht.demo.entity.dto.ParameterBaseDTO;
 
 /**
  * <p>
@@ -20,6 +20,6 @@ public interface IUserService {
 
     Result loginOut(String mobileNo);
 
-    Result getAppInfo(ParameterUserInfoDTO parameterUserInfoDTO);
+    Result getAppInfo(ParameterBaseDTO parameterBaseDTO);
 
 }

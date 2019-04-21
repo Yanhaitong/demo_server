@@ -14,9 +14,11 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <select id="getTopUpAmount" parameterType="java.lang.String">
+    <select id="getTopUpAmount" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultTopUpAmountDTO">
         SELECT
-        *
+        price_ as price,
+        mili_ as mili,
+        sort_ as sort
         FROM
         top_up_amount
         <where>

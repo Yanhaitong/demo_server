@@ -18,6 +18,7 @@
           system_config
         WHERE
           key_ = #{key}
+          limit 1
     </select>
 
 </mapper>

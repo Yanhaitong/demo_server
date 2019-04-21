@@ -18,6 +18,7 @@ public class SMSUtils {
     private StringRedisTemplate stringRedisTemplate;
     //通过该标签以及该方法实现给static属性注入  
     public static SMSUtils sMSUtils;
+
     @PostConstruct
     public void init() {
         sMSUtils = this;
@@ -60,10 +61,9 @@ public class SMSUtils {
             sMSUtils.stringRedisTemplate.opsForValue().set("SMS" + mobileNo, code, 30, TimeUnit.MINUTES);
             msg = msg.replace("{code}", code);
             String returnString = sender.send(mobileNo, msg);
-            log.info(returnString);
+            log.info("sendVerifyLoginSMS==============" + returnString);
         } catch (Exception e) {
-            log.error(e.getMessage());
-        } finally {
+            log.error("sendVerifyLoginSMS==============" + e.getMessage());
         }
     }
 }
