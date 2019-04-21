@@ -2,7 +2,7 @@ package com.yht.demo.service.impl;
 
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.ParameterOrderListDTO;
 import com.yht.demo.service.INavigationTabService;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class NavigationTabServiceImpl extends BaseServiceImpl implements INavigationTabService {
 
     @Override
-    public Result getHomePageNavigationList(OrderListReceiveDTO orderListReceiveDTO) {
+    public Result getHomePageNavigationList(ParameterOrderListDTO orderListReceiveDTO) {
         return null;
     }
 }

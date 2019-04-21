@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.dto.NavigationTabReturnDTO;
+import com.yht.demo.entity.dto.ResultNavigationTabDTO;
 import com.yht.demo.entity.model.NavigationTab;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface NavigationTabMapper extends BaseMapper<NavigationTab> {
 
-    List<NavigationTabReturnDTO> getNavigationTabList(@Param("clientName") String clientName);
+    List<ResultNavigationTabDTO> getNavigationTabList(@Param("clientName") String clientName);
 }

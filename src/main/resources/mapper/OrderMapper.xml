@@ -47,60 +47,159 @@
 
 
     <sql id="Order_Column_List">
-        name_ as name, age_ as age, loan_amount as loanAmount,
-        loan_purpose as loanPurpose, current_city as currentCity,
-        professional_type as professionalType, level_education as levelEducation,
-        family_city as familyCity, income_amount as incomeAmount, income_type as incomeType,
-        working_years as workingYears, social_security as socialSecurity, accumulation_fund as accumulationFund,
-        estate_info as estateInfo, estate_values as estateValues, car_info as carInfo, car_values as carValues
+        CASE WHEN sex_= 0 THEN CONCAT(left(name_, 1),"女士") ELSE CONCAT(left(name_, 1),"先生") END as name,
+        concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNO,
+
+        CASE professional_type
+        WHEN '0' THEN '上班族'
+        WHEN '1' THEN '公务员/事业编制'
+        WHEN '2' THEN '自由职业'
+        WHEN '3' THEN '个体户'
+        WHEN '4' THEN '企业主'
+        ELSE '未知' END as professionalType,
+
+        CASE loan_purpose
+        WHEN '0' THEN '消费贷款'
+        WHEN '1' THEN '结婚贷款'
+        WHEN '2' THEN '购房贷款'
+        WHEN '3' THEN '购车贷款'
+        WHEN '4' THEN '装修贷款'
+        WHEN '5' THEN '旅游贷款'
+        WHEN '6' THEN '教育培训贷款'
+        WHEN '7' THEN '其他贷款'
+        ELSE '未知' END as loanPurpose,
+
+        CASE income_type
+        WHEN '0' THEN '银行代发'
+        WHEN '1' THEN '转账工资'
+        WHEN '2' THEN '现金发放'
+        ELSE '未知' END as incomeType,
+
+        CASE working_years
+        WHEN '0' THEN '6个月以下'
+        WHEN '1' THEN '6-12个月'
+        WHEN '2' THEN '12个月以上'
+        ELSE '未知' END as workingYears,
+
+        CASE social_security
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '6个月以下'
+        WHEN '2' THEN '6-12个月'
+        WHEN '3' THEN '12个月以上'
+        ELSE '未知' END as socialSecurity,
+
+        CASE accumulation_fund
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '6个月以下'
+        WHEN '2' THEN '6-12个月'
+        WHEN '3' THEN '12个月以上'
+        ELSE '未知' END as accumulationFund,
+
+        CASE estate_info
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '商品住宅'
+        WHEN '2' THEN '商铺'
+        WHEN '3' THEN '办公楼'
+        WHEN '4' THEN '厂房'
+        WHEN '5' THEN '商铺'
+        WHEN '6' THEN '其他'
+        ELSE '未知' END as estateInfo,
+
+        CASE estate_values
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '50万以下'
+        WHEN '2' THEN '50万-100万'
+        WHEN '3' THEN '100万-200万'
+        WHEN '4' THEN '200万以上'
+        ELSE '未知' END as estateValues,
+
+        CASE car_info
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '无车准备购买'
+        WHEN '2' THEN '有车不接受抵押'
+        WHEN '3' THEN '有车可接受抵押'
+        ELSE '未知' END as carInfo,
+
+        CASE car_values
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '10万以下'
+        WHEN '2' THEN '10万-20万'
+        WHEN '3' THEN '20万-40万'
+        WHEN '4' THEN '40万以上'
+        ELSE '未知' END as carValues,
+
+        CASE insurance_info
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '中国人寿'
+        WHEN '2' THEN '中国平安'
+        WHEN '3' THEN '太平洋保险'
+        WHEN '4' THEN '中国太平'
+        WHEN '5' THEN '阳光保险'
+        WHEN '6' THEN '安邦保险'
+        WHEN '7' THEN '前海人寿'
+        WHEN '8' THEN '泰康人寿'
+        WHEN '9' THEN '新华保险'
+        WHEN '10' THEN '其他'
+        ELSE '未知' END as insuranceInfo,
+
+        CASE insurance_values
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '10万以下'
+        WHEN '2' THEN '10万-30万'
+        WHEN '3' THEN '30万-60万'
+        WHEN '4' THEN '60万以上'
+        ELSE '未知' END as insuranceValues,
+
+        age_ as age, loan_amount as loanAmount,loan_purpose as loanPurpose, current_city as currentCity,
+        level_education as levelEducation,family_city as familyCity, income_amount as incomeAmount
     </sql>
 
     <!--获取首页订单列表-->
-    <select id="selectOrderListByMap" parameterType="com.yht.demo.entity.dto.OrderListReceiveDTO" resultType="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
+    <select id="selectOrderListByMap" parameterType="com.yht.demo.entity.dto.ParameterOrderListDTO" resultType="com.yht.demo.entity.dto.ResultOrderDetailsDTO">
         SELECT
         <include refid="Order_Column_List" />
         FROM
         order_
         <where>
-            <if test="orderListReceiveDTO.canRobOrder = 1">
-                and status_ = #{orderListReceiveDTO.canRobOrder}
+            <if test="parameterOrderListDTO.canRobOrder = 1">
+                and status_ = #{parameterOrderListDTO.canRobOrder}
             </if>
-            <if test="orderListReceiveDTO.loanAmountStart != null ">
-                and loan_amount &gt;= #{orderListReceiveDTO.loanAmountStart}
+            <if test="parameterOrderListDTO.loanAmountStart != null ">
+                and loan_amount &gt;= #{parameterOrderListDTO.loanAmountStart}
             </if>
-            <if test="orderListReceiveDTO.loanAmountEnd != null">
-                and loan_amount &lt;= #{orderListReceiveDTO.loanAmountEnd}
+            <if test="parameterOrderListDTO.loanAmountEnd != null">
+                and loan_amount &lt;= #{parameterOrderListDTO.loanAmountEnd}
             </if>
-            <if test="orderListReceiveDTO.loanPeriodStart != null ">
-                and loan_period &gt;= #{orderListReceiveDTO.loanPeriodStart}
+            <if test="parameterOrderListDTO.loanPeriodStart != null ">
+                and loan_period &gt;= #{parameterOrderListDTO.loanPeriodStart}
             </if>
-            <if test="orderListReceiveDTO.loanPeriodEnd != null">
-                and loan_period &lt;= #{orderListReceiveDTO.loanPeriodEnd}
+            <if test="parameterOrderListDTO.loanPeriodEnd != null">
+                and loan_period &lt;= #{parameterOrderListDTO.loanPeriodEnd}
             </if>
-            <if test="orderListReceiveDTO.ageStart != null ">
-                and age_ &gt;= #{orderListReceiveDTO.ageStart}
+            <if test="parameterOrderListDTO.ageStart != null ">
+                and age_ &gt;= #{parameterOrderListDTO.ageStart}
             </if>
-            <if test="orderListReceiveDTO.ageEnd != null">
-                and age_ &lt;= #{orderListReceiveDTO.ageEnd}
+            <if test="parameterOrderListDTO.ageEnd != null">
+                and age_ &lt;= #{parameterOrderListDTO.ageEnd}
             </if>
-            <if test="orderListReceiveDTO.incomeAmountStart != null ">
-                and age_ &gt;= #{orderListReceiveDTO.incomeAmountStart}
+            <if test="parameterOrderListDTO.incomeAmountStart != null ">
+                and age_ &gt;= #{parameterOrderListDTO.incomeAmountStart}
             </if>
-            <if test="orderListReceiveDTO.incomeAmountEnd != null">
-                and income_amount &lt;= #{orderListReceiveDTO.incomeAmountEnd}
+            <if test="parameterOrderListDTO.incomeAmountEnd != null">
+                and income_amount &lt;= #{parameterOrderListDTO.incomeAmountEnd}
             </if>
-            <if test="orderListReceiveDTO.incomeType != null">
-                and income_type = #{orderListReceiveDTO.incomeType}
+            <if test="parameterOrderListDTO.incomeType != null">
+                and income_type = #{parameterOrderListDTO.incomeType}
             </if>
-            <if test="orderListReceiveDTO.qualificationInfo != null">
-                and income_type = #{orderListReceiveDTO.qualificationInfo}
+            <if test="parameterOrderListDTO.qualificationInfo != null">
+                and income_type = #{parameterOrderListDTO.qualificationInfo}
             </if>
         </where>
         order by apply_time desc
     </select>
 
     <!--获取订单详情-->
-    <select id="getOrderDetailsById" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
+    <select id="getOrderDetailsById" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultOrderDetailsDTO">
         SELECT
         <include refid="Order_Column_List"/>
         FROM

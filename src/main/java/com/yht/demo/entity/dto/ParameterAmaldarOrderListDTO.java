@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @ApiModel(value = "查询经理订单列表参数")
 @Data
-public class AmaldarOrderListReceiveDTO {
+public class ParameterAmaldarOrderListDTO {
 
     @ApiModelProperty(name = "token", value = "用户登录token", required = true)
     private String token;

@@ -14,7 +14,10 @@ import lombok.Data;
  */
 @ApiModel(value = "查询首页订单列表参数")
 @Data
-public class OrderListReceiveDTO {
+public class ParameterOrderListDTO {
+
+    @ApiModelProperty(name = "citys", value = "城市（多个选项英文逗号隔开）", required = true)
+    private String citys;
 
     @ApiModelProperty(name = "canRobOrder", value = "可抢订单（0:否，1:是）", required = true)
     private String canRobOrder;
@@ -24,26 +27,19 @@ public class OrderListReceiveDTO {
     @ApiModelProperty(name = "loanAmountEnd", value = "贷款额度结束", required = true)
     private String loanAmountEnd;
 
-    @ApiModelProperty(name = "loanPeriodStart", value = "贷款期限开始", required = true)
-    private String loanPeriodStart;
-    @ApiModelProperty(name = "loanPeriodEnd", value = "贷款期限结束", required = true)
-    private String loanPeriodEnd;
-
-    @ApiModelProperty(name = "ageStart", value = "年龄区间开始", required = true)
-    private String ageStart;
-    @ApiModelProperty(name = "ageEnd", value = "年龄区间结束", required = true)
-    private String ageEnd;
-
     @ApiModelProperty(name = "incomeAmountStart", value = "月收入开始", required = true)
     private String incomeAmountStart;
     @ApiModelProperty(name = "incomeAmountEnd", value = "月收入结束", required = true)
     private String incomeAmountEnd;
 
-    @ApiModelProperty(name = "incomeType", value = "收入形式（0:银行代发，1:转账工资，2:现金发放）", required = true)
-    private String incomeType;
+    @ApiModelProperty(name = "navigationName", value = "导航名称", required = true)
+    private String navigationName;
 
-    @ApiModelProperty(name = "qualificationInfo", value = "资质信息", required = true)
-    private String qualificationInfo;
+    @ApiModelProperty(name = "incomeTypes", value = "收入形式（多选英文逗号隔开）", required = true)
+    private String incomeTypes;
+
+    @ApiModelProperty(name = "qualificationInfos", value = "资质信息（多选英文逗号隔开）", required = true)
+    private String qualificationInfos;
 
     @ApiModelProperty(name = "pageSize", value = "每页个数", required = true)
     private Integer pageSize;

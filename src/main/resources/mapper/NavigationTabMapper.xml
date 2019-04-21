@@ -17,7 +17,7 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <select id="getNavigationTabList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.NavigationTabReturnDTO">
+    <select id="getNavigationTabList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultNavigationTabDTO">
         SELECT
         client_name as clientName,
         navigator_index as navigatorIndex,

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "接收用户登录参数")
 @Data
-public class UserReceiveDTO {
+public class ParameterUserDTO {
 
     @ApiModelProperty(name = "mobileNo", value = "手机号", required = true)
     private String mobileNo;
@@ -18,7 +18,7 @@ public class UserReceiveDTO {
     private String version;
 
     @ApiModelProperty(name = "clientType", value = "客户端类型（0:ios 1:android）", required = true)
-    private Integer clientType;
+    private String clientType;
 
     @ApiModelProperty(name = "code", value = "验证码", required = true)
     private String code;

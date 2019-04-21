@@ -30,7 +30,7 @@ public class AmaldarCertificationController extends BaseController {
     @Autowired
     private IAmaldarCertificationService amaldarCertificationService;
 
-    @PostMapping("/getAmaldarCertificationInfo")
+    /*@PostMapping("/getAmaldarCertificationInfo")
     @ApiOperation(value = "获取经理认证信息")
     public Result getAmaldarCertificationInfo(String token, String client) {
         return amaldarCertificationService.getAmaldarCertificationInfo(token, client);
@@ -64,6 +64,6 @@ public class AmaldarCertificationController extends BaseController {
     @ApiOperation(value = "获取上传凭证")
     public Result getUploadCredentials(HttpServletRequest request, HttpServletResponse response) {
         return amaldarCertificationService.getUploadCredentials();
-    }
+    }*/
 }
 

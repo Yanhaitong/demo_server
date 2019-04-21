@@ -3,8 +3,8 @@ package com.yht.demo.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yht.demo.entity.dto.OrderDetailsReturnDTO;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
+import com.yht.demo.entity.dto.ParameterOrderListDTO;
 import com.yht.demo.entity.model.Order;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,8 +18,8 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface OrderMapper extends BaseMapper<Order> {
 
-    IPage<OrderDetailsReturnDTO> selectOrderListByMap(@Param("page") Page page, @Param("orderListReceiveDTO") OrderListReceiveDTO orderListReceiveDTO);
+    IPage<ResultOrderDetailsDTO> selectOrderListByMap(@Param("page") Page page, @Param("parameterOrderListDTO") ParameterOrderListDTO parameterOrderListDTO);
 
-    OrderDetailsReturnDTO getOrderDetailsById(String orderId);
+    ResultOrderDetailsDTO getOrderDetailsById(String orderId);
 
 }

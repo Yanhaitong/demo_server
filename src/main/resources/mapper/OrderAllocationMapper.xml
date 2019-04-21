@@ -26,7 +26,7 @@
     </sql>
 
     <!--获取我的订单列表-->
-    <select id="amaldarOrderList" parameterType="java.lang.Integer" resultType="com.yht.demo.entity.dto.OrderDetailsReturnDTO">
+    <select id="amaldarOrderList" parameterType="java.lang.Integer" resultType="com.yht.demo.entity.dto.ResultOrderDetailsDTO">
         SELECT
         <include refid="Order_Column_List"/>
         FROM

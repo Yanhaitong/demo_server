@@ -13,9 +13,13 @@
         <result column="update_time" property="updateTime"/>
         <result column="del_flag" property="delFlag"/>
     </resultMap>
-    <select id="getSearchConditionsList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.SearchConditionsReturnDTO">
+    <select id="getSearchConditionsList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultSearchConditionsDTO">
         SELECT
-        search_type as searchType,
+        select_type as selectType,
+        CASE search_type
+        WHEN '0' THEN '收入形式'
+        WHEN '1' THEN '客户资质'
+        ELSE '未知' END as searchType,
         name_ as name
         FROM
         search_conditions

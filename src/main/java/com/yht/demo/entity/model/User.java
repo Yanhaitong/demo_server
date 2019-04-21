@@ -1,5 +1,6 @@
 package com.yht.demo.entity.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -41,6 +42,7 @@ public class User extends Model<User> {
     /**
      * 姓名
      */
+    @TableField(value = "name_")
     private String name;
 
     /**
@@ -56,15 +58,18 @@ public class User extends Model<User> {
     /**
      * 经理状态（0:未认证，1:审核中，2:认证通过，3:认证未通过，4:账户冻结）
      */
+    @TableField(value = "status_")
     private Integer status;
 
     /**
      * 性别（0:女性，1:男性）
      */
+    @TableField(value = "sex_")
     private Integer sex;
     /**
      * 公司名称
      */
+    @TableField(value = "company_")
     private String company;
     /**
      * 头像url
@@ -74,6 +79,7 @@ public class User extends Model<User> {
     /**
      * 余额
      */
+    @TableField(value = "balance_")
     private String balance;
 
     /**

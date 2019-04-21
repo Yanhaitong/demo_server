@@ -2,12 +2,16 @@ package com.yht.demo.controller;
 
 
 import com.yht.demo.common.BaseController;
+import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
+import com.yht.demo.entity.dto.ParameterOrderListDTO;
+import com.yht.demo.entity.dto.ResultSearchConditionsDTO;
 import com.yht.demo.service.IOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,29 +32,20 @@ public class OrderController extends BaseController {
 
     @PostMapping("/getHomePageOrderList")
     @ApiOperation(value = "获取首页订单列表")
-    public Result getHomePageOrderList(@RequestBody OrderListReceiveDTO orderListReceiveDTO) {
-        if (orderListReceiveDTO == null){
-            return Result.error(500, "请求错误");
+    public Result<ResultOrderDetailsDTO> getHomePageOrderList(@RequestBody ParameterOrderListDTO parameterOrderListDTO) {
+        if (parameterOrderListDTO == null){
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return orderService.getHomePageOrderList(orderListReceiveDTO);
+        return orderService.getHomePageOrderList(parameterOrderListDTO);
     }
 
     @PostMapping("/getOrderDetailsById")
     @ApiOperation(value = "获取订单详情")
-    public Result getOrderDetailsById(@RequestParam String orderId) {
-        if (orderId == null){
-            return Result.error(500, "请求错误");
+    public Result<ResultOrderDetailsDTO> getOrderDetailsById(@RequestParam String orderId) {
+        if (StringUtils.isEmpty(orderId)){
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return orderService.getOrderDetailsById(orderId);
-    }
-
-    @PostMapping("/getHomePageSearchConditions")
-    @ApiOperation(value = "获取首页搜索条件")
-    public Result getHomePageSearchConditions(@RequestParam String clientName) {
-        if (clientName == null){
-            return Result.error(500, "请求错误");
-        }
-        return orderService.getHomePageSearchConditions(clientName);
     }
 
 }

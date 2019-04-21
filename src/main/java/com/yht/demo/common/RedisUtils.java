@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class RedisUtils {
 
     private static final Logger log = LoggerFactory.getLogger(RedisUtils.class);
@@ -30,10 +32,11 @@ public class RedisUtils {
      * @param mobileNo
      * @param token
      */
-    public static void saveToken(String mobileNo, String token) {
+    public static void saveToken(String token, String mobileNo) {
         log.info("调用saveToken:mobileNo--" + mobileNo + ",token--" + token);
         try {
-            redisUtils.stringRedisTemplate.opsForValue().set(mobileNo, token);
+            redisUtils.stringRedisTemplate.opsForValue().set(token, mobileNo);
+            log.info("token======================" + redisUtils.stringRedisTemplate.opsForValue().get(token));
         } catch (Exception e) {
             log.error(e.getMessage());
         }

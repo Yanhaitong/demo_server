@@ -1,9 +1,8 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.model.User;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.yht.demo.entity.dto.UserReceiveDTO;
+import com.yht.demo.entity.dto.ParameterUserDTO;
+import com.yht.demo.entity.dto.ParameterUserInfoDTO;
 
 /**
  * <p>
@@ -17,9 +16,10 @@ public interface IUserService {
 
     Result sendVerificationCode(String mobileNo, String clientName);
 
-    Result verifyCodeLoginOrRegister(UserReceiveDTO userReceiveDTO);
+    Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO);
 
     Result loginOut(String mobileNo);
 
-    Result getAppInfo(String token, String clientName);
+    Result getAppInfo(ParameterUserInfoDTO parameterUserInfoDTO);
+
 }

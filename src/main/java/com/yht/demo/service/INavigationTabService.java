@@ -1,7 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
+import com.yht.demo.entity.dto.ParameterOrderListDTO;
 
 /**
  * <p>
@@ -13,5 +13,5 @@ import com.yht.demo.entity.dto.OrderListReceiveDTO;
  */
 public interface INavigationTabService {
 
-    Result getHomePageNavigationList(OrderListReceiveDTO orderListReceiveDTO);
+    Result getHomePageNavigationList(ParameterOrderListDTO parameterOrderListDTO);
 }

@@ -11,7 +11,8 @@
     <groupId>com.yht</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>xindaitong_server</name>
+    <packaging>war</packaging>
+    <name>demo_server</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.dto.SearchConditionsReturnDTO;
+import com.yht.demo.entity.dto.ResultSearchConditionsDTO;
 import com.yht.demo.entity.model.SearchConditions;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface SearchConditionsMapper extends BaseMapper<SearchConditions> {
 
-    List<SearchConditionsReturnDTO> getSearchConditionsList(@Param("clientName") String clientName);
+    List<ResultSearchConditionsDTO> getSearchConditionsList(@Param("clientName") String clientName);
 }

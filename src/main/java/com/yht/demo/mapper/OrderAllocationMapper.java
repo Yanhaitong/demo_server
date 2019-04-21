@@ -3,7 +3,7 @@ package com.yht.demo.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yht.demo.entity.dto.OrderDetailsReturnDTO;
+import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
 import com.yht.demo.entity.model.OrderAllocation;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,5 +17,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface OrderAllocationMapper extends BaseMapper<OrderAllocation> {
 
-    IPage<OrderDetailsReturnDTO> amaldarOrderList(@Param("page") Page page, @Param("userId") Integer userId);
+    IPage<ResultOrderDetailsDTO> amaldarOrderList(@Param("page") Page page, @Param("userId") Integer userId);
 }

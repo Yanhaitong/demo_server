@@ -6,5 +6,6 @@ public class MsgConstant {
 
     public static String USER_IS_NULL = "用户信息异常！";
 
+    public static String PARAMETER_IS_NULL = "参数错误！";
 
 }

@@ -1,9 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
-import com.yht.demo.entity.model.Order;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.yht.demo.entity.dto.ParameterOrderListDTO;
 
 /**
  * <p>
@@ -15,9 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOrderService {
 
-    Result getHomePageOrderList(OrderListReceiveDTO orderListReceiveDTO);
-
-    Result getHomePageSearchConditions(String clientName);
+    Result getHomePageOrderList(ParameterOrderListDTO parameterOrderListDTO);
 
     Result getOrderDetailsById(String orderId);
 }

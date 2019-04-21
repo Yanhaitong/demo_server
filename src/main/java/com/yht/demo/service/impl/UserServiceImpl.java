@@ -6,11 +6,10 @@ import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
-import com.yht.demo.entity.dto.NavigationTabReturnDTO;
-import com.yht.demo.entity.model.City;
-import com.yht.demo.entity.dto.SearchConditionsReturnDTO;
-import com.yht.demo.entity.dto.UserReceiveDTO;
-import com.yht.demo.entity.model.NavigationTab;
+import com.yht.demo.entity.dto.ParameterUserInfoDTO;
+import com.yht.demo.entity.dto.ResultNavigationTabDTO;
+import com.yht.demo.entity.dto.ResultSearchConditionsDTO;
+import com.yht.demo.entity.dto.ParameterUserDTO;
 import com.yht.demo.entity.model.User;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IUserService;
@@ -55,35 +54,43 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result verifyCodeLoginOrRegister(UserReceiveDTO userReceiveDTO) {
+    public Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO) {
 
         try {
+            if (StringUtils.isEmpty(parameterUserDTO.getMobileNo()) || StringUtils.isEmpty(parameterUserDTO.getClientName()) ||
+                    StringUtils.isEmpty(parameterUserDTO.getCode()) || StringUtils.isEmpty(parameterUserDTO.getClientType())){
+                return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
+            }
+
             //获取验证码
-            String localCode = stringRedisTemplate.opsForValue().get("SMS" + userReceiveDTO.getMobileNo());
-            if (StringUtils.isEmpty(localCode) || !localCode.equals(userReceiveDTO.getCode())) {
-                return Result.error(500, "验证码错误！");
+            String localCode = stringRedisTemplate.opsForValue().get("SMS" + parameterUserDTO.getMobileNo());
+            if (StringUtils.isEmpty(localCode) || !localCode.equals(parameterUserDTO.getCode())) {
+                //return Result.error(500, "验证码错误！");
             }
 
             //redis保存token对应的手机号(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
-            stringRedisTemplate.opsForValue().set(token, userReceiveDTO.getMobileNo());
+            RedisUtils.saveToken(token, parameterUserDTO.getMobileNo());
 
             //数据库操作
-            User user = userMapper.getUserInfo(userReceiveDTO.getMobileNo(), userReceiveDTO.getClientName());
+            User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), parameterUserDTO.getClientName());
             if (user == null) {
                 //保存用户信息
                 User userNew = new User();
-                userNew.setMobileNo(userReceiveDTO.getMobileNo());
-                userNew.setClientName(userReceiveDTO.getClientName());
-                userNew.setClientVersion(userReceiveDTO.getVersion());
+                userNew.setMobileNo(parameterUserDTO.getMobileNo());
+                userNew.setClientName(parameterUserDTO.getClientName());
+                userNew.setClientVersion(parameterUserDTO.getVersion());
                 userNew.setCreateTime(new Date());
-                userNew.setClientType(userReceiveDTO.getClientType());
+                userNew.setRoleId(1);
+                userNew.setStatus(0);
+                userNew.setClientType(Integer.valueOf(parameterUserDTO.getClientType()));
                 userMapper.insert(userNew);
             } else {
-                user.setClientVersion(userReceiveDTO.getVersion());
+                user.setClientVersion(parameterUserDTO.getVersion());
                 user.setUpdateTime(new Date());
                 userMapper.updateById(user);
             }
+
             Map<String, Object> map = new HashMap<>();
             map.put("token", token);
             return Result.success(map);
@@ -109,15 +116,15 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getAppInfo(String token, String clientName) {
+    public Result getAppInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
         Map<String, Object> parameterMap = new HashMap<>();
 
         //获取用户信息
-        String mobileNo = "18611556532";//;RedisUtils.getMobileByToken(token);
+        String mobileNo = RedisUtils.getMobileByToken(parameterUserInfoDTO.getToken());
         if (mobileNo == null){
             return Result.error(500, MsgConstant.MOBILE_NO_IS_NULL);
         }
-        User userInfo = userMapper.getUserInfo(mobileNo, clientName);
+        User userInfo = userMapper.getUserInfo(mobileNo, parameterUserInfoDTO.getClientName());
         if (userInfo == null){
             return Result.error(500, MsgConstant.USER_IS_NULL);
         }
@@ -128,12 +135,12 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         parameterMap.put("cityList", cityList);
 
         //获取首页导航栏信息
-        List<NavigationTabReturnDTO> navigationTabReturnDTOList = navigationTabMapper.getNavigationTabList(clientName);
-        parameterMap.put("navigationTabList", navigationTabReturnDTOList);
+        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterUserInfoDTO.getClientName());
+        parameterMap.put("navigationTabList", resultNavigationTabDTOList);
 
         //获取搜索条件信息
-        List<SearchConditionsReturnDTO> searchConditionsReturnDTOList = searchConditionsMapper.getSearchConditionsList(clientName);
-        parameterMap.put("searchConditionsList", searchConditionsReturnDTOList);
+        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterUserInfoDTO.getClientName());
+        parameterMap.put("searchConditionsList", resultSearchConditionsDTOList);
 
         return Result.success(parameterMap);
     }

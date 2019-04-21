@@ -1,16 +1,20 @@
 package com.yht.demo.common;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 请求结果格式化处理实体类
  *
  * @author yanht
  */
 public class Result<T> {
-    /*错误码*/
+
+    @ApiModelProperty(value = "返回状态码；200:成功，其他失败" ,required = true)
     private Integer code;
-    /*提示信息*/
+
+    @ApiModelProperty(value = "描述信息")
     private String msg;
-    /*具体的内容*/
+
     private T data;
 
     public Integer getCode() {

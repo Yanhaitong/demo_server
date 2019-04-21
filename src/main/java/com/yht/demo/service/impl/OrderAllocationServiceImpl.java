@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
-import com.yht.demo.common.sender.SMSUtils;
-import com.yht.demo.entity.dto.AmaldarOrderListReceiveDTO;
-import com.yht.demo.entity.dto.OrderDetailsReturnDTO;
+import com.yht.demo.entity.dto.ParameterAmaldarOrderListDTO;
+import com.yht.demo.entity.dto.ParameterVieForOrderDTO;
+import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
 import com.yht.demo.entity.model.MemberLevel;
 import com.yht.demo.entity.model.OrderRating;
 import com.yht.demo.entity.model.Order;
@@ -15,7 +15,6 @@ import com.yht.demo.entity.model.OrderAllocation;
 import com.yht.demo.entity.model.User;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IOrderAllocationService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.stereotype.Service;
@@ -51,18 +50,18 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     private SystemConfigMapper systemConfigMapper;
 
     @Override
-    public Result vieForOrder(String token, String orderId, String clientName) {
+    public Result vieForOrder(ParameterVieForOrderDTO parameterVieForOrderDTO) {
         try {
             //查询用户信息
-            String mobileNo = RedisUtils.getMobileByToken(token);
+            String mobileNo = RedisUtils.getMobileByToken(parameterVieForOrderDTO.getToken());
             if (mobileNo == null) {
                 return Result.error(500, "登录信息已失效，请重新登录！");
             }
-            User userInfo = userMapper.getUserInfo(mobileNo, clientName);
+            User userInfo = userMapper.getUserInfo(mobileNo, parameterVieForOrderDTO.getClientName());
             if (userInfo == null) {
                 return Result.error(500, "抢单失败,用户信息错误！");
             }
-            Order order = orderMapper.selectById(orderId);
+            Order order = orderMapper.selectById(parameterVieForOrderDTO.getOrderId());
             if (order == null) {
                 return Result.error(500, "抢单失败,订单信息异常！");
             }
@@ -156,19 +155,19 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     }
 
     @Override
-    public Result amaldarOrderList(AmaldarOrderListReceiveDTO amaldarOrderListReceiveDTO) {
-        String mobileNo = "18611556532";//RedisUtils.getMobileByToken(amaldarOrderListReceiveDTO.getToken());
+    public Result amaldarOrderList(ParameterAmaldarOrderListDTO parameterAmaldarOrderListDTO) {
+        String mobileNo = RedisUtils.getMobileByToken(parameterAmaldarOrderListDTO.getToken());
         if (mobileNo == null){
             return Result.error(500, "登录信息已失效，请重新登录！");
         }
-        User userInfo = userMapper.getUserInfo(mobileNo, amaldarOrderListReceiveDTO.getClientName());
+        User userInfo = userMapper.getUserInfo(mobileNo, parameterAmaldarOrderListDTO.getClientName());
         if (userInfo == null){
             return Result.error(500, "抢单失败,用户信息错误！！");
         }
         Page page = new Page();
-        page.setSize(amaldarOrderListReceiveDTO.getPageSize());
-        page.setCurrent(amaldarOrderListReceiveDTO.getPageNum());
-        IPage<OrderDetailsReturnDTO> orderDetailsReturnDTOIPage = orderAllocationMapper.amaldarOrderList(page, userInfo.getId());
-        return Result.success(orderDetailsReturnDTOIPage);
+        page.setSize(parameterAmaldarOrderListDTO.getPageSize());
+        page.setCurrent(parameterAmaldarOrderListDTO.getPageNum());
+        IPage<ResultOrderDetailsDTO> resultOrderDetailsDTOIPage = orderAllocationMapper.amaldarOrderList(page, userInfo.getId());
+        return Result.success(resultOrderDetailsDTOIPage);
     }
 }

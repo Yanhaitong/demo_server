@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "导航返回参数")
 @Data
-public class NavigationTabReturnDTO {
+public class ResultNavigationTabDTO {
 
     @ApiModelProperty(name = "navigatorIndex", value = "导航序号", required = true)
     private String navigatorIndex;
@@ -14,12 +14,12 @@ public class NavigationTabReturnDTO {
     @ApiModelProperty(name = "navigatorName", value = "导航名称", required = true)
     private String navigatorName;
 
-    @ApiModelProperty(name = "navigatorTagName", value = "导航标记名称", required = true)
+   /* @ApiModelProperty(name = "navigatorTagName", value = "导航标记名称", required = true)
     private String navigatorTagName;
 
     @ApiModelProperty(name = "navigatorTagColor", value = "导航标记颜色", required = true)
     private String navigatorTagColor;
 
     @ApiModelProperty(name = "navigatorIcon", value = "导航图标", required = true)
-    private String navigatorIcon;
+    private String navigatorIcon;*/
 }

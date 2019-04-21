@@ -2,15 +2,12 @@ package com.yht.demo.controller;
 
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.OrderListReceiveDTO;
-import com.yht.demo.mapper.TopUpAmountMapper;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +31,7 @@ public class PayController extends BaseController {
     @Autowired
     private IPayRecordService payRecordService;
 
-    @PostMapping("/topUpInfo")
+    /*@PostMapping("/topUpInfo")
     @ApiOperation(value = "充值信息")
     public Result topUpInfo(String clientName) {
         if (clientName == null){
@@ -50,6 +47,6 @@ public class PayController extends BaseController {
             return Result.error(500, "请求错误");
         }
         return payRecordService.getPayRecordList(token, clientName);
-    }
+    }*/
 }
 

@@ -14,10 +14,13 @@ import lombok.Data;
  */
 @ApiModel(value = "返回订单详细参数")
 @Data
-public class OrderDetailsReturnDTO {
+public class ResultOrderDetailsDTO {
 
     @ApiModelProperty(name = "name", value = "姓名", required = true)
     private String name;
+
+    @ApiModelProperty(name = "mobileNo", value = "手机号", required = true)
+    private String mobileNo;
 
     @ApiModelProperty(name = "age", value = "年龄", required = true)
     private String age;
@@ -66,5 +69,11 @@ public class OrderDetailsReturnDTO {
 
     @ApiModelProperty(name = "carValues", value = "车产估值", required = true)
     private String carValues;
+
+    @ApiModelProperty(name = "insuranceInfo", value = "保险信息", required = true)
+    private String insuranceInfo;
+
+    @ApiModelProperty(name = "insuranceValues", value = "保险价值", required = true)
+    private String insuranceValues;
 
 }
