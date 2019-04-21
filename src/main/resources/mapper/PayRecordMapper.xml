@@ -19,11 +19,13 @@
         <result column="del_flag" property="delFlag"/>
     </resultMap>
 
-    <select id="getPayRecordList" parameterType="java.lang.String">
+    <select id="getPayRecordList" parameterType="java.lang.String" resultMap="com.yht.demo.entity.dto.ResultPayRecordDTO">
         SELECT
-        *
+        type,
+        money,
+        createTime
         FROM
-        par_record
+        pay_record
         <where>
             user_id = #{userId}
         </where>

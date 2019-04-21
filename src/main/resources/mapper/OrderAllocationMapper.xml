@@ -17,12 +17,115 @@
     </resultMap>
 
     <sql id="Order_Column_List">
-        o.name as name, o.age as age, o.loan_amount as loanAmount,
-        o.loan_purpose as loanPurpose, o.current_city as currentCity,
-        o.professional_type as professionalType, o.level_education as levelEducation,
-        o.family_city as familyCity, o.income_amount as incomeAmount, o.income_type as incomeType,
-        o.working_years as workingYears, o.social_security as socialSecurity, o.accumulation_fund as accumulationFund,
-        o.estate_info as estateInfo, o.estate_values as estateValues, o.car_info as carInfo, o.car_values as carValues
+
+        CASE o.status
+        WHEN '0' THEN '0'
+        WHEN '1' THEN '1'
+        WHEN '2' THEN '1'
+        ELSE '0' END as status,
+
+        CASE o.professional_type
+        WHEN '0' THEN '上班族'
+        WHEN '1' THEN '公务员/事业编制'
+        WHEN '2' THEN '自由职业'
+        WHEN '3' THEN '个体户'
+        WHEN '4' THEN '企业主'
+        ELSE '未知' END as professionalType,
+
+        CASE o.loan_purpose
+        WHEN '0' THEN '消费贷款'
+        WHEN '1' THEN '结婚贷款'
+        WHEN '2' THEN '购房贷款'
+        WHEN '3' THEN '购车贷款'
+        WHEN '4' THEN '装修贷款'
+        WHEN '5' THEN '旅游贷款'
+        WHEN '6' THEN '教育培训贷款'
+        WHEN '7' THEN '其他贷款'
+        ELSE '未知' END as loanPurpose,
+
+        CASE o.income_type
+        WHEN '0' THEN '银行代发'
+        WHEN '1' THEN '转账工资'
+        WHEN '2' THEN '现金发放'
+        ELSE '未知' END as incomeType,
+
+        CASE o.working_years
+        WHEN '0' THEN '6个月以下'
+        WHEN '1' THEN '6-12个月'
+        WHEN '2' THEN '12个月以上'
+        ELSE '未知' END as workingYears,
+
+        CASE o.social_security
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '6个月以下'
+        WHEN '2' THEN '6-12个月'
+        WHEN '3' THEN '12个月以上'
+        ELSE '未知' END as socialSecurity,
+
+        CASE o.accumulation_fund
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '6个月以下'
+        WHEN '2' THEN '6-12个月'
+        WHEN '3' THEN '12个月以上'
+        ELSE '未知' END as accumulationFund,
+
+        CASE o.estate_info
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '商品住宅'
+        WHEN '2' THEN '商铺'
+        WHEN '3' THEN '办公楼'
+        WHEN '4' THEN '厂房'
+        WHEN '5' THEN '商铺'
+        WHEN '6' THEN '其他'
+        ELSE '未知' END as estateInfo,
+
+        CASE o.estate_values
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '50万以下'
+        WHEN '2' THEN '50万-100万'
+        WHEN '3' THEN '100万-200万'
+        WHEN '4' THEN '200万以上'
+        ELSE '未知' END as estateValues,
+
+        CASE o.car_info
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '无车准备购买'
+        WHEN '2' THEN '有车不接受抵押'
+        WHEN '3' THEN '有车可接受抵押'
+        ELSE '未知' END as carInfo,
+
+        CASE car_values
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '10万以下'
+        WHEN '2' THEN '10万-20万'
+        WHEN '3' THEN '20万-40万'
+        WHEN '4' THEN '40万以上'
+        ELSE '未知' END as carValues,
+
+        CASE o.insurance_info
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '中国人寿'
+        WHEN '2' THEN '中国平安'
+        WHEN '3' THEN '太平洋保险'
+        WHEN '4' THEN '中国太平'
+        WHEN '5' THEN '阳光保险'
+        WHEN '6' THEN '安邦保险'
+        WHEN '7' THEN '前海人寿'
+        WHEN '8' THEN '泰康人寿'
+        WHEN '9' THEN '新华保险'
+        WHEN '10' THEN '其他'
+        ELSE '未知' END as insuranceInfo,
+
+        CASE o.insurance_values
+        WHEN '0' THEN '无'
+        WHEN '1' THEN '10万以下'
+        WHEN '2' THEN '10万-30万'
+        WHEN '3' THEN '30万-60万'
+        WHEN '4' THEN '60万以上'
+        ELSE '未知' END as insuranceValues,
+
+        o.name, o.mobile_no as mobileNo, o.age as age, o.loan_amount as loanAmount, o.loan_purpose as loanPurpose, o.current_city as currentCity,
+        o.level_education as levelEducation, o.family_city as familyCity, o.income_amount as incomeAmount
     </sql>
 
     <!--获取我的订单列表-->
@@ -31,10 +134,10 @@
         <include refid="Order_Column_List"/>
         FROM
         order_allocation oa
-        LEFT JOIN user_ u ON oa.user_id = u.id_
-        LEFT JOIN order_ o ON oa.order_id = o.id_
+        LEFT JOIN user_ u ON oa.user_id = u.id
+        LEFT JOIN order_ o ON oa.order_id = o.id
         WHERE
-        u.id_ = #{userId}
+        u.id = #{userId}
         order by oa.create_time desc
     </select>
 

@@ -3,7 +3,8 @@ package com.yht.demo.controller;
 
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ParameterBaseDTO;
+import com.yht.demo.entity.dto.ParameterAPPInfoDTO;
+import com.yht.demo.entity.dto.ParameterPayRecordDTO;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
 import io.swagger.annotations.Api;
@@ -43,11 +44,11 @@ public class PayController extends BaseController {
 
     @PostMapping("/getPayRecordList")
     @ApiOperation(value = "获取支付记录列表")
-    public Result getPayRecordList(@RequestBody ParameterBaseDTO parameterBaseDTO) {
-        if (StringUtils.isEmpty(parameterBaseDTO.getToken()) || StringUtils.isEmpty(parameterBaseDTO.getClientName())){
+    public Result getPayRecordList(@RequestBody ParameterPayRecordDTO parameterPayRecordDTO) {
+        if (StringUtils.isEmpty(parameterPayRecordDTO.getToken()) || StringUtils.isEmpty(parameterPayRecordDTO.getClientName())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return payRecordService.getPayRecordList(parameterBaseDTO);
+        return payRecordService.getPayRecordList(parameterPayRecordDTO);
     }
 }
 

@@ -6,7 +6,7 @@ import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
-import com.yht.demo.entity.dto.ParameterBaseDTO;
+import com.yht.demo.entity.dto.ParameterAPPInfoDTO;
 import com.yht.demo.entity.dto.ResultNavigationTabDTO;
 import com.yht.demo.entity.dto.ResultSearchConditionsDTO;
 import com.yht.demo.entity.dto.ParameterUserDTO;
@@ -120,11 +120,11 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getAppInfo(ParameterBaseDTO parameterBaseDTO) {
+    public Result getAppInfo(ParameterAPPInfoDTO parameterAPPInfoDTO) {
         Map<String, Object> parameterMap = new HashMap<>();
 
         //获取用户信息
-        String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
+        String userId = RedisUtils.getUserIdByToken(parameterAPPInfoDTO.getToken());
         if (StringUtils.isEmpty(userId)){
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
@@ -135,15 +135,15 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         parameterMap.put("userInfo", userInfo);
 
         //城市列表
-        //List<String> cityList = cityMapper.selectAllCityList();
-        //parameterMap.put("cityList", cityList);
+        List<String> cityList = cityMapper.selectAllCityList();
+        parameterMap.put("cityList", cityList);
 
         //获取首页导航栏信息
-        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterBaseDTO.getClientName());
+        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterAPPInfoDTO.getClientName());
         parameterMap.put("navigationTabList", resultNavigationTabDTOList);
 
         //获取搜索条件信息
-        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterBaseDTO.getClientName());
+        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterAPPInfoDTO.getClientName());
         parameterMap.put("searchConditionsList", resultSearchConditionsDTOList);
 
         return Result.success(parameterMap);

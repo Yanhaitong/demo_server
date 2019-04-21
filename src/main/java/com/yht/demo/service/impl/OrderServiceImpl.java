@@ -62,8 +62,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
                 return Result.error(500, MsgConstant.USER_ID_IS_NULL);
             }
             Map<String, Object> parameterMap = new HashMap<>();
-            parameterMap.put("orderId", order.getId());
-            parameterMap.put("userId", userId);
+            parameterMap.put("order_id", order.getId());
+            parameterMap.put("user_id", userId);
             List<OrderAllocation> orderAllocationList = orderAllocationMapper.selectByMap(parameterMap);
             if (orderAllocationList.size() >= 1){//此订单是当前用户已抢订单
                 myOrderInt = 1;

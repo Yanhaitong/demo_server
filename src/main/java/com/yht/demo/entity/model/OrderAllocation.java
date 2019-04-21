@@ -30,7 +30,7 @@ public class OrderAllocation extends Model<OrderAllocation> {
     /**
      * 主键
      */
-    @TableId(value = "id_", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**

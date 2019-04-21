@@ -1,9 +1,11 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.model.PayRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-
-import java.util.List;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yht.demo.entity.dto.ResultPayRecordDTO;
+import com.yht.demo.entity.model.PayRecord;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,5 +17,5 @@ import java.util.List;
  */
 public interface PayRecordMapper extends BaseMapper<PayRecord> {
 
-    List<PayRecord> getPayRecordList(String userId);
+    IPage<ResultPayRecordDTO> getPayRecordList(@Param("page") Page page, @Param("userId") String userId);
 }

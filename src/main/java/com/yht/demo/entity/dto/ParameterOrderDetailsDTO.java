@@ -12,7 +12,7 @@ import lombok.Data;
  * @author yanht
  * @since 2019-04-19
  */
-@ApiModel(value = "查询用户相关信息的参数")
+@ApiModel(value = "查询订单详细信息的参数")
 @Data
 public class ParameterOrderDetailsDTO {
 

@@ -30,7 +30,7 @@ public class PayRecord extends Model<PayRecord> {
     /**
      * 主键
      */
-    @TableId(value = "id_", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -54,7 +54,7 @@ public class PayRecord extends Model<PayRecord> {
     private String mobileNo;
 
     /**
-     * 充值金额
+     * 流水金额
      */
     private Integer money;
 

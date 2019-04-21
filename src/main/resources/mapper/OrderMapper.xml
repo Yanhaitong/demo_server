@@ -207,7 +207,7 @@
         SELECT
         <choose>
             <when test="myOrderInt == 1">
-                CASE WHEN sex_= 0 THEN CONCAT(left(name, 1),"女士") ELSE CONCAT(left(name, 1),"先生") END as name,
+                CASE WHEN sex= 0 THEN CONCAT(left(name, 1),"女士") ELSE CONCAT(left(name, 1),"先生") END as name,
                 concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNo,
             </when>
             <otherwise>

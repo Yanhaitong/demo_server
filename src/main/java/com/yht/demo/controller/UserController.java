@@ -4,8 +4,8 @@ package com.yht.demo.controller;
 import com.yht.demo.common.BaseController;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
+import com.yht.demo.entity.dto.ParameterAPPInfoDTO;
 import com.yht.demo.entity.dto.ParameterUserDTO;
-import com.yht.demo.entity.dto.ParameterBaseDTO;
 import com.yht.demo.entity.dto.ResultAPPInfoDTO;
 import com.yht.demo.service.IUserService;
 import io.swagger.annotations.Api;
@@ -74,11 +74,11 @@ public class UserController extends BaseController {
 
     @PostMapping("/getAppInfo")
     @ApiOperation(value = "获取用户信息")
-    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterBaseDTO parameterBaseDTO) {
-        if (StringUtils.isEmpty(parameterBaseDTO.getToken()) || StringUtils.isEmpty(parameterBaseDTO.getClientName())) {
+    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterAPPInfoDTO parameterAPPInfoDTO) {
+        if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken()) || StringUtils.isEmpty(parameterAPPInfoDTO.getClientName())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return userService.getAppInfo(parameterBaseDTO);
+        return userService.getAppInfo(parameterAPPInfoDTO);
     }
 }
 

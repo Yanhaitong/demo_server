@@ -4,6 +4,8 @@ package com.yht.demo.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yht.demo.entity.model.City;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户表 Mapper 接口
@@ -14,4 +16,5 @@ import com.yht.demo.entity.model.City;
  */
 public interface CityMapper extends BaseMapper<City> {
 
+    List<String> selectAllCityList();
 }
