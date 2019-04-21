@@ -16,6 +16,9 @@ import lombok.Data;
 @Data
 public class ResultOrderDetailsDTO {
 
+    @ApiModelProperty(name = "status", value = "是否已抢订单（0:未抢单，1:已抢单）", required = true)
+    private String status;
+
     @ApiModelProperty(name = "name", value = "姓名", required = true)
     private String name;
 

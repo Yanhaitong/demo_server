@@ -4,9 +4,7 @@ package com.yht.demo.controller;
 import com.yht.demo.common.BaseController;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
-import com.yht.demo.entity.dto.ParameterOrderListDTO;
-import com.yht.demo.entity.dto.ResultSearchConditionsDTO;
+import com.yht.demo.entity.dto.*;
 import com.yht.demo.service.IOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,11 +39,11 @@ public class OrderController extends BaseController {
 
     @PostMapping("/getOrderDetailsById")
     @ApiOperation(value = "获取订单详情")
-    public Result<ResultOrderDetailsDTO> getOrderDetailsById(@RequestParam String orderId) {
-        if (StringUtils.isEmpty(orderId)){
+    public Result<ResultOrderDetailsDTO> getOrderDetailsById(@RequestBody ParameterOrderDetailsDTO parameterOrderDetailsDTO) {
+        if (StringUtils.isEmpty(parameterOrderDetailsDTO.getOrderId()) || StringUtils.isEmpty(parameterOrderDetailsDTO.getToken())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return orderService.getOrderDetailsById(orderId);
+        return orderService.getOrderDetailsById(parameterOrderDetailsDTO);
     }
 
 }

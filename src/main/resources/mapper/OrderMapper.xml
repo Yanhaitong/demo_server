@@ -47,8 +47,12 @@
 
 
     <sql id="Order_Column_List">
-        CASE WHEN sex_= 0 THEN CONCAT(left(name_, 1),"女士") ELSE CONCAT(left(name_, 1),"先生") END as name,
-        concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNO,
+
+        CASE status_
+        WHEN '0' THEN '0'
+        WHEN '1' THEN '1'
+        WHEN '2' THEN '1'
+        ELSE '0' END as status,
 
         CASE professional_type
         WHEN '0' THEN '上班族'
@@ -157,7 +161,7 @@
     <!--获取首页订单列表-->
     <select id="selectOrderListByMap" parameterType="com.yht.demo.entity.dto.ParameterOrderListDTO" resultType="com.yht.demo.entity.dto.ResultOrderDetailsDTO">
         SELECT
-        <include refid="Order_Column_List" />
+        <include refid="Order_Column_List"/>
         FROM
         order_
         <where>
@@ -201,6 +205,16 @@
     <!--获取订单详情-->
     <select id="getOrderDetailsById" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultOrderDetailsDTO">
         SELECT
+        <choose>
+            <when test="myOrderInt == 1">
+                CASE WHEN sex_= 0 THEN CONCAT(left(name_, 1),"女士") ELSE CONCAT(left(name_, 1),"先生") END as name,
+                concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNo,
+            </when>
+            <otherwise>
+                name_ END as name,
+                mobile_no as mobileNo,
+            </otherwise>
+        </choose>
         <include refid="Order_Column_List"/>
         FROM
         order_

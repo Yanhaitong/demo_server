@@ -27,16 +27,15 @@ public class RedisUtils {
     }
 
     /**
-     * 保存token
+     * 通过token保存用户ID
      *
-     * @param mobileNo
+     * @param userId
      * @param token
      */
-    public static void saveToken(String token, String mobileNo) {
-        log.info("调用saveToken:mobileNo--" + mobileNo + ",token--" + token);
+    public static void saveUserIdByToken(String token, String userId) {
+        log.info("saveUserIdByToken:userId--" + userId + ",token--" + token);
         try {
-            redisUtils.stringRedisTemplate.opsForValue().set(token, mobileNo);
-            log.info("token======================" + redisUtils.stringRedisTemplate.opsForValue().get(token));
+            redisUtils.stringRedisTemplate.opsForValue().set(token, userId);
         } catch (Exception e) {
             log.error(e.getMessage());
         }
@@ -57,13 +56,13 @@ public class RedisUtils {
     }
 
     /**
-     * 通过token获取手机号
+     * 通过token获取用户ID
      *
      * @param token
      * @return
      */
-    public static String getMobileByToken(String token) {
-        log.info("getMobileByToken:token--" + token);
+    public static String getUserIdByToken(String token) {
+        log.info("getUserIdByToken:token--" + token);
         try {
             return redisUtils.stringRedisTemplate.opsForValue().get(token);
         } catch (Exception e) {

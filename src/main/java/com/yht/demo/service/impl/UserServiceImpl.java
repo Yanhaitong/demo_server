@@ -68,10 +68,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
                 //return Result.error(500, "验证码错误！");
             }
 
-            //redis保存token对应的手机号(永久)
+            //redis保存token对应的UserId(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
-            RedisUtils.saveToken(token, parameterUserDTO.getMobileNo());
-
             //数据库操作
             User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), parameterUserDTO.getClientName());
             if (user == null) {
@@ -85,10 +83,16 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
                 userNew.setStatus(0);
                 userNew.setClientType(Integer.valueOf(parameterUserDTO.getClientType()));
                 userMapper.insert(userNew);
+
+                //redis保存token对应的UserId(永久)
+                RedisUtils.saveUserIdByToken(token, parameterUserDTO.getMobileNo());
             } else {
                 user.setClientVersion(parameterUserDTO.getVersion());
                 user.setUpdateTime(new Date());
                 userMapper.updateById(user);
+
+                //redis保存token对应的UserId(永久)
+                RedisUtils.saveUserIdByToken(token, String.valueOf(user.getId()));
             }
 
             Map<String, Object> map = new HashMap<>();
@@ -120,13 +124,13 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         Map<String, Object> parameterMap = new HashMap<>();
 
         //获取用户信息
-        String mobileNo = RedisUtils.getMobileByToken(parameterBaseDTO.getToken());
-        if (mobileNo == null){
-            return Result.error(500, MsgConstant.MOBILE_NO_IS_NULL);
+        String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
+        if (StringUtils.isEmpty(userId)){
+            return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
-        User userInfo = userMapper.getUserInfo(mobileNo, parameterBaseDTO.getClientName());
+        User userInfo = userMapper.selectById(userId);
         if (userInfo == null){
-            return Result.error(500, MsgConstant.USER_IS_NULL);
+            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
         }
         parameterMap.put("userInfo", userInfo);
 

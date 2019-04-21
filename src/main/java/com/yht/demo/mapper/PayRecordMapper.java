@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface PayRecordMapper extends BaseMapper<PayRecord> {
 
-    List<PayRecord> getPayRecordList(String mobileNo, String clientName);
+    List<PayRecord> getPayRecordList(String userId);
 }

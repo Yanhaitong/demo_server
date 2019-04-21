@@ -3,6 +3,7 @@ package com.yht.demo.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yht.demo.common.BaseServiceImpl;
+import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.entity.dto.ParameterAmaldarOrderListDTO;
@@ -18,6 +19,7 @@ import com.yht.demo.service.IOrderAllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -53,11 +55,11 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     public Result vieForOrder(ParameterVieForOrderDTO parameterVieForOrderDTO) {
         try {
             //查询用户信息
-            String mobileNo = RedisUtils.getMobileByToken(parameterVieForOrderDTO.getToken());
-            if (mobileNo == null) {
-                return Result.error(500, "登录信息已失效，请重新登录！");
+            String userId = RedisUtils.getUserIdByToken(parameterVieForOrderDTO.getToken());
+            if (userId == null) {
+                return Result.error(500, MsgConstant.USER_ID_IS_NULL);
             }
-            User userInfo = userMapper.getUserInfo(mobileNo, parameterVieForOrderDTO.getClientName());
+            User userInfo = userMapper.selectById(userId);
             if (userInfo == null) {
                 return Result.error(500, "抢单失败,用户信息错误！");
             }
@@ -156,13 +158,13 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
 
     @Override
     public Result amaldarOrderList(ParameterAmaldarOrderListDTO parameterAmaldarOrderListDTO) {
-        String mobileNo = RedisUtils.getMobileByToken(parameterAmaldarOrderListDTO.getToken());
-        if (mobileNo == null){
-            return Result.error(500, "登录信息已失效，请重新登录！");
+        String userId = RedisUtils.getUserIdByToken(parameterAmaldarOrderListDTO.getToken());
+        if (StringUtils.isEmpty(userId)){
+            return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
-        User userInfo = userMapper.getUserInfo(mobileNo, parameterAmaldarOrderListDTO.getClientName());
+        User userInfo = userMapper.selectById(userId);
         if (userInfo == null){
-            return Result.error(500, "抢单失败,用户信息错误！！");
+            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
         }
         Page page = new Page();
         page.setSize(parameterAmaldarOrderListDTO.getPageSize());

@@ -20,6 +20,6 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     IPage<ResultOrderDetailsDTO> selectOrderListByMap(@Param("page") Page page, @Param("parameterOrderListDTO") ParameterOrderListDTO parameterOrderListDTO);
 
-    ResultOrderDetailsDTO getOrderDetailsById(String orderId);
+    ResultOrderDetailsDTO getOrderDetailsById(@Param("orderId") String orderId, @Param("myOrderInt") Integer myOrderInt);
 
 }

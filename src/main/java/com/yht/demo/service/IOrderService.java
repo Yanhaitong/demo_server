@@ -1,6 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
+import com.yht.demo.entity.dto.ParameterOrderDetailsDTO;
 import com.yht.demo.entity.dto.ParameterOrderListDTO;
 
 /**
@@ -15,5 +16,5 @@ public interface IOrderService {
 
     Result getHomePageOrderList(ParameterOrderListDTO parameterOrderListDTO);
 
-    Result getOrderDetailsById(String orderId);
+    Result getOrderDetailsById(ParameterOrderDetailsDTO parameterOrderDetailsDTO);
 }

@@ -30,12 +30,12 @@ public class PayRecordServiceImpl extends BaseServiceImpl implements IPayRecordS
 
     @Override
     public Result getPayRecordList(ParameterBaseDTO parameterBaseDTO) {
-        String mobileNo = RedisUtils.getMobileByToken(parameterBaseDTO.getToken());
-        if (StringUtils.isEmpty(mobileNo)){
+        String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
+        if (StringUtils.isEmpty(userId)){
             return Result.error(500, MsgConstant.MOBILE_NO_IS_NULL);
         }
 
-        List<PayRecord> payRecordList = payRecordMapper.getPayRecordList(mobileNo, parameterBaseDTO.getClientName());
+        List<PayRecord> payRecordList = payRecordMapper.getPayRecordList(userId);
         return Result.success(payRecordList);
     }
 }

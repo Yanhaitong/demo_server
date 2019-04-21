@@ -25,12 +25,7 @@
         FROM
         par_record
         <where>
-            <if test="clientName != null">
-                and client_name = #{clientName}
-            </if>
-            <if test="mobileNo != null">
-                and mobile_no = #{mobileNo}
-            </if>
+            user_id = #{userId}
         </where>
     </select>
 
