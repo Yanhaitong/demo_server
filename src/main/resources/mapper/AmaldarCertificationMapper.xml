@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.AmaldarCertification">
-        <id column="id_" property="id" />
+        <id column="id" property="id" />
         <result column="user_id" property="userId" />
-        <result column="status_" property="status" />
-        <result column="name_" property="name" />
+        <result column="status" property="status" />
+        <result column="name" property="name" />
         <result column="scan_count_portrait" property="scanCountPortrait" />
         <result column="scan_count_emblem" property="scanCountEmblem" />
         <result column="id_card_address" property="idCardAddress" />

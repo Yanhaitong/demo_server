@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.PayRecord">
-        <id column="id_" property="id"/>
+        <id column="id" property="id"/>
         <result column="type" property="type"/>
         <result column="order_no" property="orderNo"/>
         <result column="user_id" property="userId"/>

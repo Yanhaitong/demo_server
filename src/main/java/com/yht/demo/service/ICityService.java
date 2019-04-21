@@ -1,7 +1,7 @@
 package com.yht.demo.service;
 
-import com.yht.demo.entity.model.City;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yht.demo.entity.model.City;
 
 /**
  * <p>
@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author yanht
- * @since 2019-04-20
+ * @since 2019-04-21
  */
 public interface ICityService extends IService<City> {
 

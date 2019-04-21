@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.MemberLevel">
-        <id column="id_" property="id" />
+        <id column="id" property="id" />
         <result column="vie_for_count" property="vieForCount" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />

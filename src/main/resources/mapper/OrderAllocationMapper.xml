@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.OrderAllocation">
-        <id column="id_" property="id" />
+        <id column="id" property="id" />
         <result column="order_id" property="orderId" />
         <result column="user_id" property="userId" />
         <result column="client_name" property="clientName" />
@@ -17,7 +17,7 @@
     </resultMap>
 
     <sql id="Order_Column_List">
-        o.name_ as name, o.age_ as age, o.loan_amount as loanAmount,
+        o.name as name, o.age as age, o.loan_amount as loanAmount,
         o.loan_purpose as loanPurpose, o.current_city as currentCity,
         o.professional_type as professionalType, o.level_education as levelEducation,
         o.family_city as familyCity, o.income_amount as incomeAmount, o.income_type as incomeType,

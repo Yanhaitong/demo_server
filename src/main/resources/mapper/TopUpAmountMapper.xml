@@ -4,11 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.TopUpAmount">
-        <id column="id_" property="id"/>
+        <id column="id" property="id"/>
         <result column="client_name" property="clientName"/>
-        <result column="mili_" property="mili"/>
-        <result column="price_" property="price"/>
-        <result column="sort_" property="sort"/>
+        <result column="mili" property="mili"/>
+        <result column="price" property="price"/>
+        <result column="sort" property="sort"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="del_flag" property="delFlag"/>
@@ -16,9 +16,9 @@
 
     <select id="getTopUpAmount" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultTopUpAmountDTO">
         SELECT
-        price_ as price,
-        mili_ as mili,
-        sort_ as sort
+        price,
+        mili,
+        sort
         FROM
         top_up_amount
         <where>

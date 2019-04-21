@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.Order">
-        <id column="id_" property="id"/>
-        <result column="status_" property="status"/>
+        <id column="id" property="id"/>
+        <result column="status" property="status"/>
         <result column="mobile_no" property="mobileNo"/>
         <result column="apply_time" property="applyTime"/>
         <result column="vie_for_time" property="vieForTime"/>
-        <result column="name_" property="name"/>
-        <result column="age_" property="age"/>
-        <result column="sex_" property="sex"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
         <result column="loan_amount" property="loanAmount"/>
         <result column="loan_period" property="loanPeriod"/>
         <result column="loan_purpose" property="loanPurpose"/>
@@ -48,7 +48,7 @@
 
     <sql id="Order_Column_List">
 
-        CASE status_
+        CASE status
         WHEN '0' THEN '0'
         WHEN '1' THEN '1'
         WHEN '2' THEN '1'
@@ -154,7 +154,7 @@
         WHEN '4' THEN '60万以上'
         ELSE '未知' END as insuranceValues,
 
-        age_ as age, loan_amount as loanAmount,loan_purpose as loanPurpose, current_city as currentCity,
+        age as age, loan_amount as loanAmount, loan_purpose as loanPurpose, current_city as currentCity,
         level_education as levelEducation,family_city as familyCity, income_amount as incomeAmount
     </sql>
 
@@ -166,7 +166,7 @@
         order_
         <where>
             <if test="parameterOrderListDTO.canRobOrder = 1">
-                and status_ = #{parameterOrderListDTO.canRobOrder}
+                and status = #{parameterOrderListDTO.canRobOrder}
             </if>
             <if test="parameterOrderListDTO.loanAmountStart != null ">
                 and loan_amount &gt;= #{parameterOrderListDTO.loanAmountStart}
@@ -181,13 +181,13 @@
                 and loan_period &lt;= #{parameterOrderListDTO.loanPeriodEnd}
             </if>
             <if test="parameterOrderListDTO.ageStart != null ">
-                and age_ &gt;= #{parameterOrderListDTO.ageStart}
+                and age &gt;= #{parameterOrderListDTO.ageStart}
             </if>
             <if test="parameterOrderListDTO.ageEnd != null">
-                and age_ &lt;= #{parameterOrderListDTO.ageEnd}
+                and age &lt;= #{parameterOrderListDTO.ageEnd}
             </if>
             <if test="parameterOrderListDTO.incomeAmountStart != null ">
-                and age_ &gt;= #{parameterOrderListDTO.incomeAmountStart}
+                and income_amount &gt;= #{parameterOrderListDTO.incomeAmountStart}
             </if>
             <if test="parameterOrderListDTO.incomeAmountEnd != null">
                 and income_amount &lt;= #{parameterOrderListDTO.incomeAmountEnd}
@@ -207,11 +207,11 @@
         SELECT
         <choose>
             <when test="myOrderInt == 1">
-                CASE WHEN sex_= 0 THEN CONCAT(left(name_, 1),"女士") ELSE CONCAT(left(name_, 1),"先生") END as name,
+                CASE WHEN sex_= 0 THEN CONCAT(left(name, 1),"女士") ELSE CONCAT(left(name, 1),"先生") END as name,
                 concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNo,
             </when>
             <otherwise>
-                name_ END as name,
+                name,
                 mobile_no as mobileNo,
             </otherwise>
         </choose>
@@ -219,7 +219,7 @@
         FROM
         order_
         where
-        id_ = #{orderId}
+        id = #{orderId}
     </select>
 
 </mapper>

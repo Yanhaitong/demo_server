@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.NavigationTab">
-        <id column="id_" property="id"/>
+        <id column="id" property="id"/>
         <result column="client_name" property="clientName"/>
         <result column="is_valid" property="isValid"/>
         <result column="navigator_index" property="navigatorIndex"/>

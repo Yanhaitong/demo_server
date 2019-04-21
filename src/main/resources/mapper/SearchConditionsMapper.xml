@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.SearchConditions">
-        <id column="id_" property="id"/>
+        <id column="id" property="id"/>
         <result column="search_type" property="searchType"/>
         <result column="is_valid" property="isValid"/>
-        <result column="name_" property="name"/>
+        <result column="name" property="name"/>
         <result column="client_name" property="clientName"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
@@ -20,7 +20,7 @@
         WHEN '0' THEN '收入形式'
         WHEN '1' THEN '客户资质'
         ELSE '未知' END as searchType,
-        name_ as name
+        name
         FROM
         search_conditions
         <where>

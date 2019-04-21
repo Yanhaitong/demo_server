@@ -4,13 +4,13 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.City">
-        <id column="id_" property="id" />
-        <result column="name_" property="name" />
+        <id column="id" property="id" />
+        <result column="name" property="name" />
     </resultMap>
 
     <select id="selectAllCityList" resultType="java.lang.String">
         SELECT
-            name_ as name
+            name
         FROM
             city_
     </select>

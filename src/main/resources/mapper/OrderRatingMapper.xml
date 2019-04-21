@@ -4,9 +4,9 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.OrderRating">
-        <id column="id_" property="id"/>
-        <result column="rating_" property="rating"/>
-        <result column="price_" property="price"/>
+        <id column="id" property="id"/>
+        <result column="rating" property="rating"/>
+        <result column="price" property="price"/>
     </resultMap>
 
     <select id="selectByRating" parameterType="java.lang.String">

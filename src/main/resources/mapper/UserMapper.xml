@@ -4,16 +4,16 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.User">
-        <id column="id_" property="id" />
+        <id column="id" property="id" />
         <result column="role_id" property="roleId" />
-        <result column="name_" property="name" />
+        <result column="name" property="name" />
         <result column="mobile_no" property="mobileNo" />
-        <result column="password_" property="password" />
-        <result column="status_" property="status" />
-        <result column="sex_" property="sex" />
-        <result column="company_" property="company" />
+        <result column="password" property="password" />
+        <result column="status" property="status" />
+        <result column="sex" property="sex" />
+        <result column="company" property="company" />
         <result column="icon_url" property="iconUrl" />
-        <result column="balance_" property="balance" />
+        <result column="balance" property="balance" />
         <result column="client_name" property="clientName" />
         <result column="client_type" property="clientType" />
         <result column="client_version" property="clientVersion" />

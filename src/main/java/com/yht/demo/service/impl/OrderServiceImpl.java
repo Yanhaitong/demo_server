@@ -13,7 +13,6 @@ import com.yht.demo.entity.model.Order;
 import com.yht.demo.entity.model.OrderAllocation;
 import com.yht.demo.mapper.OrderAllocationMapper;
 import com.yht.demo.mapper.OrderMapper;
-import com.yht.demo.mapper.SearchConditionsMapper;
 import com.yht.demo.mapper.UserMapper;
 import com.yht.demo.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
 
     @Override
     public Result getOrderDetailsById(ParameterOrderDetailsDTO parameterOrderDetailsDTO) {
+
         Integer myOrderInt = 0;
         //查询此订单是否是当前用户已抢订单
         Order order = orderMapper.selectById(parameterOrderDetailsDTO.getOrderId());

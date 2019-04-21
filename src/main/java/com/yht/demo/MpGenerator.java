@@ -19,8 +19,8 @@ public class MpGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");//生成文件的输出目录
         gc.setAuthor("yanht");//开发人员
         gc.setOpen(true);//是否打开输出目录
-        gc.setServiceName("I%sService");//service 命名方式
-        gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
+        //gc.setServiceName("I%sService");//service 命名方式
+        //gc.setServiceImplName("%sServiceImpl");//service impl 命名方式
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         gc.setMapperName("%sMapper");
         gc.setXmlName("%sMapper");
@@ -46,9 +46,9 @@ public class MpGenerator {
         pc.setParent("com.yht.demo");//父包名。// 自定义包路径  如果为空，将下面子包名必须写全部， 否则就只需写子包名
         pc.setXml("mapper");
         pc.setEntity("entity");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
-        pc.setController("controller");//设置控制器包名
+        //pc.setService("service");
+        //pc.setServiceImpl("service.impl");
+        //pc.setController("controller");//设置控制器包名
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -77,8 +77,8 @@ public class MpGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
         //  strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");//自定义继承的Entity类全称，带包名
         strategy.setEntityLombokModel(true);//【实体】是否为lombok模型（默认 false）
-        strategy.setRestControllerStyle(true);//生成 @RestController 控制器
-        strategy.setSuperControllerClass("com.yht.demo.common.BaseController");//自定义继承的Controller类全称，带包名
+        //strategy.setRestControllerStyle(true);//生成 @RestController 控制器
+        //strategy.setSuperControllerClass("com.yht.demo.common.BaseController");//自定义继承的Controller类全称，带包名
         strategy.setInclude("city_");//需要包含的表名，允许正则表达式
         //strategy.setSuperEntityColumns("id");//自定义基础的Entity类，公共字段
         strategy.setControllerMappingHyphenStyle(true);//驼峰转连字符

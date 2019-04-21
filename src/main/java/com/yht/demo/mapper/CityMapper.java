@@ -1,9 +1,8 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.model.City;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import java.util.List;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yht.demo.entity.model.City;
 
 /**
  * <p>
@@ -11,9 +10,8 @@ import java.util.List;
  * </p>
  *
  * @author yanht
- * @since 2019-04-20
+ * @since 2019-04-21
  */
 public interface CityMapper extends BaseMapper<City> {
 
-    List<String> selectAllCityList();
 }

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,7 +30,7 @@ public class AmaldarCertification extends Model<AmaldarCertification> {
     /**
      * 主键
      */
-    @TableId(value = "id_", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -112,13 +111,11 @@ public class AmaldarCertification extends Model<AmaldarCertification> {
     /**
      * idCard的人脸置信度
      */
-    @TableField("confidence_idCard")
     private String confidenceIdcard;
 
     /**
      * idCard的置信度阈值
      */
-    @TableField("thresholds_idCard")
     private String thresholdsIdcard;
 
     /**

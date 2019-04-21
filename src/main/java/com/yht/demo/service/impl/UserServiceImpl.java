@@ -135,8 +135,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         parameterMap.put("userInfo", userInfo);
 
         //城市列表
-        List<String> cityList = cityMapper.selectAllCityList();
-        parameterMap.put("cityList", cityList);
+        //List<String> cityList = cityMapper.selectAllCityList();
+        //parameterMap.put("cityList", cityList);
 
         //获取首页导航栏信息
         List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterBaseDTO.getClientName());
