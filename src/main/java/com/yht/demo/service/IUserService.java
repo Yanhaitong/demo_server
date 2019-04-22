@@ -4,8 +4,6 @@ import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterAPPInfoDTO;
 import com.yht.demo.dto.ParameterSendVerifyCode;
 import com.yht.demo.dto.ParameterUserDTO;
-import com.yht.demo.entity.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
