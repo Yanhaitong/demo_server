@@ -16,14 +16,17 @@ public class ParameterBase {
     @ApiModelProperty(name = "clientId", value = "客户端Id", required = true)
     private String clientId;
 
-    @ApiModelProperty(name = "deviceIdentification", value = "设备唯一标示", required = false)
-    private String deviceIdentification;
+    @ApiModelProperty(name = "phoneIdentification", value = "手机唯一标示", required = false)
+    private String phoneIdentification;
 
-    @ApiModelProperty(name = "deviceModel", value = "设备型号", required = false)
-    private String deviceModel;
+    @ApiModelProperty(name = "phoneModel", value = "手机型号", required = false)
+    private String phoneModel;
 
-    @ApiModelProperty(name = "version", value = "APP版本号", required = false)
-    private String version;
+    @ApiModelProperty(name = "phoneVersion", value = "手机系统版本", required = false)
+    private String phoneVersion;
+
+    @ApiModelProperty(name = "appVersion", value = "APP版本号", required = false)
+    private String appVersion;
 
     @ApiModelProperty(name = "ip", value = "IP地址", required = false)
     private String ip;

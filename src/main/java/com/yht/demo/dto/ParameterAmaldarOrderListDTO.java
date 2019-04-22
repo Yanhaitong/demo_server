@@ -5,10 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * <p>
- * 订单表
- * </p>
- *
  * @author yanht
  * @since 2019-04-19
  */
