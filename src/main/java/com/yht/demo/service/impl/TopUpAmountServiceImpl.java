@@ -1,12 +1,13 @@
 package com.yht.demo.service.impl;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
+import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ResultTopUpAmountDTO;
-import com.yht.demo.entity.model.TopUpAmount;
-import com.yht.demo.mapper.SystemConfigMapper;
+import com.yht.demo.dto.ResultTopUpAmountDTO;
+import com.yht.demo.entity.TopUpAmount;
+import com.yht.demo.mapper.SmsConfigMapper;
 import com.yht.demo.mapper.TopUpAmountMapper;
 import com.yht.demo.service.ITopUpAmountService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +20,17 @@ import java.util.Map;
  * 充值金额表 服务实现类
  * </p>
  *
- * @author yanht
- * @since 2019-04-20
+ * @author generator
+ * @since 2019-04-22
  */
 @Service
-public class TopUpAmountServiceImpl extends Serializers.Base implements ITopUpAmountService {
+public class TopUpAmountServiceImpl extends BaseServiceImpl implements ITopUpAmountService {
 
     @Autowired
     private TopUpAmountMapper topUpAmountMapper;
 
     @Autowired
-    private SystemConfigMapper systemConfigMapper;
+    private SmsConfigMapper smsConfigMapper;
 
     @Override
     public Result topUpAmountInfo(String clientName) {
@@ -38,13 +39,12 @@ public class TopUpAmountServiceImpl extends Serializers.Base implements ITopUpAm
         List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(clientName);
         parameterMap.put("topUpAmountList", topUpAmountDTOList);
 
-        String alipay = systemConfigMapper.getValueByKey("alipay");
+        String alipay = smsConfigMapper.getValueByKey("alipay");
         parameterMap.put("alipay", alipay);
 
-        String wxpay = systemConfigMapper.getValueByKey("wxpay");
+        String wxpay = smsConfigMapper.getValueByKey("wxpay");
         parameterMap.put("wxpay", wxpay);
 
         return Result.success(parameterMap);
     }
-
 }

@@ -1,14 +1,12 @@
 package com.yht.demo.controller;
 
 
-import com.yht.demo.common.BaseController;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ParameterAPPInfoDTO;
-import com.yht.demo.entity.dto.ParameterUserDTO;
-import com.yht.demo.entity.dto.ResultAPPInfoDTO;
+import com.yht.demo.dto.ParameterAPPInfoDTO;
+import com.yht.demo.dto.ParameterUserDTO;
+import com.yht.demo.dto.ResultAPPInfoDTO;
 import com.yht.demo.service.IUserService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -19,13 +17,12 @@ import org.springframework.web.bind.annotation.*;
  * APP用户表 前端控制器
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
-@Api("用户管理")
 @RestController
 @RequestMapping("/user")
-public class UserController extends BaseController {
+public class UserController {
 
     @Autowired
     private IUserService userService;

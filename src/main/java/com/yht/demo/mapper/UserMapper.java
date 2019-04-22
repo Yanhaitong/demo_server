@@ -1,6 +1,6 @@
 package com.yht.demo.mapper;
 
-import com.yht.demo.entity.model.User;
+import com.yht.demo.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Param;
  * APP用户表 Mapper 接口
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
 public interface UserMapper extends BaseMapper<User> {
 

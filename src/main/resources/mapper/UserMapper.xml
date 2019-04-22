@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.User">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.User">
         <id column="id" property="id" />
         <result column="role_id" property="roleId" />
         <result column="name" property="name" />
@@ -27,7 +27,7 @@
         SELECT
             *
         FROM
-            user_
+            t_user
         WHERE
             mobile_no = #{mobileNo}
             and client_name = #{clientName}

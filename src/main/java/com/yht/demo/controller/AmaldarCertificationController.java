@@ -1,31 +1,23 @@
 package com.yht.demo.controller;
 
 
-import com.yht.demo.common.Result;
 import com.yht.demo.service.IAmaldarCertificationService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yht.demo.common.BaseController;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
  * 经理face++认证表 前端控制器
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
-@Api("身份认证信息管理")
 @RestController
 @RequestMapping("/amaldarCertification")
-public class AmaldarCertificationController extends BaseController {
+public class AmaldarCertificationController {
 
     @Autowired
     private IAmaldarCertificationService amaldarCertificationService;

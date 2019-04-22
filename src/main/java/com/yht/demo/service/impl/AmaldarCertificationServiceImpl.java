@@ -7,7 +7,10 @@ import com.yht.demo.common.Result;
 import com.yht.demo.common.face.constant.FacePlusContst;
 import com.yht.demo.common.face.util.FacePlusUtil;
 import com.yht.demo.common.qiniu.QiniuBussiness;
+import com.yht.demo.entity.AmaldarCertification;
+import com.yht.demo.mapper.AmaldarCertificationMapper;
 import com.yht.demo.service.IAmaldarCertificationService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,8 +23,8 @@ import java.util.Map;
  * 经理face++认证表 服务实现类
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
 @Service
 public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements IAmaldarCertificationService {
@@ -197,5 +200,4 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
 
         return id_card_portrait_image;
     }
-
 }

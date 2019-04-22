@@ -6,13 +6,15 @@ import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
-import com.yht.demo.entity.dto.ParameterAPPInfoDTO;
-import com.yht.demo.entity.dto.ResultNavigationTabDTO;
-import com.yht.demo.entity.dto.ResultSearchConditionsDTO;
-import com.yht.demo.entity.dto.ParameterUserDTO;
-import com.yht.demo.entity.model.User;
+import com.yht.demo.dto.ParameterAPPInfoDTO;
+import com.yht.demo.dto.ParameterUserDTO;
+import com.yht.demo.dto.ResultNavigationTabDTO;
+import com.yht.demo.dto.ResultSearchConditionsDTO;
+import com.yht.demo.entity.SmsConfig;
+import com.yht.demo.entity.User;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IUserService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -24,8 +26,8 @@ import java.util.*;
  * APP用户表 服务实现类
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
 @Service
 public class UserServiceImpl extends BaseServiceImpl implements IUserService {
@@ -33,7 +35,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private SystemConfigMapper systemConfigMapper;
+    private SmsConfigMapper smsConfigMapper;
     @Autowired
     private NavigationTabMapper navigationTabMapper;
     @Autowired
@@ -44,7 +46,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Override
     public Result sendVerificationCode(String mobileNo, String clientName) {
         try {
-            String smsContent = systemConfigMapper.getValueByKey("SMS" + clientName);
+            String smsContent = smsConfigMapper.getValueByKey("SMS" + clientName);
             SMSUtils.sendVerifyLoginSMS(mobileNo, smsContent);
             return Result.success("发送成功");
         } catch (Exception e) {

@@ -3,29 +3,29 @@
 <mapper namespace="com.yht.demo.mapper.PayRecordMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.PayRecord">
-        <id column="id" property="id"/>
-        <result column="type" property="type"/>
-        <result column="order_no" property="orderNo"/>
-        <result column="user_id" property="userId"/>
-        <result column="mobile_no" property="mobileNo"/>
-        <result column="money" property="money"/>
-        <result column="status" property="status"/>
-        <result column="client_name" property="clientName"/>
-        <result column="client_type" property="clientType"/>
-        <result column="total_money" property="totalMoney"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag"/>
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.PayRecord">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="order_no" property="orderNo" />
+        <result column="user_id" property="userId" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="money" property="money" />
+        <result column="status" property="status" />
+        <result column="client_name" property="clientName" />
+        <result column="client_type" property="clientType" />
+        <result column="total_money" property="totalMoney" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
     </resultMap>
 
-    <select id="getPayRecordList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultPayRecordDTO">
+    <select id="getPayRecordList" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultPayRecordDTO">
         SELECT
         type,
         money,
         create_time as createTime
         FROM
-        pay_record
+        t_pay_record
         <where>
             user_id = #{userId}
         </where>

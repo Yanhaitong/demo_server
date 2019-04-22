@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.AmaldarCertificationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.AmaldarCertification">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.AmaldarCertification">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="status" property="status" />

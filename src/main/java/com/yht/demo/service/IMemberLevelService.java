@@ -1,6 +1,6 @@
 package com.yht.demo.service;
 
-import com.yht.demo.entity.model.MemberLevel;
+import com.yht.demo.entity.MemberLevel;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *  服务类
  * </p>
  *
- * @author yanht
- * @since 2019-04-20
+ * @author generator
+ * @since 2019-04-22
  */
-public interface IMemberLevelService extends IService<MemberLevel> {
+public interface IMemberLevelService {
 
 }

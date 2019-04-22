@@ -6,16 +6,13 @@ import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ParameterAmaldarOrderListDTO;
-import com.yht.demo.entity.dto.ParameterVieForOrderDTO;
-import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
-import com.yht.demo.entity.model.MemberLevel;
-import com.yht.demo.entity.model.OrderRating;
-import com.yht.demo.entity.model.Order;
-import com.yht.demo.entity.model.OrderAllocation;
-import com.yht.demo.entity.model.User;
+import com.yht.demo.dto.ParameterAmaldarOrderListDTO;
+import com.yht.demo.dto.ParameterVieForOrderDTO;
+import com.yht.demo.dto.ResultOrderDetailsDTO;
+import com.yht.demo.entity.*;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IOrderAllocationService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.stereotype.Service;
@@ -30,8 +27,8 @@ import java.util.Map;
  * 抢单记录表 服务实现类
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
 @Service
 public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrderAllocationService {
@@ -49,7 +46,7 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     @Autowired
     private OrderRatingMapper orderRatingMapper;
     @Autowired
-    private SystemConfigMapper systemConfigMapper;
+    private SmsConfigMapper smsConfigMapper;
 
     @Override
     public Result vieForOrder(ParameterVieForOrderDTO parameterVieForOrderDTO) {
@@ -133,7 +130,7 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
 
             try {
                 //发送短信
-                String smsContent = systemConfigMapper.getValueByKey("QIANGDANSMS" + userInfo.getClientName());
+                String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + userInfo.getClientName());
                 /*if (StringUtils.isNotBlank(smsContent)) {
                     smsContent = smsContent.replace("{a}", order.getName());
                     smsContent = smsContent.replace("{b}", userInfo.getCompany());

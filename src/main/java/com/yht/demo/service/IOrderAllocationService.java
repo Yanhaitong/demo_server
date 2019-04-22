@@ -1,16 +1,18 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ParameterAmaldarOrderListDTO;
-import com.yht.demo.entity.dto.ParameterVieForOrderDTO;
+import com.yht.demo.dto.ParameterAmaldarOrderListDTO;
+import com.yht.demo.dto.ParameterVieForOrderDTO;
+import com.yht.demo.entity.OrderAllocation;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
  * 抢单记录表 服务类
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
 public interface IOrderAllocationService {
 

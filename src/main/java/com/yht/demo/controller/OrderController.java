@@ -1,29 +1,32 @@
 package com.yht.demo.controller;
 
 
-import com.yht.demo.common.BaseController;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.*;
+import com.yht.demo.dto.ParameterOrderDetailsDTO;
+import com.yht.demo.dto.ParameterOrderListDTO;
+import com.yht.demo.dto.ResultOrderDetailsDTO;
 import com.yht.demo.service.IOrderService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
  * 订单表 前端控制器
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
-@Api("订单管理")
 @RestController
 @RequestMapping("/order")
-public class OrderController extends BaseController {
+public class OrderController {
 
     @Autowired
     private IOrderService orderService;
@@ -45,6 +48,5 @@ public class OrderController extends BaseController {
         }
         return orderService.getOrderDetailsById(parameterOrderDetailsDTO);
     }
-
 }
 

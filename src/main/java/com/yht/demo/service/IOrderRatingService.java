@@ -1,6 +1,6 @@
 package com.yht.demo.service;
 
-import com.yht.demo.entity.model.OrderRating;
+import com.yht.demo.entity.OrderRating;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 订单评级价格表 服务类
  * </p>
  *
- * @author yanht
- * @since 2019-04-20
+ * @author generator
+ * @since 2019-04-22
  */
-public interface IOrderRatingService extends IService<OrderRating> {
+public interface IOrderRatingService {
 
 }

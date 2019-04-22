@@ -1,6 +1,6 @@
 package com.yht.demo.service;
 
-import com.yht.demo.entity.model.SearchConditions;
+import com.yht.demo.entity.SearchConditions;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * app搜索条件 服务类
  * </p>
  *
- * @author yanht
- * @since 2019-04-20
+ * @author generator
+ * @since 2019-04-22
  */
-public interface ISearchConditionsService extends IService<SearchConditions> {
+public interface ISearchConditionsService {
 
 }

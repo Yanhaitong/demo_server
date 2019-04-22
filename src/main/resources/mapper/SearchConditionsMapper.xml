@@ -3,17 +3,19 @@
 <mapper namespace="com.yht.demo.mapper.SearchConditionsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.SearchConditions">
-        <id column="id" property="id"/>
-        <result column="search_type" property="searchType"/>
-        <result column="is_valid" property="isValid"/>
-        <result column="name" property="name"/>
-        <result column="client_name" property="clientName"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag"/>
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.SearchConditions">
+        <id column="id" property="id" />
+        <result column="select_type" property="selectType" />
+        <result column="search_type" property="searchType" />
+        <result column="is_valid" property="isValid" />
+        <result column="name" property="name" />
+        <result column="client_name" property="clientName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
     </resultMap>
-    <select id="getSearchConditionsList" parameterType="java.lang.String" resultType="com.yht.demo.entity.dto.ResultSearchConditionsDTO">
+
+    <select id="getSearchConditionsList" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultSearchConditionsDTO">
         SELECT
         select_type as selectType,
         CASE search_type
@@ -22,7 +24,7 @@
         ELSE '未知' END as searchType,
         name
         FROM
-        search_conditions
+        t_search_conditions
         <where>
             is_valid = 1
             <if test="clientName != null">
@@ -30,5 +32,4 @@
             </if>
         </where>
     </select>
-
 </mapper>

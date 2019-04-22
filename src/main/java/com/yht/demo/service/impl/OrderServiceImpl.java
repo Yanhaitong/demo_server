@@ -6,15 +6,16 @@ import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.dto.ParameterOrderDetailsDTO;
-import com.yht.demo.entity.dto.ParameterOrderListDTO;
-import com.yht.demo.entity.dto.ResultOrderDetailsDTO;
-import com.yht.demo.entity.model.Order;
-import com.yht.demo.entity.model.OrderAllocation;
+import com.yht.demo.dto.ParameterOrderDetailsDTO;
+import com.yht.demo.dto.ParameterOrderListDTO;
+import com.yht.demo.dto.ResultOrderDetailsDTO;
+import com.yht.demo.entity.Order;
+import com.yht.demo.entity.OrderAllocation;
 import com.yht.demo.mapper.OrderAllocationMapper;
 import com.yht.demo.mapper.OrderMapper;
 import com.yht.demo.mapper.UserMapper;
 import com.yht.demo.service.IOrderService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -28,8 +29,8 @@ import java.util.Map;
  * 订单表 服务实现类
  * </p>
  *
- * @author yanht
- * @since 2019-04-19
+ * @author generator
+ * @since 2019-04-22
  */
 @Service
 public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
@@ -73,5 +74,4 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         ResultOrderDetailsDTO resultOrderDetailsDTO = orderMapper.getOrderDetailsById(parameterOrderDetailsDTO.getOrderId(), myOrderInt);
         return Result.success(resultOrderDetailsDTO);
     }
-
 }

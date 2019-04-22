@@ -3,17 +3,17 @@
 <mapper namespace="com.yht.demo.mapper.OrderRatingMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.OrderRating">
-        <id column="id" property="id"/>
-        <result column="rating" property="rating"/>
-        <result column="price" property="price"/>
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.OrderRating">
+        <id column="id" property="id" />
+        <result column="rating" property="rating" />
+        <result column="price" property="price" />
     </resultMap>
 
     <select id="selectByRating" parameterType="java.lang.String">
         SELECT
         *
         FROM
-        order_rating
+        t_order_rating
         <where>
             <if test="orderRating != null">
                 rating = #{orderRating}

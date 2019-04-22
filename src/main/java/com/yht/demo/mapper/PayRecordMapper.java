@@ -3,8 +3,8 @@ package com.yht.demo.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yht.demo.entity.dto.ResultPayRecordDTO;
-import com.yht.demo.entity.model.PayRecord;
+import com.yht.demo.dto.ResultPayRecordDTO;
+import com.yht.demo.entity.PayRecord;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -12,8 +12,8 @@ import org.apache.ibatis.annotations.Param;
  * 充值记录表 Mapper 接口
  * </p>
  *
- * @author yanht
- * @since 2019-04-20
+ * @author generator
+ * @since 2019-04-22
  */
 public interface PayRecordMapper extends BaseMapper<PayRecord> {
 

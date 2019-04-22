@@ -3,7 +3,7 @@
 <mapper namespace="com.yht.demo.mapper.CityMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yht.demo.entity.model.City">
+    <resultMap id="BaseResultMap" type="com.yht.demo.entity.City">
         <id column="id" property="id" />
         <result column="name" property="name" />
     </resultMap>
@@ -12,6 +12,6 @@
         SELECT
             name
         FROM
-            city_
+            t_city
     </select>
 </mapper>
