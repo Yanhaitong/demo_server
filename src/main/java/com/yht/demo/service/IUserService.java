@@ -2,6 +2,7 @@ package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterAPPInfoDTO;
+import com.yht.demo.dto.ParameterSendVerifyCode;
 import com.yht.demo.dto.ParameterUserDTO;
 import com.yht.demo.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -16,7 +17,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService {
 
-    Result sendVerificationCode(String mobileNo, String clientName);
+    Result sendVerificationCode(ParameterSendVerifyCode parameterSendVerifyCode);
 
     Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO);
 

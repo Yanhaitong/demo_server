@@ -4,6 +4,7 @@ package com.yht.demo.controller;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterAPPInfoDTO;
+import com.yht.demo.dto.ParameterSendVerifyCode;
 import com.yht.demo.dto.ParameterUserDTO;
 import com.yht.demo.dto.ResultAPPInfoDTO;
 import com.yht.demo.service.IUserService;
@@ -46,11 +47,11 @@ public class UserController {
 
     @PostMapping("/sendVerifyCode")
     @ApiOperation(value = "发送验证码")
-    public Result sendVerificationCode(@RequestParam String mobileNo, @RequestParam String clientName) {
-        if (StringUtils.isEmpty(mobileNo) || StringUtils.isEmpty(clientName)) {
+    public Result sendVerificationCode(@RequestBody ParameterSendVerifyCode parameterSendVerifyCode) {
+        if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo()) || StringUtils.isEmpty(parameterSendVerifyCode.getClientName())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return userService.sendVerificationCode(mobileNo, clientName);
+        return userService.sendVerificationCode(parameterSendVerifyCode);
     }
 
     @PostMapping("/loginOrRegister")

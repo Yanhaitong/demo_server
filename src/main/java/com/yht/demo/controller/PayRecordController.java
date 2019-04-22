@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
  * @author generator
  * @since 2019-04-22
  */
-@Api("订单支付管理")
+
+@Api("支付管理")
 @RestController
 @RequestMapping("/payRecord")
 public class PayRecordController {

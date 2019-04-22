@@ -6,15 +6,10 @@ import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
-import com.yht.demo.dto.ParameterAPPInfoDTO;
-import com.yht.demo.dto.ParameterUserDTO;
-import com.yht.demo.dto.ResultNavigationTabDTO;
-import com.yht.demo.dto.ResultSearchConditionsDTO;
-import com.yht.demo.entity.SmsConfig;
+import com.yht.demo.dto.*;
 import com.yht.demo.entity.User;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -44,10 +39,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     private CityMapper cityMapper;
 
     @Override
-    public Result sendVerificationCode(String mobileNo, String clientName) {
+    public Result sendVerificationCode(ParameterSendVerifyCode parameterSendVerifyCode) {
         try {
-            String smsContent = smsConfigMapper.getValueByKey("SMS" + clientName);
-            SMSUtils.sendVerifyLoginSMS(mobileNo, smsContent);
+            String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientName());
+            SMSUtils.sendVerifyLoginSMS(parameterSendVerifyCode.getMobileNo(), smsContent);
             return Result.success("发送成功");
         } catch (Exception e) {
             log.error("sendVerificationCode===========" + e.getMessage());
