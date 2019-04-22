@@ -7,6 +7,7 @@ import com.yht.demo.dto.ParameterOrderDetailsDTO;
 import com.yht.demo.dto.ParameterOrderListDTO;
 import com.yht.demo.dto.ResultOrderDetailsDTO;
 import com.yht.demo.service.IOrderService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author generator
  * @since 2019-04-22
  */
+@Api("订单管理")
 @RestController
 @RequestMapping("/order")
 public class OrderController {

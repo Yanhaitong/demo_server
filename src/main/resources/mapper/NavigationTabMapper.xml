@@ -20,6 +20,7 @@
     <select id="getNavigationTabList" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultNavigationTabDTO">
         SELECT
         client_name as clientName,
+        id as navigatorId,
         navigator_index as navigatorIndex,
         navigator_name as navigatorName,
         navigator_tag_name as navigatorTagName,

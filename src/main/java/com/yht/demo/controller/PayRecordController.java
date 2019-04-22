@@ -6,6 +6,7 @@ import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterPayRecordDTO;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * @author generator
  * @since 2019-04-22
  */
+@Api("订单支付管理")
 @RestController
 @RequestMapping("/payRecord")
 public class PayRecordController {

@@ -8,6 +8,9 @@ import lombok.Data;
 @Data
 public class ResultNavigationTabDTO {
 
+    @ApiModelProperty(name = "navigatorId", value = "导航ID", required = true)
+    private String navigatorId;
+
     @ApiModelProperty(name = "navigatorIndex", value = "导航序号", required = true)
     private String navigatorIndex;
 

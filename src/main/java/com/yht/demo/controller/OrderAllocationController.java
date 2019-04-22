@@ -6,6 +6,7 @@ import com.yht.demo.dto.ParameterAmaldarOrderListDTO;
 import com.yht.demo.dto.ParameterVieForOrderDTO;
 import com.yht.demo.dto.ResultOrderDetailsDTO;
 import com.yht.demo.service.IOrderAllocationService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author generator
  * @since 2019-04-22
  */
+@Api("已抢订单管理")
 @RestController
 @RequestMapping("/orderAllocation")
 public class OrderAllocationController {
