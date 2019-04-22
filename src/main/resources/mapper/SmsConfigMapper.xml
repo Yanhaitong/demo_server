@@ -13,11 +13,11 @@
 
     <select id="getValueByKey" resultType="java.lang.String" parameterType="java.lang.String">
         SELECT
-          value
+          sms_value
         FROM
           t_sms_config
         WHERE
-          key = #{key}
+          sms_key = #{key}
           limit 1
     </select>
 

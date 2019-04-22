@@ -18,9 +18,6 @@ import java.util.List;
 @Data
 public class ResultAPPInfoDTO {
 
-    @ApiModelProperty(name = "userInfo", value = "用户信息", required = true)
-    private ResultUserInfoDTO userInfo;
-
     @ApiModelProperty(name = "cityList", value = "城市列表", required = true)
     private List<String> cityList;
 

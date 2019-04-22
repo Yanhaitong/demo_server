@@ -28,7 +28,10 @@ public class MemberLevel extends Model<MemberLevel> {
      * 主键
      */
     private Integer id;
-
+    /**
+     * 会员名称
+     */
+    private String memberName;
     /**
      * 抢单数量
      */

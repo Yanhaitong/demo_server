@@ -3,6 +3,7 @@ package com.yht.demo.controller;
 
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
+import com.yht.demo.dto.ParameterBase;
 import com.yht.demo.dto.ParameterPayRecordDTO;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
@@ -33,11 +34,11 @@ public class PayRecordController {
 
     @PostMapping("/topUpAmountInfo")
     @ApiOperation(value = "充值金额信息")
-    public Result topUpAmountInfo(@RequestParam String clientId) {
-        if (StringUtils.isEmpty(clientId)){
+    public Result topUpAmountInfo(@RequestBody ParameterBase parameterBase) {
+        if (StringUtils.isEmpty(parameterBase.getClientId())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return topUpAmountService.topUpAmountInfo(clientId);
+        return topUpAmountService.topUpAmountInfo(parameterBase.getClientId());
     }
 
     @PostMapping("/getPayRecordList")

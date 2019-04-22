@@ -60,15 +60,25 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             }
             User userInfo = userMapper.selectById(userId);
             if (userInfo == null) {
-                return Result.error(500, "抢单失败,用户信息错误！");
+                return Result.error(500, "用户信息错误！");
+            }else {
+                if (userInfo.getStatus() == 0){
+                    return Result.error(500, "请先认证信贷经理！");
+                }else if (userInfo.getStatus() == 1){
+                    return Result.error(500, "经理认证审核中，请耐心等待！");
+                }else if (userInfo.getStatus() == 3){
+                    return Result.error(500, "经理认证未通过，请联系客服！");
+                }else if (userInfo.getStatus() == 4){
+                    return Result.error(500, "账户冻结，请联系客服！");
+                }
             }
             Order order = orderMapper.selectById(parameterVieForOrderDTO.getOrderId());
             if (order == null) {
-                return Result.error(500, "抢单失败,订单信息异常！");
+                return Result.error(500, "订单信息异常！");
             }
-            MemberLevel memberLevel = memberLevelMapperl.selectById(userInfo.getLevelId());
+            MemberLevel memberLevel = memberLevelMapperl.selectById(userInfo.getMemberLevelId());
             if (memberLevel == null) {
-                return Result.error(500, "抢单失败,会员等级异常！");
+                return Result.error(500, "会员等级异常！");
             } else {
                 long vieForOrderCount = RedisUtils.getVieForOrderCount(userInfo.getId());
                 if (vieForOrderCount > memberLevel.getVieForCount()) {
@@ -77,7 +87,7 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             }
             OrderRating orderRating = orderRatingMapper.selectByRating(order.getOrderRating());
             if (orderRating == null) {
-                return Result.error(500, "抢单失败,订单等级异常！");
+                return Result.error(500, "订单等级异常！");
             }
 
             //开始抢单
@@ -159,11 +169,11 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     @Override
     public Result amaldarOrderList(ParameterAmaldarOrderListDTO parameterAmaldarOrderListDTO) {
         String userId = RedisUtils.getUserIdByToken(parameterAmaldarOrderListDTO.getToken());
-        if (StringUtils.isEmpty(userId)){
+        if (StringUtils.isEmpty(userId)) {
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
         User userInfo = userMapper.selectById(userId);
-        if (userInfo == null){
+        if (userInfo == null) {
             return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
         }
         Page page = new Page();

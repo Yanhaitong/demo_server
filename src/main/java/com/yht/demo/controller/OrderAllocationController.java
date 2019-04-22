@@ -9,6 +9,7 @@ import com.yht.demo.service.IOrderAllocationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,8 @@ public class OrderAllocationController {
     @PostMapping("/vieForOrder")
     @ApiOperation(value = "经理抢单接口")
     public Result vieForOrder(@RequestBody ParameterVieForOrderDTO parameterVieForOrderDTO) {
-        if (parameterVieForOrderDTO.getToken() == null || parameterVieForOrderDTO.getOrderId() == null || parameterVieForOrderDTO.getClientId() == null){
+        if (StringUtils.isEmpty(parameterVieForOrderDTO.getToken()) || StringUtils.isEmpty(parameterVieForOrderDTO.getOrderId()) ||
+                StringUtils.isEmpty(parameterVieForOrderDTO.getClientId()) || StringUtils.isEmpty(parameterVieForOrderDTO.getClientType())){
             return Result.error(500, "请求参数错误");
         }
         return orderAllocationService.vieForOrder(parameterVieForOrderDTO);
@@ -43,7 +45,9 @@ public class OrderAllocationController {
     @PostMapping("/amaldarOrderList")
     @ApiOperation(value = "经理已抢订单列表")
     public Result<ResultOrderDetailsDTO> amaldarOrderList(@RequestBody ParameterAmaldarOrderListDTO parameterAmaldarOrderListDTO) {
-        if (parameterAmaldarOrderListDTO == null){
+        if (StringUtils.isEmpty(parameterAmaldarOrderListDTO.getToken()) || StringUtils.isEmpty(parameterAmaldarOrderListDTO.getPageNum()) ||
+                StringUtils.isEmpty(parameterAmaldarOrderListDTO.getPageSize()) || StringUtils.isEmpty(parameterAmaldarOrderListDTO.getClientId()) ||
+                StringUtils.isEmpty(parameterAmaldarOrderListDTO.getClientType()) ){
             return Result.error(500, "请求错误");
         }
         return orderAllocationService.amaldarOrderList(parameterAmaldarOrderListDTO);

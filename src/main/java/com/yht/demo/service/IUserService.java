@@ -1,9 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.dto.ParameterAPPInfoDTO;
-import com.yht.demo.dto.ParameterSendVerifyCode;
-import com.yht.demo.dto.ParameterUserDTO;
+import com.yht.demo.dto.*;
 
 /**
  * <p>
@@ -19,7 +17,9 @@ public interface IUserService {
 
     Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO);
 
-    Result loginOut(ParameterAPPInfoDTO parameterAPPInfoDTO);
+    Result loginOut(ParameterUserInfoDTO parameterAPPInfoDTO);
 
-    Result getAppInfo(ParameterAPPInfoDTO parameterAPPInfoDTO);
+    Result getAppInfo(ParameterBase parameterBase);
+
+    Result getUserInfo(ParameterUserInfoDTO parameterUserInfoDTO);
 }

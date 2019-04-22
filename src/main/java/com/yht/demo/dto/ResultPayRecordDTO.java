@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ResultPayRecordDTO {
 
-    @ApiModelProperty(name = "type", value = "经理流水", required = true)
+    @ApiModelProperty(name = "type", value = "经理流水（0:充值，1:退单，2:抢单消费，3:手动修改）", required = true)
     private String type;
 
     @ApiModelProperty(name = "money", value = "流水金额", required = true)

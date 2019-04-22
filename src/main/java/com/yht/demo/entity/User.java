@@ -99,7 +99,7 @@ public class User extends Model<User> {
     /**
      * 经理等级id
      */
-    private Integer levelId;
+    private Integer memberLevelId;
 
     /**
      * 创建时间

@@ -161,6 +161,8 @@
     <!--获取首页订单列表-->
     <select id="selectOrderListByMap" parameterType="com.yht.demo.dto.ParameterOrderListDTO" resultType="com.yht.demo.dto.ResultOrderDetailsDTO">
         SELECT
+        CASE WHEN sex= 0 THEN CONCAT(left(name, 1),"女士") ELSE CONCAT(left(name, 1),"先生") END as name,
+        concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNo,
         <include refid="Order_Column_List"/>
         FROM
         t_order
@@ -174,29 +176,17 @@
             <if test="parameterOrderListDTO.loanAmountEnd != null">
                 and loan_amount &lt;= #{parameterOrderListDTO.loanAmountEnd}
             </if>
-            <if test="parameterOrderListDTO.loanPeriodStart != null ">
-                and loan_period &gt;= #{parameterOrderListDTO.loanPeriodStart}
-            </if>
-            <if test="parameterOrderListDTO.loanPeriodEnd != null">
-                and loan_period &lt;= #{parameterOrderListDTO.loanPeriodEnd}
-            </if>
-            <if test="parameterOrderListDTO.ageStart != null ">
-                and age &gt;= #{parameterOrderListDTO.ageStart}
-            </if>
-            <if test="parameterOrderListDTO.ageEnd != null">
-                and age &lt;= #{parameterOrderListDTO.ageEnd}
-            </if>
             <if test="parameterOrderListDTO.incomeAmountStart != null ">
                 and income_amount &gt;= #{parameterOrderListDTO.incomeAmountStart}
             </if>
             <if test="parameterOrderListDTO.incomeAmountEnd != null">
                 and income_amount &lt;= #{parameterOrderListDTO.incomeAmountEnd}
             </if>
-            <if test="parameterOrderListDTO.incomeType != null">
-                and income_type = #{parameterOrderListDTO.incomeType}
+            <if test="parameterOrderListDTO.incomeTypes != null">
+                and income_type = #{parameterOrderListDTO.incomeTypes}
             </if>
-            <if test="parameterOrderListDTO.qualificationInfo != null">
-                and income_type = #{parameterOrderListDTO.qualificationInfo}
+            <if test="parameterOrderListDTO.qualificationInfos != null">
+                and income_type = #{parameterOrderListDTO.qualificationInfos}
             </if>
         </where>
         order by apply_time desc

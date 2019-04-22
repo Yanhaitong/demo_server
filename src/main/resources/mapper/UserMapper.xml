@@ -12,13 +12,13 @@
         <result column="status" property="status" />
         <result column="sex" property="sex" />
         <result column="company" property="company" />
+        <result column="member_level_id" property="memberLevelId" />
         <result column="icon_url" property="iconUrl" />
         <result column="balance" property="balance" />
         <result column="client_name" property="clientName" />
         <result column="client_id" property="clientId" />
         <result column="client_type" property="clientType" />
         <result column="client_version" property="clientVersion" />
-        <result column="level_id" property="levelId" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
         <result column="del_flag" property="delFlag" />
@@ -34,5 +34,25 @@
             and client_id = #{clientId}
             limit 1
     </select>
+
+    <select id="selectUserInfoById" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultUserInfoDTO">
+        SELECT
+            u.name,
+            u.mobile_no as mobileNo,
+            u.status,
+            u.company,
+            u.icon_url as iconUrl,
+            u.balance,
+            u.client_id as clientId,
+            u.client_version as version,
+            ml.member_name as memberName
+        FROM
+            t_user u
+            left join t_member_level ml on ml.id = u.member_level_id
+        WHERE
+            u.id = #{userId}
+    </select>
+
+
 
 </mapper>

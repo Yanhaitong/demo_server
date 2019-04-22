@@ -1,5 +1,6 @@
 package com.yht.demo.mapper;
 
+import com.yht.demo.dto.ResultUserInfoDTO;
 import com.yht.demo.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends BaseMapper<User> {
 
     User getUserInfo(@Param("mobileNo") String mobileNo, @Param("clientId") String clientId);
+
+    ResultUserInfoDTO selectUserInfoById(String userId);
 }

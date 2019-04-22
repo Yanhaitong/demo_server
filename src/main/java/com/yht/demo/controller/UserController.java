@@ -62,7 +62,7 @@ public class UserController {
 
     @PostMapping("/loginOut")
     @ApiOperation(value = "退出登录")
-    public Result loginOut(@RequestParam ParameterAPPInfoDTO parameterAPPInfoDTO) {
+    public Result loginOut(@RequestBody ParameterUserInfoDTO parameterAPPInfoDTO) {
         if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
@@ -70,12 +70,24 @@ public class UserController {
     }
 
     @PostMapping("/getAppInfo")
-    @ApiOperation(value = "获取用户信息")
-    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterAPPInfoDTO parameterAPPInfoDTO) {
-        if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken()) || StringUtils.isEmpty(parameterAPPInfoDTO.getClientId())) {
+    @ApiOperation(value = "获取App初始化信息")
+    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterBase parameterBase) {
+        if (StringUtils.isEmpty(parameterBase.getClientId()) || StringUtils.isEmpty(parameterBase.getClientType())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return userService.getAppInfo(parameterAPPInfoDTO);
+        return userService.getAppInfo(parameterBase);
     }
+
+    @PostMapping("/getUserInfo")
+    @ApiOperation(value = "获取用户信息")
+    public Result<ResultUserInfoDTO> getUserInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+        if (StringUtils.isEmpty(parameterUserInfoDTO.getClientId()) || StringUtils.isEmpty(parameterUserInfoDTO.getClientType())
+                || StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
+        }
+        return userService.getUserInfo(parameterUserInfoDTO);
+    }
+
+
 }
 

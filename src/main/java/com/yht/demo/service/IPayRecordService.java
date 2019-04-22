@@ -2,8 +2,6 @@ package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterPayRecordDTO;
-import com.yht.demo.entity.PayRecord;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

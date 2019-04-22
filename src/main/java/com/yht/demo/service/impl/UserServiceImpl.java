@@ -80,14 +80,14 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
                 userNew.setClientName(client.getName());
                 userNew.setClientId(parameterUserDTO.getClientId());
                 userNew.setClientVersion(parameterUserDTO.getVersion());
-                userNew.setCreateTime(new Date());
                 userNew.setRoleId(1);
                 userNew.setStatus(0);
                 userNew.setClientType(Integer.valueOf(parameterUserDTO.getClientType()));
+                userNew.setCreateTime(new Date());
                 userMapper.insert(userNew);
 
                 //redis保存token对应的UserId(永久)
-                RedisUtils.saveUserIdByToken(token, parameterUserDTO.getMobileNo());
+                RedisUtils.saveUserIdByToken(token, String.valueOf(userNew.getId()));
             } else {
                 user.setClientVersion(parameterUserDTO.getVersion());
                 user.setUpdateTime(new Date());
@@ -108,7 +108,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result loginOut(ParameterAPPInfoDTO parameterAPPInfoDTO) {
+    public Result loginOut(ParameterUserInfoDTO parameterAPPInfoDTO) {
         try {
             String mobileNo = stringRedisTemplate.opsForValue().get(parameterAPPInfoDTO.getToken());
             stringRedisTemplate.delete("SMS" + mobileNo);
@@ -122,32 +122,37 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getAppInfo(ParameterAPPInfoDTO parameterAPPInfoDTO) {
+    public Result getAppInfo(ParameterBase parameterBase) {
         Map<String, Object> parameterMap = new HashMap<>();
-
-        //获取用户信息
-        String userId = RedisUtils.getUserIdByToken(parameterAPPInfoDTO.getToken());
-        if (StringUtils.isEmpty(userId)){
-            return Result.error(500, MsgConstant.USER_ID_IS_NULL);
-        }
-        User userInfo = userMapper.selectById(userId);
-        if (userInfo == null){
-            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
-        }
-        parameterMap.put("userInfo", userInfo);
 
         //城市列表
         List<String> cityList = cityMapper.selectAllCityList();
         parameterMap.put("cityList", cityList);
 
         //获取首页导航栏信息
-        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterAPPInfoDTO.getClientId());
+        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterBase.getClientId());
         parameterMap.put("navigationTabList", resultNavigationTabDTOList);
 
         //获取搜索条件信息
-        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterAPPInfoDTO.getClientId());
+        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterBase.getClientId());
         parameterMap.put("searchConditionsList", resultSearchConditionsDTOList);
 
         return Result.success(parameterMap);
+    }
+
+    @Override
+    public Result getUserInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
+
+        //获取用户信息
+        String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
+        if (StringUtils.isEmpty(userId)){
+            return Result.error(500, MsgConstant.USER_ID_IS_NULL);
+        }
+        ResultUserInfoDTO resultUserInfoDTO = userMapper.selectUserInfoById(userId);
+        if (resultUserInfoDTO == null){
+            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
+        }
+
+        return Result.success(resultUserInfoDTO);
     }
 }

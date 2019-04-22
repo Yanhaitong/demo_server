@@ -13,7 +13,7 @@ public class ParameterBase {
     @ApiModelProperty(name = "clientType", value = "客户端类型（0:ios，1:android）", required = true)
     private String clientType;
 
-    @ApiModelProperty(name = "clientId", value = "客户端ID", required = true)
+    @ApiModelProperty(name = "clientId", value = "客户端Id", required = true)
     private String clientId;
 
     @ApiModelProperty(name = "deviceIdentification", value = "设备唯一标示", required = false)

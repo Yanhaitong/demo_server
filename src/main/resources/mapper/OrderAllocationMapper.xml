@@ -134,8 +134,8 @@
         <include refid="Order_Column_List"/>
         FROM
         t_order_allocation oa
-        LEFT JOIN user_ u ON oa.user_id = u.id
-        LEFT JOIN order_ o ON oa.order_id = o.id
+        LEFT JOIN t_user u ON oa.user_id = u.id
+        LEFT JOIN t_order o ON oa.order_id = o.id
         WHERE
         u.id = #{userId}
         order by oa.create_time desc

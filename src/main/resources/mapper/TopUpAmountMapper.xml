@@ -26,6 +26,7 @@
                 client_id = #{clientId}
             </if>
         </where>
+        order by sort asc
     </select>
 
 </mapper>
