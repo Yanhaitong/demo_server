@@ -14,5 +14,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-    User getUserInfo(@Param("mobileNo") String mobileNo, @Param("clientName") String clientName);
+    User getUserInfo(@Param("mobileNo") String mobileNo, @Param("clientId") String clientId);
 }

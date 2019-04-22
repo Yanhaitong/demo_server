@@ -33,10 +33,10 @@ public class TopUpAmountServiceImpl extends BaseServiceImpl implements ITopUpAmo
     private SmsConfigMapper smsConfigMapper;
 
     @Override
-    public Result topUpAmountInfo(String clientName) {
+    public Result topUpAmountInfo(String clientId) {
         Map<String, Object> parameterMap = new HashMap<>();
 
-        List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(clientName);
+        List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(clientId);
         parameterMap.put("topUpAmountList", topUpAmountDTOList);
 
         String alipay = smsConfigMapper.getValueByKey("alipay");

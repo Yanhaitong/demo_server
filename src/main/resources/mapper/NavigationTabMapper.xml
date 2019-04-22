@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.NavigationTab">
         <id column="id" property="id" />
-        <result column="client_name" property="clientName" />
+        <result column="client_id" property="clientId" />
         <result column="is_valid" property="isValid" />
         <result column="navigator_index" property="navigatorIndex" />
         <result column="navigator_name" property="navigatorName" />
@@ -19,7 +19,6 @@
 
     <select id="getNavigationTabList" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultNavigationTabDTO">
         SELECT
-        client_name as clientName,
         id as navigatorId,
         navigator_index as navigatorIndex,
         navigator_name as navigatorName,
@@ -30,8 +29,8 @@
         t_navigation_tab
         <where>
             is_valid = 1
-            <if test="clientName != null">
-                and client_name = #{clientName}
+            <if test="clientId != null">
+                and client_id = #{clientId}
             </if>
         </where>
     </select>

@@ -21,7 +21,7 @@ public interface IUserService {
 
     Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO);
 
-    Result loginOut(String mobileNo);
+    Result loginOut(ParameterAPPInfoDTO parameterAPPInfoDTO);
 
     Result getAppInfo(ParameterAPPInfoDTO parameterAPPInfoDTO);
 }

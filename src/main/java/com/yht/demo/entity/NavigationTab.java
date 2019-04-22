@@ -33,9 +33,9 @@ public class NavigationTab extends Model<NavigationTab> {
     private Integer id;
 
     /**
-     * 客户端名称
+     * 客户端Id
      */
-    private String clientName;
+    private String clientId;
 
     /**
      * 是否有效（0:无效，1:有效）

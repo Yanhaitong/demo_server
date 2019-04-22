@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @ApiModel(value = "查询订单详细信息的参数")
 @Data
-public class ParameterOrderDetailsDTO {
+public class ParameterOrderDetailsDTO extends ParameterBase{
 
     @ApiModelProperty(name = "token", value = "用户登录token", required = true)
     private String token;

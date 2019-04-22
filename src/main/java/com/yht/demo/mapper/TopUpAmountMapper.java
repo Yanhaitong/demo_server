@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface TopUpAmountMapper extends BaseMapper<TopUpAmount> {
 
-    List<ResultTopUpAmountDTO> getTopUpAmount(@Param("clientName") String clientName);
+    List<ResultTopUpAmountDTO> getTopUpAmount(@Param("clientId") String clientId);
 }

@@ -44,9 +44,9 @@ public class OrderAllocation extends Model<OrderAllocation> {
     private Integer userId;
 
     /**
-     * 客户端名称
+     * 客户端
      */
-    private String clientName;
+    private String clientId;
 
     /**
      * 原始价格

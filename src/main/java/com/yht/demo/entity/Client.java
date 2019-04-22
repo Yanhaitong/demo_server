@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,14 +33,14 @@ public class Client extends Model<Client> {
     private Integer id;
 
     /**
-     * 创建时间
+     * 客户端名称
      */
-    private Date createTime;
+    private String name;
 
     /**
-     * 更新时间
+     * 创建时间
      */
-    private Date updateTime;
+    private LocalDateTime createTime;
 
     /**
      * 是否删除（0:未删除  1:已删除）

@@ -40,7 +40,7 @@ public class PayRecordServiceImpl extends BaseServiceImpl implements IPayRecordS
         Page page = new Page();
         page.setSize(parameterPayRecordDTO.getPageSize());
         page.setCurrent(parameterPayRecordDTO.getPageNum());
-        IPage<ResultPayRecordDTO> resultPayRecordDTOIPage = payRecordMapper.getPayRecordList(page, userId);
+        IPage<ResultPayRecordDTO> resultPayRecordDTOIPage = payRecordMapper.getPayRecordList(page, userId, parameterPayRecordDTO.getClientId());
         return Result.success(resultPayRecordDTOIPage);
     }
 }

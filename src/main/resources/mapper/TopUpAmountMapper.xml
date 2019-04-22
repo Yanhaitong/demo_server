@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.TopUpAmount">
         <id column="id" property="id" />
-        <result column="client_name" property="clientName" />
+        <result column="client_id" property="clientId" />
         <result column="mili" property="mili" />
         <result column="price" property="price" />
         <result column="sort" property="sort" />
@@ -22,8 +22,8 @@
         FROM
         t_top_up_amount
         <where>
-            <if test="clientName != null">
-                client_name = #{clientName}
+            <if test="clientId != null">
+                client_id = #{clientId}
             </if>
         </where>
     </select>

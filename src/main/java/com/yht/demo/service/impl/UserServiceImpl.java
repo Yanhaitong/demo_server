@@ -7,6 +7,7 @@ import com.yht.demo.common.Result;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
 import com.yht.demo.dto.*;
+import com.yht.demo.entity.Client;
 import com.yht.demo.entity.User;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IUserService;
@@ -37,11 +38,13 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     private SearchConditionsMapper searchConditionsMapper;
     @Autowired
     private CityMapper cityMapper;
+    @Autowired
+    private ClientMapper clientMapper;
 
     @Override
     public Result sendVerificationCode(ParameterSendVerifyCode parameterSendVerifyCode) {
         try {
-            String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientName());
+            String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientId());
             SMSUtils.sendVerifyLoginSMS(parameterSendVerifyCode.getMobileNo(), smsContent);
             return Result.success("发送成功");
         } catch (Exception e) {
@@ -54,7 +57,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     public Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO) {
 
         try {
-            if (StringUtils.isEmpty(parameterUserDTO.getMobileNo()) || StringUtils.isEmpty(parameterUserDTO.getClientName()) ||
+            if (StringUtils.isEmpty(parameterUserDTO.getMobileNo()) || StringUtils.isEmpty(parameterUserDTO.getClientId()) ||
                     StringUtils.isEmpty(parameterUserDTO.getCode()) || StringUtils.isEmpty(parameterUserDTO.getClientType())){
                 return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
             }
@@ -68,12 +71,14 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             //redis保存token对应的UserId(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
             //数据库操作
-            User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), parameterUserDTO.getClientName());
+            User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), parameterUserDTO.getClientId());
             if (user == null) {
                 //保存用户信息
                 User userNew = new User();
                 userNew.setMobileNo(parameterUserDTO.getMobileNo());
-                userNew.setClientName(parameterUserDTO.getClientName());
+                Client client = clientMapper.selectById(parameterUserDTO.getClientId());
+                userNew.setClientName(client.getName());
+                userNew.setClientId(parameterUserDTO.getClientId());
                 userNew.setClientVersion(parameterUserDTO.getVersion());
                 userNew.setCreateTime(new Date());
                 userNew.setRoleId(1);
@@ -103,11 +108,11 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result loginOut(String token) {
+    public Result loginOut(ParameterAPPInfoDTO parameterAPPInfoDTO) {
         try {
-            String mobileNo = stringRedisTemplate.opsForValue().get(token);
+            String mobileNo = stringRedisTemplate.opsForValue().get(parameterAPPInfoDTO.getToken());
             stringRedisTemplate.delete("SMS" + mobileNo);
-            stringRedisTemplate.delete(token);
+            stringRedisTemplate.delete(parameterAPPInfoDTO.getToken());
             return Result.success("退出成功");
         } catch (Exception e) {
             log.error("loginOut===========" + e.getMessage());
@@ -136,11 +141,11 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         parameterMap.put("cityList", cityList);
 
         //获取首页导航栏信息
-        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterAPPInfoDTO.getClientName());
+        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterAPPInfoDTO.getClientId());
         parameterMap.put("navigationTabList", resultNavigationTabDTOList);
 
         //获取搜索条件信息
-        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterAPPInfoDTO.getClientName());
+        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterAPPInfoDTO.getClientId());
         parameterMap.put("searchConditionsList", resultSearchConditionsDTOList);
 
         return Result.success(parameterMap);

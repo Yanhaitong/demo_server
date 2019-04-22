@@ -12,7 +12,7 @@ import com.yht.demo.dto.ResultOrderDetailsDTO;
 import com.yht.demo.entity.*;
 import com.yht.demo.mapper.*;
 import com.yht.demo.service.IOrderAllocationService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.stereotype.Service;
@@ -47,6 +47,8 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
     private OrderRatingMapper orderRatingMapper;
     @Autowired
     private SmsConfigMapper smsConfigMapper;
+    @Autowired
+    private ClientMapper clientMapper;
 
     @Override
     public Result vieForOrder(ParameterVieForOrderDTO parameterVieForOrderDTO) {
@@ -130,7 +132,8 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
 
             try {
                 //发送短信
-                String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + userInfo.getClientName());
+                Client client = clientMapper.selectById(parameterVieForOrderDTO.getClientId());
+                String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + client.getName());
                 /*if (StringUtils.isNotBlank(smsContent)) {
                     smsContent = smsContent.replace("{a}", order.getName());
                     smsContent = smsContent.replace("{b}", userInfo.getCompany());

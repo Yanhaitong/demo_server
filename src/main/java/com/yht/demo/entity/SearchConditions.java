@@ -53,9 +53,9 @@ public class SearchConditions extends Model<SearchConditions> {
     private String name;
 
     /**
-     * 客户端
+     * 客户端Id
      */
-    private String clientName;
+    private String clientId;
 
     /**
      * 创建时间

@@ -1,8 +1,6 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
-import com.yht.demo.entity.TopUpAmount;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -14,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITopUpAmountService {
 
-    Result topUpAmountInfo(String clientName);
+    Result topUpAmountInfo(String clientId);
 }

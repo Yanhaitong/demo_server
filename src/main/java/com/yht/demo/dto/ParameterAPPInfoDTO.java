@@ -6,12 +6,9 @@ import lombok.Data;
 
 @ApiModel(value = "查询用户相关信息的参数")
 @Data
-public class ParameterAPPInfoDTO {
+public class ParameterAPPInfoDTO extends ParameterBase{
 
-    @ApiModelProperty(name = "token", value = "用户登录token", required = true)
+    @ApiModelProperty(name = "token", value = "用户登录token", required = false)
     private String token;
-
-    @ApiModelProperty(name = "clientName", value = "客户端名称", required = true)
-    private String clientName;
 
 }

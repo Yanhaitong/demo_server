@@ -11,7 +11,7 @@
         <result column="mobile_no" property="mobileNo" />
         <result column="money" property="money" />
         <result column="status" property="status" />
-        <result column="client_name" property="clientName" />
+        <result column="client_id" property="clientId" />
         <result column="client_type" property="clientType" />
         <result column="total_money" property="totalMoney" />
         <result column="create_time" property="createTime" />

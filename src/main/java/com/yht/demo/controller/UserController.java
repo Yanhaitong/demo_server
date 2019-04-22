@@ -3,10 +3,7 @@ package com.yht.demo.controller;
 
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.dto.ParameterAPPInfoDTO;
-import com.yht.demo.dto.ParameterSendVerifyCode;
-import com.yht.demo.dto.ParameterUserDTO;
-import com.yht.demo.dto.ResultAPPInfoDTO;
+import com.yht.demo.dto.*;
 import com.yht.demo.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,7 +45,7 @@ public class UserController {
     @PostMapping("/sendVerifyCode")
     @ApiOperation(value = "发送验证码")
     public Result sendVerificationCode(@RequestBody ParameterSendVerifyCode parameterSendVerifyCode) {
-        if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo()) || StringUtils.isEmpty(parameterSendVerifyCode.getClientName())) {
+        if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo()) || StringUtils.isEmpty(parameterSendVerifyCode.getClientId())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.sendVerificationCode(parameterSendVerifyCode);
@@ -65,17 +62,17 @@ public class UserController {
 
     @PostMapping("/loginOut")
     @ApiOperation(value = "退出登录")
-    public Result loginOut(@RequestParam String token) {
-        if (StringUtils.isEmpty(token)) {
+    public Result loginOut(@RequestParam ParameterAPPInfoDTO parameterAPPInfoDTO) {
+        if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return userService.loginOut(token);
+        return userService.loginOut(parameterAPPInfoDTO);
     }
 
     @PostMapping("/getAppInfo")
     @ApiOperation(value = "获取用户信息")
     public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterAPPInfoDTO parameterAPPInfoDTO) {
-        if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken()) || StringUtils.isEmpty(parameterAPPInfoDTO.getClientName())) {
+        if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken()) || StringUtils.isEmpty(parameterAPPInfoDTO.getClientId())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.getAppInfo(parameterAPPInfoDTO);

@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface SearchConditionsMapper extends BaseMapper<SearchConditions> {
 
-    List<ResultSearchConditionsDTO> getSearchConditionsList(@Param("clientName") String clientName);
+    List<ResultSearchConditionsDTO> getSearchConditionsList(@Param("clientId") String clientId);
 }

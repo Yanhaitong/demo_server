@@ -63,9 +63,9 @@ public class PayRecord extends Model<PayRecord> {
     private Integer status;
 
     /**
-     * 客户端名称
+     * 客户端Id
      */
-    private String clientName;
+    private String clientId;
 
     /**
      * 客户端类型（0:ios，1:android）

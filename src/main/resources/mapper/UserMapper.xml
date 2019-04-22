@@ -15,6 +15,7 @@
         <result column="icon_url" property="iconUrl" />
         <result column="balance" property="balance" />
         <result column="client_name" property="clientName" />
+        <result column="client_id" property="clientId" />
         <result column="client_type" property="clientType" />
         <result column="client_version" property="clientVersion" />
         <result column="level_id" property="levelId" />
@@ -30,7 +31,7 @@
             t_user
         WHERE
             mobile_no = #{mobileNo}
-            and client_name = #{clientName}
+            and client_id = #{clientId}
             limit 1
     </select>
 

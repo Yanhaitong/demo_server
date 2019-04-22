@@ -17,5 +17,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface PayRecordMapper extends BaseMapper<PayRecord> {
 
-    IPage<ResultPayRecordDTO> getPayRecordList(@Param("page") Page page, @Param("userId") String userId);
+    IPage<ResultPayRecordDTO> getPayRecordList(@Param("page") Page page, @Param("userId") String userId, @Param("clientId") String clientId);
 }

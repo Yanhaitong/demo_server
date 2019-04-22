@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface NavigationTabMapper extends BaseMapper<NavigationTab> {
 
-    List<ResultNavigationTabDTO> getNavigationTabList(@Param("clientName") String clientName);
+    List<ResultNavigationTabDTO> getNavigationTabList(@Param("clientId") String clientId);
 }
