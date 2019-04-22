@@ -1,9 +1,13 @@
 package com.yht.demo.service.impl;
 
 import com.yht.demo.common.BaseServiceImpl;
+import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
+import com.yht.demo.dto.ParameterBase;
 import com.yht.demo.dto.ResultTopUpAmountDTO;
+import com.yht.demo.entity.Client;
 import com.yht.demo.entity.TopUpAmount;
+import com.yht.demo.mapper.ClientMapper;
 import com.yht.demo.mapper.SmsConfigMapper;
 import com.yht.demo.mapper.TopUpAmountMapper;
 import com.yht.demo.service.ITopUpAmountService;
@@ -32,11 +36,18 @@ public class TopUpAmountServiceImpl extends BaseServiceImpl implements ITopUpAmo
     @Autowired
     private SmsConfigMapper smsConfigMapper;
 
+    @Autowired
+    private ClientMapper clientMapper;
+
     @Override
-    public Result topUpAmountInfo(String clientId) {
+    public Result topUpAmountInfo(ParameterBase parameterBase) {
         Map<String, Object> parameterMap = new HashMap<>();
 
-        List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(clientId);
+        Client client = clientMapper.selectClientByName(parameterBase.getClientName());
+        if (client == null){
+            return Result.error(500, MsgConstant.CLIENT_IS_NULL);
+        }
+        List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(String.valueOf(client.getId()));
         parameterMap.put("topUpAmountList", topUpAmountDTOList);
 
         String alipay = smsConfigMapper.getValueByKey("alipay");

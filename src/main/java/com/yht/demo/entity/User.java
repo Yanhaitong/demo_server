@@ -84,7 +84,7 @@ public class User extends Model<User> {
     /**
      * 客户端Id
      */
-    private String clientId;
+    private Integer clientId;
 
     /**
      * 客户端类型（0:ios，1:android）

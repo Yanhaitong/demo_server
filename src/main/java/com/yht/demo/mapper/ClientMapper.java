@@ -2,6 +2,7 @@ package com.yht.demo.mapper;
 
 import com.yht.demo.entity.Client;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ClientMapper extends BaseMapper<Client> {
 
+    Client selectClientByName(@Param("clientName") String clientName);
 }

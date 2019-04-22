@@ -35,16 +35,16 @@ public class PayRecordController {
     @PostMapping("/topUpAmountInfo")
     @ApiOperation(value = "充值金额信息")
     public Result topUpAmountInfo(@RequestBody ParameterBase parameterBase) {
-        if (StringUtils.isEmpty(parameterBase.getClientId())){
+        if (StringUtils.isEmpty(parameterBase.getClientName())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return topUpAmountService.topUpAmountInfo(parameterBase.getClientId());
+        return topUpAmountService.topUpAmountInfo(parameterBase);
     }
 
     @PostMapping("/getPayRecordList")
     @ApiOperation(value = "获取支付记录列表")
     public Result getPayRecordList(@RequestBody ParameterPayRecordDTO parameterPayRecordDTO) {
-        if (StringUtils.isEmpty(parameterPayRecordDTO.getToken()) || StringUtils.isEmpty(parameterPayRecordDTO.getClientId())){
+        if (StringUtils.isEmpty(parameterPayRecordDTO.getToken()) || StringUtils.isEmpty(parameterPayRecordDTO.getClientName())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return payRecordService.getPayRecordList(parameterPayRecordDTO);

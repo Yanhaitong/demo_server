@@ -33,4 +33,7 @@ public class ResultUserInfoDTO {
     @ApiModelProperty(name = "memberName", value = "会员等级名称", required = true)
     private String memberName;
 
+    @ApiModelProperty(name = "token", value = "用户登录token", required = false)
+    private String token;
+
 }

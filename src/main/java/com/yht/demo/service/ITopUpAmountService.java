@@ -1,6 +1,7 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
+import com.yht.demo.dto.ParameterBase;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.yht.demo.common.Result;
  */
 public interface ITopUpAmountService {
 
-    Result topUpAmountInfo(String clientId);
+    Result topUpAmountInfo(ParameterBase parameterBase);
 }

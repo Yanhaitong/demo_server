@@ -142,8 +142,7 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
 
             try {
                 //发送短信
-                Client client = clientMapper.selectById(parameterVieForOrderDTO.getClientId());
-                String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + client.getName());
+                String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + parameterVieForOrderDTO.getClientName());
                 /*if (StringUtils.isNotBlank(smsContent)) {
                     smsContent = smsContent.replace("{a}", order.getName());
                     smsContent = smsContent.replace("{b}", userInfo.getCompany());

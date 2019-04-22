@@ -36,7 +36,7 @@ public class OrderAllocationController {
     @ApiOperation(value = "经理抢单接口")
     public Result vieForOrder(@RequestBody ParameterVieForOrderDTO parameterVieForOrderDTO) {
         if (StringUtils.isEmpty(parameterVieForOrderDTO.getToken()) || StringUtils.isEmpty(parameterVieForOrderDTO.getOrderId()) ||
-                StringUtils.isEmpty(parameterVieForOrderDTO.getClientId()) || StringUtils.isEmpty(parameterVieForOrderDTO.getClientType())){
+                StringUtils.isEmpty(parameterVieForOrderDTO.getClientName()) || StringUtils.isEmpty(parameterVieForOrderDTO.getClientType())){
             return Result.error(500, "请求参数错误");
         }
         return orderAllocationService.vieForOrder(parameterVieForOrderDTO);
@@ -46,7 +46,7 @@ public class OrderAllocationController {
     @ApiOperation(value = "经理已抢订单列表")
     public Result<ResultOrderDetailsDTO> amaldarOrderList(@RequestBody ParameterAmaldarOrderListDTO parameterAmaldarOrderListDTO) {
         if (StringUtils.isEmpty(parameterAmaldarOrderListDTO.getToken()) || StringUtils.isEmpty(parameterAmaldarOrderListDTO.getPageNum()) ||
-                StringUtils.isEmpty(parameterAmaldarOrderListDTO.getPageSize()) || StringUtils.isEmpty(parameterAmaldarOrderListDTO.getClientId()) ||
+                StringUtils.isEmpty(parameterAmaldarOrderListDTO.getPageSize()) || StringUtils.isEmpty(parameterAmaldarOrderListDTO.getClientName()) ||
                 StringUtils.isEmpty(parameterAmaldarOrderListDTO.getClientType()) ){
             return Result.error(500, "请求错误");
         }

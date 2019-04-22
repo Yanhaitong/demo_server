@@ -38,7 +38,7 @@ public class OrderController {
     public Result<ResultOrderDetailsDTO> getHomePageOrderList(@RequestBody ParameterOrderListDTO parameterOrderListDTO) {
         if (StringUtils.isEmpty(parameterOrderListDTO.getCitys()) || StringUtils.isEmpty(parameterOrderListDTO.getCanRobOrder()) ||
                 StringUtils.isEmpty(parameterOrderListDTO.getPageNum()) || StringUtils.isEmpty(parameterOrderListDTO.getPageSize()) ||
-                StringUtils.isEmpty(parameterOrderListDTO.getClientId()) || StringUtils.isEmpty(parameterOrderListDTO.getClientType())){
+                StringUtils.isEmpty(parameterOrderListDTO.getClientName()) || StringUtils.isEmpty(parameterOrderListDTO.getClientType())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return orderService.getHomePageOrderList(parameterOrderListDTO);

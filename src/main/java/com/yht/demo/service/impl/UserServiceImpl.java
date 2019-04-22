@@ -44,7 +44,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Override
     public Result sendVerificationCode(ParameterSendVerifyCode parameterSendVerifyCode) {
         try {
-            String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientId());
+            String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientName());
             SMSUtils.sendVerifyLoginSMS(parameterSendVerifyCode.getMobileNo(), smsContent);
             return Result.success("发送成功");
         } catch (Exception e) {
@@ -57,11 +57,6 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     public Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO) {
 
         try {
-            if (StringUtils.isEmpty(parameterUserDTO.getMobileNo()) || StringUtils.isEmpty(parameterUserDTO.getClientId()) ||
-                    StringUtils.isEmpty(parameterUserDTO.getCode()) || StringUtils.isEmpty(parameterUserDTO.getClientType())){
-                return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-            }
-
             //获取验证码
             String localCode = stringRedisTemplate.opsForValue().get("SMS" + parameterUserDTO.getMobileNo());
             if (StringUtils.isEmpty(localCode) || !localCode.equals(parameterUserDTO.getCode())) {
@@ -70,16 +65,19 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
 
             //redis保存token对应的UserId(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
+            Client client = clientMapper.selectClientByName(parameterUserDTO.getClientName());
+            if (client == null){
+                return Result.error(500, MsgConstant.CLIENT_IS_NULL);
+            }
             //数据库操作
-            User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), parameterUserDTO.getClientId());
+            User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), String.valueOf(client.getId()));
             if (user == null) {
                 //保存用户信息
                 User userNew = new User();
                 userNew.setMobileNo(parameterUserDTO.getMobileNo());
-                Client client = clientMapper.selectById(parameterUserDTO.getClientId());
-                userNew.setClientName(client.getName());
-                userNew.setClientId(parameterUserDTO.getClientId());
-                userNew.setClientVersion(parameterUserDTO.getVersion());
+                userNew.setClientName(parameterUserDTO.getClientName());
+                userNew.setClientId(client.getId());
+                userNew.setClientVersion(parameterUserDTO.getAppVersion());
                 userNew.setRoleId(1);
                 userNew.setStatus(0);
                 userNew.setClientType(Integer.valueOf(parameterUserDTO.getClientType()));
@@ -89,7 +87,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
                 //redis保存token对应的UserId(永久)
                 RedisUtils.saveUserIdByToken(token, String.valueOf(userNew.getId()));
             } else {
-                user.setClientVersion(parameterUserDTO.getVersion());
+                user.setClientVersion(parameterUserDTO.getAppVersion());
                 user.setUpdateTime(new Date());
                 userMapper.updateById(user);
 
@@ -97,9 +95,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
                 RedisUtils.saveUserIdByToken(token, String.valueOf(user.getId()));
             }
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("token", token);
-            return Result.success(map);
+            String userIdByToken = RedisUtils.getUserIdByToken(token);
+            ResultUserInfoDTO resultUserInfoDTO = userMapper.selectUserInfoById(userIdByToken);
+            resultUserInfoDTO.setToken(token);
+            return Result.success(resultUserInfoDTO);
         } catch (Exception e) {
             log.error("verifyCodeLoginOrRegister===========" + e.getMessage());
             return Result.error(500, "登录失败");
@@ -129,12 +128,16 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         List<String> cityList = cityMapper.selectAllCityList();
         parameterMap.put("cityList", cityList);
 
+        Client client = clientMapper.selectClientByName(parameterBase.getClientName());
+        if (client == null){
+            return Result.error(500, MsgConstant.CLIENT_IS_NULL);
+        }
         //获取首页导航栏信息
-        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterBase.getClientId());
+        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(String.valueOf(client.getId()));
         parameterMap.put("navigationTabList", resultNavigationTabDTOList);
 
         //获取搜索条件信息
-        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(parameterBase.getClientId());
+        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(String.valueOf(client.getId()));
         parameterMap.put("searchConditionsList", resultSearchConditionsDTOList);
 
         return Result.success(parameterMap);
@@ -145,11 +148,11 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
 
         //获取用户信息
         String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
-        if (StringUtils.isEmpty(userId)){
+        if (StringUtils.isEmpty(userId)) {
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
         ResultUserInfoDTO resultUserInfoDTO = userMapper.selectUserInfoById(userId);
-        if (resultUserInfoDTO == null){
+        if (resultUserInfoDTO == null) {
             return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
         }
 

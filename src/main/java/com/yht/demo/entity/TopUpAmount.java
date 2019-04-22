@@ -33,7 +33,7 @@ public class TopUpAmount extends Model<TopUpAmount> {
     /**
      * 客户端Id
      */
-    private String clientId;
+    private Integer clientId;
 
     /**
      * 米粒

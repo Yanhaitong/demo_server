@@ -10,4 +10,5 @@ public class BaseServiceImpl {
 
     @Autowired
     public StringRedisTemplate stringRedisTemplate;
+
 }

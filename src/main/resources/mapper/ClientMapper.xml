@@ -10,4 +10,7 @@
         <result column="del_flag" property="delFlag" />
     </resultMap>
 
+    <select id="selectClientByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from t_client where name = #{clientName} limit 1
+    </select>
 </mapper>

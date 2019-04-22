@@ -10,4 +10,6 @@ public class MsgConstant {
 
     public static String PARAMETER_IS_NULL = "参数错误！";
 
+    public static String CLIENT_IS_NULL = "客户端不存在！";
+
 }

@@ -8,10 +8,10 @@ import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterPayRecordDTO;
 import com.yht.demo.dto.ResultPayRecordDTO;
-import com.yht.demo.entity.PayRecord;
+import com.yht.demo.entity.Client;
+import com.yht.demo.mapper.ClientMapper;
 import com.yht.demo.mapper.PayRecordMapper;
 import com.yht.demo.service.IPayRecordService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,18 +29,23 @@ public class PayRecordServiceImpl extends BaseServiceImpl implements IPayRecordS
 
     @Autowired
     private PayRecordMapper payRecordMapper;
+    @Autowired
+    private ClientMapper clientMapper;
 
     @Override
     public Result getPayRecordList(ParameterPayRecordDTO parameterPayRecordDTO) {
         String userId = RedisUtils.getUserIdByToken(parameterPayRecordDTO.getToken());
-        if (StringUtils.isEmpty(userId)){
+        if (StringUtils.isEmpty(userId)) {
             return Result.error(500, MsgConstant.MOBILE_NO_IS_NULL);
         }
-
+        Client client = clientMapper.selectClientByName(parameterPayRecordDTO.getClientName());
+        if (client == null){
+            return Result.error(500, MsgConstant.CLIENT_IS_NULL);
+        }
         Page page = new Page();
         page.setSize(parameterPayRecordDTO.getPageSize());
         page.setCurrent(parameterPayRecordDTO.getPageNum());
-        IPage<ResultPayRecordDTO> resultPayRecordDTOIPage = payRecordMapper.getPayRecordList(page, userId, parameterPayRecordDTO.getClientId());
+        IPage<ResultPayRecordDTO> resultPayRecordDTOIPage = payRecordMapper.getPayRecordList(page, userId, String.valueOf(client.getId()));
         return Result.success(resultPayRecordDTOIPage);
     }
 }

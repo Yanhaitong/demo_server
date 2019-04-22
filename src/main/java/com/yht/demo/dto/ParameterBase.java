@@ -1,6 +1,5 @@
 package com.yht.demo.dto;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,8 +12,8 @@ public class ParameterBase {
     @ApiModelProperty(name = "clientType", value = "客户端类型（0:ios，1:android）", required = true)
     private String clientType;
 
-    @ApiModelProperty(name = "clientId", value = "客户端Id", required = true)
-    private String clientId;
+    @ApiModelProperty(name = "clientName", value = "客户端名称（app名称）", required = true)
+    private String clientName;
 
     @ApiModelProperty(name = "phoneIdentification", value = "手机唯一标示", required = false)
     private String phoneIdentification;
