@@ -7,7 +7,7 @@ import lombok.Data;
  * 终端公共参数
  */
 @Data
-public class ParameterBase {
+public class ParameterBaseDTO {
 
     @ApiModelProperty(name = "clientType", value = "客户端类型（0:ios，1:android）", required = true)
     private String clientType;

@@ -39,9 +39,6 @@ public class PayRecordServiceImpl extends BaseServiceImpl implements IPayRecordS
             return Result.error(500, MsgConstant.MOBILE_NO_IS_NULL);
         }
         Client client = clientMapper.selectClientByName(parameterPayRecordDTO.getClientName());
-        if (client == null){
-            return Result.error(500, MsgConstant.CLIENT_IS_NULL);
-        }
         Page page = new Page();
         page.setSize(parameterPayRecordDTO.getPageSize());
         page.setCurrent(parameterPayRecordDTO.getPageNum());

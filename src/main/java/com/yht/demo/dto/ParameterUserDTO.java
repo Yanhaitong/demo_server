@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "接收用户登录参数")
 @Data
-public class ParameterUserDTO extends ParameterBase{
+public class ParameterUserDTO extends ParameterBaseDTO {
 
     @ApiModelProperty(name = "mobileNo", value = "手机号", required = true)
     private String mobileNo;

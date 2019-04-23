@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @ApiModel(value = "查询首页订单列表参数")
 @Data
-public class ParameterOrderListDTO extends ParameterBase{
+public class ParameterOrderListDTO extends ParameterBaseDTO {
 
     @ApiModelProperty(name = "citys", value = "城市（多个选项英文逗号隔开）", required = true)
     private String citys;

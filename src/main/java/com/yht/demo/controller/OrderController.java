@@ -37,8 +37,7 @@ public class OrderController {
     @ApiOperation(value = "获取首页订单列表")
     public Result<ResultOrderDetailsDTO> getHomePageOrderList(@RequestBody ParameterOrderListDTO parameterOrderListDTO) {
         if (StringUtils.isEmpty(parameterOrderListDTO.getCitys()) || StringUtils.isEmpty(parameterOrderListDTO.getCanRobOrder()) ||
-                StringUtils.isEmpty(parameterOrderListDTO.getPageNum()) || StringUtils.isEmpty(parameterOrderListDTO.getPageSize()) ||
-                StringUtils.isEmpty(parameterOrderListDTO.getClientName()) || StringUtils.isEmpty(parameterOrderListDTO.getClientType())){
+                StringUtils.isEmpty(parameterOrderListDTO.getPageNum()) || StringUtils.isEmpty(parameterOrderListDTO.getPageSize())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return orderService.getHomePageOrderList(parameterOrderListDTO);

@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping("/sendVerifyCode")
     @ApiOperation(value = "发送验证码")
     public Result sendVerificationCode(@RequestBody ParameterSendVerifyCode parameterSendVerifyCode) {
-        if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo()) || StringUtils.isEmpty(parameterSendVerifyCode.getClientName())) {
+        if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.sendVerificationCode(parameterSendVerifyCode);
@@ -54,8 +54,7 @@ public class UserController {
     @PostMapping("/loginOrRegister")
     @ApiOperation(value = "验证码登录或注册")
     public Result<ResultUserInfoDTO> loginOrRegister(@RequestBody ParameterUserDTO parameterUserDTO) {
-        if (StringUtils.isEmpty(parameterUserDTO.getMobileNo()) || StringUtils.isEmpty(parameterUserDTO.getClientName()) ||
-                StringUtils.isEmpty(parameterUserDTO.getCode()) || StringUtils.isEmpty(parameterUserDTO.getClientType())) {
+        if (StringUtils.isEmpty(parameterUserDTO.getMobileNo()) || StringUtils.isEmpty(parameterUserDTO.getCode())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.verifyCodeLoginOrRegister(parameterUserDTO);
@@ -72,23 +71,24 @@ public class UserController {
 
     @PostMapping("/getAppInfo")
     @ApiOperation(value = "获取App初始化信息")
-    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterBase parameterBase) {
-        if (StringUtils.isEmpty(parameterBase.getClientName()) || StringUtils.isEmpty(parameterBase.getClientType())) {
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return userService.getAppInfo(parameterBase);
+    public Result<ResultAPPInfoDTO> getAppInfo(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return userService.getAppInfo(parameterBaseDTO);
     }
 
     @PostMapping("/getUserInfo")
     @ApiOperation(value = "获取用户信息")
     public Result<ResultUserInfoDTO> getUserInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
-        if (StringUtils.isEmpty(parameterUserInfoDTO.getClientName()) || StringUtils.isEmpty(parameterUserInfoDTO.getClientType())
-                || StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
+        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.getUserInfo(parameterUserInfoDTO);
     }
 
+    @PostMapping("/getUserPortraitUploadCredentials")
+    @ApiOperation(value = "获取用户头像上传凭证")
+    public Result getUserPortraitUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return userService.getUserPortraitUploadCredentials(parameterBaseDTO);
+    }
 
 }
 

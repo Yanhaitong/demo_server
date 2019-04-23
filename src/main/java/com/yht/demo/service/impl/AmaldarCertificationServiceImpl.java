@@ -1,16 +1,20 @@
 package com.yht.demo.service.impl;
 
 import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
 import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.Constant;
 import com.yht.demo.common.Result;
 import com.yht.demo.common.face.constant.FacePlusContst;
 import com.yht.demo.common.face.util.FacePlusUtil;
 import com.yht.demo.common.qiniu.QiniuBussiness;
-import com.yht.demo.entity.AmaldarCertification;
+import com.yht.demo.dto.ParameterBaseDTO;
+import com.yht.demo.dto.ParameterIdCardDTO;
+import com.yht.demo.dto.ParameterUserInfoDTO;
+import com.yht.demo.dto.ResultQiNiuCredentialsDTO;
 import com.yht.demo.mapper.AmaldarCertificationMapper;
 import com.yht.demo.service.IAmaldarCertificationService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,39 +33,74 @@ import java.util.Map;
 @Service
 public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements IAmaldarCertificationService {
 
+    @Autowired
+    private AmaldarCertificationMapper amaldarCertificationMapper;
+
     @Override
-    public Result getAmaldarCertificationInfo(String token, String client) {
+    public Result getAmaldarCertificationInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
+        //amaldarCertificationMapper
+
+
         return null;
     }
 
     @Override
-    public Result idCardValidation(String token, String client, String idCardSide, MultipartFile file) {
+    public Result idCardValidation(ParameterIdCardDTO parameterIdCardDTO) {
         return null;
     }
 
     @Override
-    public Result getBizToken(String token, String client) {
+    public Result getBizToken(ParameterUserInfoDTO parameterUserInfoDTO) {
         return null;
     }
 
     @Override
-    public Result getVerifyResult(String token, String client) {
+    public Result getVerifyResult(ParameterUserInfoDTO parameterUserInfoDTO) {
         return null;
     }
 
     @Override
-    public Result companyCertification() {
+    public Result companyCertification(ParameterBaseDTO parameterBaseDTO) {
         return null;
     }
 
     @Override
-    public Result getUploadCredentials() {
-        return null;
+    public Result getUploadCredentials(ParameterBaseDTO parameterBaseDTO) {
+
+        String bucket = parameterBaseDTO.getClientName();
+        // 密钥配置
+        Auth auth = Auth.create(Constant.QINIU_ACCESS_KEY, Constant.QINIU_SECRET_KEY);
+        // 要上传的空间
+        if (bucket == null || "".equals(bucket.trim())) {
+            bucket = Constant.QINIU_ICON_BUCKET;
+        }
+        //上传到七牛后保存的文件名
+        String companyLogoKey = bucket + "companyLogo" +"_" + System.currentTimeMillis() + ".png";
+        String companyWorkCardKey = bucket + "companyWorkCard" + "_" + System.currentTimeMillis() + ".png";
+        String companyLicenseKey = bucket + "companyLicense" + "_" + System.currentTimeMillis() + ".png";
+        String laborContractKey = bucket + "laborContract" + "_" + System.currentTimeMillis() + ".png";
+        //上传到七牛云的token
+        String companyLogoToken = auth.uploadToken(bucket, companyLogoKey, 300, new StringMap());
+        String companyWorkCardToken = auth.uploadToken(bucket, companyWorkCardKey, 300, new StringMap());
+        String companyLicenseToken = auth.uploadToken(bucket, companyLicenseKey, 300, new StringMap());
+        String laborContractToken = auth.uploadToken(bucket, laborContractKey, 300, new StringMap());
+
+        ResultQiNiuCredentialsDTO resultQiNiuCredentialsDTO = new ResultQiNiuCredentialsDTO();
+        resultQiNiuCredentialsDTO.setCompanyLicenseKey(companyLicenseKey);
+        resultQiNiuCredentialsDTO.setCompanyLicenseToken(companyLicenseToken);
+        resultQiNiuCredentialsDTO.setCompanyLogoKey(companyLogoKey);
+        resultQiNiuCredentialsDTO.setCompanyLogoToken(companyLogoToken);
+        resultQiNiuCredentialsDTO.setCompanyWorkCardKey(companyWorkCardKey);
+        resultQiNiuCredentialsDTO.setCompanyWorkCardToken(companyWorkCardToken);
+        resultQiNiuCredentialsDTO.setLaborContractKey(laborContractKey);
+        resultQiNiuCredentialsDTO.setLaborContractToken(laborContractToken);
+        return Result.success(resultQiNiuCredentialsDTO);
     }
 
 
     /**
      * 获取getBizToken
+     *
      * @param idCardName
      * @param idCardNumber
      * @param fileByteArr
@@ -85,6 +124,7 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
 
     /**
      * 获取人脸识别结果
+     *
      * @param bizToken
      * @param file
      * @return
@@ -103,6 +143,7 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
 
     /**
      * 上传身份证图片
+     *
      * @param mobileNo
      * @param client
      * @param file
@@ -148,6 +189,7 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
 
     /**
      * 上传活体识别的图片
+     *
      * @param mobile_no
      * @param userId
      * @param bytes
@@ -176,6 +218,7 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
 
     /**
      * 上传身份证头像的图片
+     *
      * @param mobile_no
      * @param bytes
      * @return

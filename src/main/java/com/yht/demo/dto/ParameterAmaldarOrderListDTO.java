@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @ApiModel(value = "查询经理订单列表参数")
 @Data
-public class ParameterAmaldarOrderListDTO extends ParameterBase{
+public class ParameterAmaldarOrderListDTO extends ParameterBaseDTO {
 
     @ApiModelProperty(name = "token", value = "用户登录token", required = true)
     private String token;

@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author generator
  * @since 2019-04-22
  */
-public interface IClientService extends IService<Client> {
+public interface IClientService {
 
+    Client selectClientByName(String clientName);
 }

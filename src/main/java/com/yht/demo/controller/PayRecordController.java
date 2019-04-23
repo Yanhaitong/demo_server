@@ -3,7 +3,7 @@ package com.yht.demo.controller;
 
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.dto.ParameterBase;
+import com.yht.demo.dto.ParameterBaseDTO;
 import com.yht.demo.dto.ParameterPayRecordDTO;
 import com.yht.demo.service.IPayRecordService;
 import com.yht.demo.service.ITopUpAmountService;
@@ -34,17 +34,14 @@ public class PayRecordController {
 
     @PostMapping("/topUpAmountInfo")
     @ApiOperation(value = "充值金额信息")
-    public Result topUpAmountInfo(@RequestBody ParameterBase parameterBase) {
-        if (StringUtils.isEmpty(parameterBase.getClientName())){
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return topUpAmountService.topUpAmountInfo(parameterBase);
+    public Result topUpAmountInfo(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return topUpAmountService.topUpAmountInfo(parameterBaseDTO);
     }
 
     @PostMapping("/getPayRecordList")
     @ApiOperation(value = "获取支付记录列表")
     public Result getPayRecordList(@RequestBody ParameterPayRecordDTO parameterPayRecordDTO) {
-        if (StringUtils.isEmpty(parameterPayRecordDTO.getToken()) || StringUtils.isEmpty(parameterPayRecordDTO.getClientName())){
+        if (StringUtils.isEmpty(parameterPayRecordDTO.getToken())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return payRecordService.getPayRecordList(parameterPayRecordDTO);

@@ -1,6 +1,9 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
+import com.yht.demo.dto.ParameterBaseDTO;
+import com.yht.demo.dto.ParameterIdCardDTO;
+import com.yht.demo.dto.ParameterUserInfoDTO;
 import com.yht.demo.entity.AmaldarCertification;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,15 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IAmaldarCertificationService {
 
-    Result getAmaldarCertificationInfo(String token, String client);
+    Result getAmaldarCertificationInfo(ParameterUserInfoDTO parameterUserInfoDTO);
 
-    Result idCardValidation(String token, String client, String idCardSide, MultipartFile file);
+    Result idCardValidation(ParameterIdCardDTO parameterIdCardDTO);
 
-    Result getBizToken(String token, String client);
+    Result getBizToken(ParameterUserInfoDTO parameterUserInfoDTO);
 
-    Result getVerifyResult(String token, String client);
+    Result getVerifyResult(ParameterUserInfoDTO parameterUserInfoDTO);
 
-    Result companyCertification();
+    Result companyCertification(ParameterBaseDTO parameterBaseDTO);
 
-    Result getUploadCredentials();
+    Result getUploadCredentials(ParameterBaseDTO parameterBaseDTO);
+
 }

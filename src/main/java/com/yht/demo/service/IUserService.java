@@ -19,7 +19,9 @@ public interface IUserService {
 
     Result loginOut(ParameterUserInfoDTO parameterAPPInfoDTO);
 
-    Result getAppInfo(ParameterBase parameterBase);
+    Result getAppInfo(ParameterBaseDTO parameterBaseDTO);
 
     Result getUserInfo(ParameterUserInfoDTO parameterUserInfoDTO);
+
+    Result getUserPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO);
 }

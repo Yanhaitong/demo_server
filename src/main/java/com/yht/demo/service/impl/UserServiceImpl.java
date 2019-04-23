@@ -1,9 +1,8 @@
 package com.yht.demo.service.impl;
 
-import com.yht.demo.common.BaseServiceImpl;
-import com.yht.demo.common.MsgConstant;
-import com.yht.demo.common.RedisUtils;
-import com.yht.demo.common.Result;
+import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
+import com.yht.demo.common.*;
 import com.yht.demo.common.sender.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
 import com.yht.demo.dto.*;
@@ -66,9 +65,6 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             //redis保存token对应的UserId(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
             Client client = clientMapper.selectClientByName(parameterUserDTO.getClientName());
-            if (client == null){
-                return Result.error(500, MsgConstant.CLIENT_IS_NULL);
-            }
             //数据库操作
             User user = userMapper.getUserInfo(parameterUserDTO.getMobileNo(), String.valueOf(client.getId()));
             if (user == null) {
@@ -121,14 +117,14 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getAppInfo(ParameterBase parameterBase) {
+    public Result getAppInfo(ParameterBaseDTO parameterBaseDTO) {
         Map<String, Object> parameterMap = new HashMap<>();
 
         //城市列表
         List<String> cityList = cityMapper.selectAllCityList();
         parameterMap.put("cityList", cityList);
 
-        Client client = clientMapper.selectClientByName(parameterBase.getClientName());
+        Client client = clientMapper.selectClientByName(parameterBaseDTO.getClientName());
         if (client == null){
             return Result.error(500, MsgConstant.CLIENT_IS_NULL);
         }
@@ -157,5 +153,26 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         }
 
         return Result.success(resultUserInfoDTO);
+    }
+
+    @Override
+    public Result getUserPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO) {
+
+        String bucket = parameterBaseDTO.getClientName();
+        // 密钥配置
+        Auth auth = Auth.create(Constant.QINIU_ACCESS_KEY, Constant.QINIU_SECRET_KEY);
+        // 要上传的空间
+        if (bucket == null || "".equals(bucket.trim())) {
+            bucket = Constant.QINIU_ICON_BUCKET;
+        }
+        //上传到七牛后保存的文件名
+        String key = bucket + "UserPortrait" + "_" + System.currentTimeMillis() + ".png";
+        //上传到七牛云的token
+        String token = auth.uploadToken(bucket, key, 300, new StringMap());
+        Map<String, Object> map = new HashMap<>();
+        map.put("UserPortraitToken", token);
+        map.put("UserPortraitKey", key);
+
+        return Result.success(map);
     }
 }

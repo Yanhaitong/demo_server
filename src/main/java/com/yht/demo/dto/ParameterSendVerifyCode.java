@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "发送验证码参数")
 @Data
-public class ParameterSendVerifyCode extends ParameterBase{
+public class ParameterSendVerifyCode extends ParameterBaseDTO {
 
     @ApiModelProperty(name = "mobileNo", value = "手机号", required = true)
     private String mobileNo;

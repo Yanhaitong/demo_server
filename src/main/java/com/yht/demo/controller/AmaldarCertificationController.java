@@ -1,12 +1,15 @@
 package com.yht.demo.controller;
 
 
+import com.yht.demo.common.MsgConstant;
+import com.yht.demo.common.Result;
+import com.yht.demo.dto.*;
 import com.yht.demo.service.IAmaldarCertificationService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -24,40 +27,53 @@ public class AmaldarCertificationController {
     @Autowired
     private IAmaldarCertificationService amaldarCertificationService;
 
-    /*@PostMapping("/getAmaldarCertificationInfo")
+    @PostMapping("/getAmaldarCertificationInfo")
     @ApiOperation(value = "获取经理认证信息")
-    public Result getAmaldarCertificationInfo(String token, String client) {
-        return amaldarCertificationService.getAmaldarCertificationInfo(token, client);
+    public Result getAmaldarCertificationInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
+        }
+        return amaldarCertificationService.getAmaldarCertificationInfo(parameterUserInfoDTO);
     }
 
     @PostMapping("/idCardValidation")
     @ApiOperation(value = "身份证OCR验证")
-    public Result idCardValidation(String token, String client, String idCardSide, MultipartFile file) {
-        return amaldarCertificationService.idCardValidation(token, client, idCardSide, file);
+    public Result idCardValidation(@RequestBody ParameterIdCardDTO parameterIdCardDTO) {
+        if (StringUtils.isEmpty(parameterIdCardDTO.getToken()) || StringUtils.isEmpty(parameterIdCardDTO.getIdCardSide()) ||
+                StringUtils.isEmpty(parameterIdCardDTO.getFile())) {
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
+        }
+        return amaldarCertificationService.idCardValidation(parameterIdCardDTO);
     }
 
     @PostMapping("/getBizToken")
     @ApiOperation(value = "获取BizToken")
-    public Result getBizToken(String token, String client) {
-        return amaldarCertificationService.getBizToken(token, client);
+    public Result getBizToken(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
+        }
+        return amaldarCertificationService.getBizToken(parameterUserInfoDTO);
     }
 
     @PostMapping("/getVerifyResult")
     @ApiOperation(value = "获取活体识别结果")
-    public Result getVerifyResult(String token, String client) {
-        return amaldarCertificationService.getVerifyResult(token, client);
+    public Result getVerifyResult(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
+            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
+        }
+        return amaldarCertificationService.getVerifyResult(parameterUserInfoDTO);
     }
 
     @PostMapping("/companyCertification")
     @ApiOperation(value = "公司认证")
-    public Result companyCertification(HttpServletRequest request, HttpServletResponse response) {
-        return amaldarCertificationService.companyCertification();
+    public Result companyCertification(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return amaldarCertificationService.companyCertification(parameterBaseDTO);
     }
 
-    @PostMapping("/getUploadCredentials")
-    @ApiOperation(value = "获取上传凭证")
-    public Result getUploadCredentials(HttpServletRequest request, HttpServletResponse response) {
-        return amaldarCertificationService.getUploadCredentials();
-    }*/
+    @PostMapping("/getCompanyUploadCredentials")
+    @ApiOperation(value = "获取公司认证上传凭证")
+    public Result<ResultQiNiuCredentialsDTO> getUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return amaldarCertificationService.getUploadCredentials(parameterBaseDTO);
+    }
 }
 
