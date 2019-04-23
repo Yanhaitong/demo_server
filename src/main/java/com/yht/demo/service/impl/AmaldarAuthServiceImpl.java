@@ -2,20 +2,19 @@ package com.yht.demo.service.impl;
 
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
-import com.yht.demo.common.BaseServiceImpl;
-import com.yht.demo.common.Constant;
-import com.yht.demo.common.Result;
+import com.yht.demo.common.*;
 import com.yht.demo.common.face.constant.FacePlusContst;
 import com.yht.demo.common.face.util.FacePlusUtil;
 import com.yht.demo.common.qiniu.QiniuBussiness;
-import com.yht.demo.dto.ParameterBaseDTO;
-import com.yht.demo.dto.ParameterIdCardDTO;
-import com.yht.demo.dto.ParameterUserInfoDTO;
-import com.yht.demo.dto.ResultQiNiuCredentialsDTO;
-import com.yht.demo.mapper.AmaldarCertificationMapper;
-import com.yht.demo.service.IAmaldarCertificationService;
+import com.yht.demo.dto.*;
+import com.yht.demo.entity.AmaldarAuth;
+import com.yht.demo.entity.User;
+import com.yht.demo.mapper.AmaldarAuthMapper;
+import com.yht.demo.mapper.UserMapper;
+import com.yht.demo.service.IAmaldarAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -31,17 +30,38 @@ import java.util.Map;
  * @since 2019-04-22
  */
 @Service
-public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements IAmaldarCertificationService {
+public class AmaldarAuthServiceImpl extends BaseServiceImpl implements IAmaldarAuthService {
 
     @Autowired
-    private AmaldarCertificationMapper amaldarCertificationMapper;
+    private AmaldarAuthMapper amaldarAuthMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
-    public Result getAmaldarCertificationInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
-        //amaldarCertificationMapper
+    public Result getAmaldarAuthInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
+        //判断当前用户是否已认证
+        String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
+        if (StringUtils.isEmpty(userId)) {
+            return Result.error(500, MsgConstant.USER_ID_IS_NULL);
+        }
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
+        }
 
-
-        return null;
+        AmaldarAuth amaldarAuth = amaldarAuthMapper.getAmaldarAuthInfoByUserId(user.getId());
+        ResultAmaldarAuthInfoDTO resultAmaldarAuthInfoDTO = new ResultAmaldarAuthInfoDTO();
+        if (amaldarAuth == null) {//经理未认证
+            return Result.success(resultAmaldarAuthInfoDTO);
+        } else {//经理认证中，经理审核中，经理认证通过，经理认证未通过
+            resultAmaldarAuthInfoDTO.setStatus(String.valueOf(amaldarAuth.getStatus()));
+            resultAmaldarAuthInfoDTO.setWorkCity(amaldarAuth.getWorkCity());
+            resultAmaldarAuthInfoDTO.setCompanyLicenseUrl("1");
+            resultAmaldarAuthInfoDTO.setCompanyLogoUrl("1");
+            resultAmaldarAuthInfoDTO.setCompanyWorkCardUrl("1");
+            resultAmaldarAuthInfoDTO.setLaborContractUrl("1");
+            return Result.success(resultAmaldarAuthInfoDTO);
+        }
     }
 
     @Override
@@ -60,7 +80,7 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
     }
 
     @Override
-    public Result companyCertification(ParameterBaseDTO parameterBaseDTO) {
+    public Result companyAuth(ParameterBaseDTO parameterBaseDTO) {
         return null;
     }
 
@@ -75,10 +95,10 @@ public class AmaldarCertificationServiceImpl extends BaseServiceImpl implements 
             bucket = Constant.QINIU_ICON_BUCKET;
         }
         //上传到七牛后保存的文件名
-        String companyLogoKey = bucket + "companyLogo" +"_" + System.currentTimeMillis() + ".png";
-        String companyWorkCardKey = bucket + "companyWorkCard" + "_" + System.currentTimeMillis() + ".png";
-        String companyLicenseKey = bucket + "companyLicense" + "_" + System.currentTimeMillis() + ".png";
-        String laborContractKey = bucket + "laborContract" + "_" + System.currentTimeMillis() + ".png";
+        String companyLogoKey = bucket + "companyLogo" + "_" + System.currentTimeMillis() + ".jpg";
+        String companyWorkCardKey = bucket + "companyWorkCard" + "_" + System.currentTimeMillis() + ".jpg";
+        String companyLicenseKey = bucket + "companyLicense" + "_" + System.currentTimeMillis() + ".jpg";
+        String laborContractKey = bucket + "laborContract" + "_" + System.currentTimeMillis() + ".jpg";
         //上传到七牛云的token
         String companyLogoToken = auth.uploadToken(bucket, companyLogoKey, 300, new StringMap());
         String companyWorkCardToken = auth.uploadToken(bucket, companyWorkCardKey, 300, new StringMap());

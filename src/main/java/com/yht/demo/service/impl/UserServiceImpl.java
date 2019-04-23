@@ -166,7 +166,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             bucket = Constant.QINIU_ICON_BUCKET;
         }
         //上传到七牛后保存的文件名
-        String key = bucket + "UserPortrait" + "_" + System.currentTimeMillis() + ".png";
+        String key = bucket + "userPortrait" + "_" + System.currentTimeMillis() + ".jpg";
         //上传到七牛云的token
         String token = auth.uploadToken(bucket, key, 300, new StringMap());
         Map<String, Object> map = new HashMap<>();

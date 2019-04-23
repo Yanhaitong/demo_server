@@ -22,8 +22,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_amaldar_certification")
-public class AmaldarCertification extends Model<AmaldarCertification> {
+@TableName("t_amaldar_Auth")
+public class AmaldarAuth extends Model<AmaldarAuth> {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +47,11 @@ public class AmaldarCertification extends Model<AmaldarCertification> {
      * 身份证姓名
      */
     private String name;
+
+    /**
+     * 工作城市
+     */
+    private String workCity;
 
     /**
      * 身份证人像面扫描次数

@@ -2,9 +2,10 @@ package com.yht.demo.controller;
 
 
 import com.yht.demo.common.MsgConstant;
+import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.*;
-import com.yht.demo.service.IAmaldarCertificationService;
+import com.yht.demo.service.IAmaldarAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +22,19 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api("身份认证信息管理")
 @RestController
-@RequestMapping("/amaldarCertification")
-public class AmaldarCertificationController {
+@RequestMapping("/amaldarAuth")
+public class AmaldarAuthController {
 
     @Autowired
-    private IAmaldarCertificationService amaldarCertificationService;
+    private IAmaldarAuthService amaldarAuthService;
 
-    @PostMapping("/getAmaldarCertificationInfo")
+    @PostMapping("/getAmaldarAuthInfo")
     @ApiOperation(value = "获取经理认证信息")
-    public Result getAmaldarCertificationInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+    public Result getAmaldarAuthInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
         if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return amaldarCertificationService.getAmaldarCertificationInfo(parameterUserInfoDTO);
+        return amaldarAuthService.getAmaldarAuthInfo(parameterUserInfoDTO);
     }
 
     @PostMapping("/idCardValidation")
@@ -43,7 +44,7 @@ public class AmaldarCertificationController {
                 StringUtils.isEmpty(parameterIdCardDTO.getFile())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return amaldarCertificationService.idCardValidation(parameterIdCardDTO);
+        return amaldarAuthService.idCardValidation(parameterIdCardDTO);
     }
 
     @PostMapping("/getBizToken")
@@ -52,7 +53,7 @@ public class AmaldarCertificationController {
         if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return amaldarCertificationService.getBizToken(parameterUserInfoDTO);
+        return amaldarAuthService.getBizToken(parameterUserInfoDTO);
     }
 
     @PostMapping("/getVerifyResult")
@@ -61,19 +62,41 @@ public class AmaldarCertificationController {
         if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
-        return amaldarCertificationService.getVerifyResult(parameterUserInfoDTO);
+        return amaldarAuthService.getVerifyResult(parameterUserInfoDTO);
     }
 
-    @PostMapping("/companyCertification")
+    @PostMapping("/companyAuth")
     @ApiOperation(value = "公司认证")
-    public Result companyCertification(@RequestBody ParameterBaseDTO parameterBaseDTO) {
-        return amaldarCertificationService.companyCertification(parameterBaseDTO);
+    public Result companyAuth(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+
+        /*User user = userService.getUserByMobileNo(mobileNo, 2, client);
+        AmaldarCertification amaldarCertification = this.amaldarCertificationMapper.getCertificationInfo(user.getId());
+        if ( null != amaldarCertification && amaldarCertification.getStatus() == 2){
+            amaldarCertification.setStatus(3);
+            amaldarCertificationMapper.updateByPrimaryKeySelective(amaldarCertification);
+        }
+
+        //修改经理状态status为1待审核
+        user.setStatus(1);
+        userService.updateUser(user);
+
+        JSONObject mapData = new JSONObject();
+        mapData.put("faceStatus", user.getFaceStatus());
+        returnObj.put("code", 200);
+        returnObj.put("data", JSONObject.fromObject(mapData, jsonConfig));*/
+
+
+        String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
+
+
+
+        return amaldarAuthService.companyAuth(parameterUserInfoDTO);
     }
 
     @PostMapping("/getCompanyUploadCredentials")
     @ApiOperation(value = "获取公司认证上传凭证")
     public Result<ResultQiNiuCredentialsDTO> getUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
-        return amaldarCertificationService.getUploadCredentials(parameterBaseDTO);
+        return amaldarAuthService.getUploadCredentials(parameterBaseDTO);
     }
 }
 

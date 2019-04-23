@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "接收经理认证的参数")
 @Data
-public class ParameterAmaldarCertificationDTO extends ParameterBaseDTO {
+public class ParameterAmaldarAuthInfoDTO extends ParameterBaseDTO {
 
     @ApiModelProperty(name = "mobileNo", value = "手机号", required = true)
     private String mobileNo;

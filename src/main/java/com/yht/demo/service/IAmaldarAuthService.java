@@ -4,9 +4,6 @@ import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterBaseDTO;
 import com.yht.demo.dto.ParameterIdCardDTO;
 import com.yht.demo.dto.ParameterUserInfoDTO;
-import com.yht.demo.entity.AmaldarCertification;
-import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -16,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
  * @author generator
  * @since 2019-04-22
  */
-public interface IAmaldarCertificationService {
+public interface IAmaldarAuthService {
 
-    Result getAmaldarCertificationInfo(ParameterUserInfoDTO parameterUserInfoDTO);
+    Result getAmaldarAuthInfo(ParameterUserInfoDTO parameterUserInfoDTO);
 
     Result idCardValidation(ParameterIdCardDTO parameterIdCardDTO);
 
@@ -26,7 +23,7 @@ public interface IAmaldarCertificationService {
 
     Result getVerifyResult(ParameterUserInfoDTO parameterUserInfoDTO);
 
-    Result companyCertification(ParameterBaseDTO parameterBaseDTO);
+    Result companyAuth(ParameterBaseDTO parameterBaseDTO);
 
     Result getUploadCredentials(ParameterBaseDTO parameterBaseDTO);
 
