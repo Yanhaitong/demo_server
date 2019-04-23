@@ -85,10 +85,7 @@ public class AmaldarAuthController {
         returnObj.put("code", 200);
         returnObj.put("data", JSONObject.fromObject(mapData, jsonConfig));*/
 
-
         String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
-
-
 
         return amaldarAuthService.companyAuth(parameterUserInfoDTO);
     }
