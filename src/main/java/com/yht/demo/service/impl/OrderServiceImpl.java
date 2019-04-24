@@ -6,11 +6,11 @@ import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
-import com.yht.demo.dto.ParameterOrderDetailsDTO;
-import com.yht.demo.dto.ParameterOrderListDTO;
-import com.yht.demo.dto.ResultOrderDetailsDTO;
+import com.yht.demo.dto.*;
+import com.yht.demo.entity.Banner;
 import com.yht.demo.entity.Order;
 import com.yht.demo.entity.OrderAllocation;
+import com.yht.demo.mapper.BannerMapper;
 import com.yht.demo.mapper.OrderAllocationMapper;
 import com.yht.demo.mapper.OrderMapper;
 import com.yht.demo.mapper.UserMapper;
@@ -38,17 +38,26 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
     @Autowired
     private OrderMapper orderMapper;
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private OrderAllocationMapper orderAllocationMapper;
+    @Autowired
+    private BannerMapper bannerMapper;
 
     @Override
     public Result getHomePageOrderList(ParameterOrderListDTO parameterOrderListDTO) {
+        //bannber列表
+        List<ResultBannerDTO> bannerList = bannerMapper.selectBannerListByMap(parameterOrderListDTO.getClientId());
+
+        //首页列表
         Page page = new Page();
         page.setSize(parameterOrderListDTO.getPageSize());
         page.setCurrent(parameterOrderListDTO.getPageNum());
         IPage<ResultOrderDetailsDTO> resultOrderDetailsDTOIPage = orderMapper.selectOrderListByMap(page, parameterOrderListDTO);
-        return Result.success(resultOrderDetailsDTOIPage);
+
+        ResultHomeOrderListDTO resultHomeOrderListDTO = new ResultHomeOrderListDTO();
+        resultHomeOrderListDTO.setBannerList(bannerList);
+        resultHomeOrderListDTO.setOrderDetailsList(resultOrderDetailsDTOIPage);
+
+        return Result.success(resultHomeOrderListDTO);
     }
 
     @Override

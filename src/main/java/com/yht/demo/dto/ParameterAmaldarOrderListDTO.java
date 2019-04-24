@@ -12,9 +12,6 @@ import lombok.Data;
 @Data
 public class ParameterAmaldarOrderListDTO extends ParameterBaseDTO {
 
-    @ApiModelProperty(name = "token", value = "用户登录token", required = true)
-    private String token;
-
     @ApiModelProperty(name = "pageSize", value = "每页个数", required = true)
     private Integer pageSize;
 

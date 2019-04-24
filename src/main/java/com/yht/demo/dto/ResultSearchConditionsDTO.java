@@ -11,8 +11,14 @@ public class ResultSearchConditionsDTO {
     @ApiModelProperty(name = "selectType", value = "选择方式（0:单选，1:多选）", required = true)
     private String selectType;
 
-    @ApiModelProperty(name = "searchType", value = "搜索类型", required = true)
-    private String searchType;
+    @ApiModelProperty(name = "searchId", value = "搜索Id", required = true)
+    private String searchId;
+
+    @ApiModelProperty(name = "searchTitle", value = "搜索标题", required = true)
+    private String searchTitle;
+
+    @ApiModelProperty(name = "searchName", value = "搜索名称", required = true)
+    private String searchName;
 
     @ApiModelProperty(name = "name", value = "名称", required = true)
     private String name;

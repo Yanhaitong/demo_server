@@ -3,6 +3,9 @@ package com.yht.demo.service;
 import com.yht.demo.entity.Client;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 客户端表 服务类
@@ -13,5 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IClientService {
 
-    Client selectClientByName(String clientName);
+    List<Client> selectClientByMap(Map<String, Object> parameterMap);
 }

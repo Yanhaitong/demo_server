@@ -46,7 +46,7 @@ public class OrderController {
     @PostMapping("/getOrderDetailsById")
     @ApiOperation(value = "获取订单详情")
     public Result<ResultOrderDetailsDTO> getOrderDetailsById(@RequestBody ParameterOrderDetailsDTO parameterOrderDetailsDTO) {
-        if (StringUtils.isEmpty(parameterOrderDetailsDTO.getOrderId()) || StringUtils.isEmpty(parameterOrderDetailsDTO.getToken())){
+        if (StringUtils.isEmpty(parameterOrderDetailsDTO.getOrderId())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return orderService.getOrderDetailsById(parameterOrderDetailsDTO);

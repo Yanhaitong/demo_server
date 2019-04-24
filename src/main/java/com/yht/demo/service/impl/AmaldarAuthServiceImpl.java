@@ -38,9 +38,9 @@ public class AmaldarAuthServiceImpl extends BaseServiceImpl implements IAmaldarA
     private UserMapper userMapper;
 
     @Override
-    public Result getAmaldarAuthInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
+    public Result getAmaldarAuthInfo(ParameterBaseDTO parameterBaseDTO) {
         //判断当前用户是否已认证
-        String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
+        String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
         if (StringUtils.isEmpty(userId)) {
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
@@ -70,12 +70,12 @@ public class AmaldarAuthServiceImpl extends BaseServiceImpl implements IAmaldarA
     }
 
     @Override
-    public Result getBizToken(ParameterUserInfoDTO parameterUserInfoDTO) {
+    public Result getBizToken(ParameterBaseDTO parameterBaseDTO) {
         return null;
     }
 
     @Override
-    public Result getVerifyResult(ParameterUserInfoDTO parameterUserInfoDTO) {
+    public Result getVerifyResult(ParameterBaseDTO parameterBaseDTO) {
         return null;
     }
 

@@ -3,7 +3,6 @@ package com.yht.demo.service;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterBaseDTO;
 import com.yht.demo.dto.ParameterIdCardDTO;
-import com.yht.demo.dto.ParameterUserInfoDTO;
 
 /**
  * <p>
@@ -15,13 +14,13 @@ import com.yht.demo.dto.ParameterUserInfoDTO;
  */
 public interface IAmaldarAuthService {
 
-    Result getAmaldarAuthInfo(ParameterUserInfoDTO parameterUserInfoDTO);
+    Result getAmaldarAuthInfo(ParameterBaseDTO parameterBaseDTO);
 
     Result idCardValidation(ParameterIdCardDTO parameterIdCardDTO);
 
-    Result getBizToken(ParameterUserInfoDTO parameterUserInfoDTO);
+    Result getBizToken(ParameterBaseDTO parameterBaseDTO);
 
-    Result getVerifyResult(ParameterUserInfoDTO parameterUserInfoDTO);
+    Result getVerifyResult(ParameterBaseDTO parameterBaseDTO);
 
     Result companyAuth(ParameterBaseDTO parameterBaseDTO);
 

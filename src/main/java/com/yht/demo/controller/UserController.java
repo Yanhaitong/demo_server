@@ -42,14 +42,14 @@ public class UserController {
         }
     }*/
 
-    @PostMapping("/sendVerifyCode")
+    /*@PostMapping("/sendVerifyCode")
     @ApiOperation(value = "发送验证码")
     public Result sendVerificationCode(@RequestBody ParameterSendVerifyCode parameterSendVerifyCode) {
         if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.sendVerificationCode(parameterSendVerifyCode);
-    }
+    }*/
 
     @PostMapping("/loginOrRegister")
     @ApiOperation(value = "验证码登录或注册")
@@ -62,11 +62,8 @@ public class UserController {
 
     @PostMapping("/loginOut")
     @ApiOperation(value = "退出登录")
-    public Result loginOut(@RequestBody ParameterUserInfoDTO parameterAPPInfoDTO) {
-        if (StringUtils.isEmpty(parameterAPPInfoDTO.getToken())) {
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return userService.loginOut(parameterAPPInfoDTO);
+    public Result loginOut(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return userService.loginOut(parameterBaseDTO);
     }
 
     @PostMapping("/getAppInfo")
@@ -77,17 +74,14 @@ public class UserController {
 
     @PostMapping("/getUserInfo")
     @ApiOperation(value = "获取用户信息")
-    public Result<ResultUserInfoDTO> getUserInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
-        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return userService.getUserInfo(parameterUserInfoDTO);
+    public Result<ResultUserInfoDTO> getUserInfo(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return userService.getUserInfo(parameterBaseDTO);
     }
 
-    @PostMapping("/getUserPortraitUploadCredentials")
+    @PostMapping("/getPortraitUploadCredentials")
     @ApiOperation(value = "获取用户头像上传凭证")
-    public Result getUserPortraitUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
-        return userService.getUserPortraitUploadCredentials(parameterBaseDTO);
+    public Result getPortraitUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return userService.getPortraitUploadCredentials(parameterBaseDTO);
     }
 
 }

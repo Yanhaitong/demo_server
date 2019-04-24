@@ -11,10 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @ApiModel(value = "身份证OCR认证参数")
 @Data
-public class ParameterIdCardDTO {
-
-    @ApiModelProperty(name = "token", value = "用户登录token", required = true)
-    private String token;
+public class ParameterIdCardDTO extends ParameterBaseDTO{
 
     @ApiModelProperty(name = "idCardSide", value = "身份证正反面（0:国徽面，1:人像面）", required = true)
     private String idCardSide;

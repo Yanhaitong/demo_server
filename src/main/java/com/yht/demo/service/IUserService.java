@@ -17,11 +17,11 @@ public interface IUserService {
 
     Result verifyCodeLoginOrRegister(ParameterUserDTO parameterUserDTO);
 
-    Result loginOut(ParameterUserInfoDTO parameterAPPInfoDTO);
+    Result loginOut(ParameterBaseDTO parameterBaseDTO);
 
     Result getAppInfo(ParameterBaseDTO parameterBaseDTO);
 
-    Result getUserInfo(ParameterUserInfoDTO parameterUserInfoDTO);
+    Result getUserInfo(ParameterBaseDTO parameterBaseDTO);
 
-    Result getUserPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO);
+    Result getPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO);
 }

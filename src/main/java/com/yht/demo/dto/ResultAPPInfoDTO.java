@@ -18,13 +18,7 @@ import java.util.List;
 @Data
 public class ResultAPPInfoDTO {
 
-    @ApiModelProperty(name = "cityList", value = "城市列表", required = true)
-    private List<String> cityList;
-
     @ApiModelProperty(name = "navigationTabList", value = "首页导航列表", required = true)
-    private ResultNavigationTabDTO navigationTabList;
-
-    @ApiModelProperty(name = "searchConditionsList", value = "搜索条件", required = true)
-    private ResultSearchConditionsDTO searchConditionsList;
+    private List<ResultNavigationTabDTO> navigationTabList;
 
 }

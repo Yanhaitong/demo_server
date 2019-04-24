@@ -1,7 +1,6 @@
 package com.yht.demo.controller;
 
 
-import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterBaseDTO;
 import com.yht.demo.dto.ParameterPayRecordDTO;
@@ -10,8 +9,10 @@ import com.yht.demo.service.ITopUpAmountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -41,9 +42,6 @@ public class PayRecordController {
     @PostMapping("/getPayRecordList")
     @ApiOperation(value = "获取支付记录列表")
     public Result getPayRecordList(@RequestBody ParameterPayRecordDTO parameterPayRecordDTO) {
-        if (StringUtils.isEmpty(parameterPayRecordDTO.getToken())){
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
         return payRecordService.getPayRecordList(parameterPayRecordDTO);
     }
 }

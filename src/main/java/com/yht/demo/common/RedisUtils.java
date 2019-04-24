@@ -56,6 +56,20 @@ public class RedisUtils {
     }
 
     /**
+     * 删除验证码
+     *
+     * @param mobileNo
+     */
+    public static void deleteVerify(String mobileNo) {
+        log.info("deleteVerify:mobileNo--" + mobileNo);
+        try {
+            redisUtils.stringRedisTemplate.delete(mobileNo);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    /**
      * 通过token获取用户ID
      *
      * @param token

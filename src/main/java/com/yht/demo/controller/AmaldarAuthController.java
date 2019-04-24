@@ -30,11 +30,8 @@ public class AmaldarAuthController {
 
     @PostMapping("/getAmaldarAuthInfo")
     @ApiOperation(value = "获取经理认证信息")
-    public Result getAmaldarAuthInfo(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
-        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return amaldarAuthService.getAmaldarAuthInfo(parameterUserInfoDTO);
+    public Result getAmaldarAuthInfo(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return amaldarAuthService.getAmaldarAuthInfo(parameterBaseDTO);
     }
 
     @PostMapping("/idCardValidation")
@@ -49,25 +46,19 @@ public class AmaldarAuthController {
 
     @PostMapping("/getBizToken")
     @ApiOperation(value = "获取BizToken")
-    public Result getBizToken(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
-        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return amaldarAuthService.getBizToken(parameterUserInfoDTO);
+    public Result getBizToken(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return amaldarAuthService.getBizToken(parameterBaseDTO);
     }
 
     @PostMapping("/getVerifyResult")
     @ApiOperation(value = "获取活体识别结果")
-    public Result getVerifyResult(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
-        if (StringUtils.isEmpty(parameterUserInfoDTO.getToken())) {
-            return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
-        }
-        return amaldarAuthService.getVerifyResult(parameterUserInfoDTO);
+    public Result getVerifyResult(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return amaldarAuthService.getVerifyResult(parameterBaseDTO);
     }
 
     @PostMapping("/companyAuth")
     @ApiOperation(value = "公司认证")
-    public Result companyAuth(@RequestBody ParameterUserInfoDTO parameterUserInfoDTO) {
+    public Result companyAuth(@RequestBody ParameterBaseDTO parameterBaseDTO) {
 
         /*User user = userService.getUserByMobileNo(mobileNo, 2, client);
         AmaldarCertification amaldarCertification = this.amaldarCertificationMapper.getCertificationInfo(user.getId());
@@ -85,9 +76,9 @@ public class AmaldarAuthController {
         returnObj.put("code", 200);
         returnObj.put("data", JSONObject.fromObject(mapData, jsonConfig));*/
 
-        String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
+        String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
 
-        return amaldarAuthService.companyAuth(parameterUserInfoDTO);
+        return amaldarAuthService.companyAuth(parameterBaseDTO);
     }
 
     @PostMapping("/getCompanyUploadCredentials")

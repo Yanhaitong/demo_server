@@ -4,9 +4,11 @@ import com.yht.demo.common.BaseServiceImpl;
 import com.yht.demo.entity.Client;
 import com.yht.demo.mapper.ClientMapper;
 import com.yht.demo.service.IClientService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,7 +25,7 @@ public class ClientServiceImpl extends BaseServiceImpl implements IClientService
     private ClientMapper clientMapper;
 
     @Override
-    public Client selectClientByName(String clientName) {
-        return clientMapper.selectClientByName(clientName);
+    public List<Client> selectClientByMap(Map<String, Object> parameterMap) {
+        return clientMapper.selectByMap(parameterMap);
     }
 }

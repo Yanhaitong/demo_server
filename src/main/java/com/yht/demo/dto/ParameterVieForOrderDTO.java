@@ -8,9 +8,6 @@ import lombok.Data;
 @Data
 public class ParameterVieForOrderDTO extends ParameterBaseDTO {
 
-    @ApiModelProperty(name = "token", value = "token", required = true)
-    private String token;
-
     @ApiModelProperty(name = "orderId", value = "订单id", required = true)
     private String orderId;
 

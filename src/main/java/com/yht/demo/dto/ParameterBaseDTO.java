@@ -15,6 +15,12 @@ public class ParameterBaseDTO {
     @ApiModelProperty(name = "clientName", value = "客户端名称（app名称）", required = true)
     private String clientName;
 
+    @ApiModelProperty(name = "clientId", value = "客户端Id", required = true)
+    private String clientId;
+
+    @ApiModelProperty(name = "token", value = "用户登录token", required = true)
+    private String token;
+
     @ApiModelProperty(name = "phoneIdentification", value = "手机唯一标示", required = false)
     private String phoneIdentification;
 

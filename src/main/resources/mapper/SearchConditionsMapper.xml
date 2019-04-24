@@ -6,7 +6,8 @@
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.SearchConditions">
         <id column="id" property="id" />
         <result column="select_type" property="selectType" />
-        <result column="search_type" property="searchType" />
+        <result column="search_title" property="searchTitle" />
+        <result column="search_name" property="searchName" />
         <result column="is_valid" property="isValid" />
         <result column="name" property="name" />
         <result column="client_id" property="clientId" />
@@ -17,12 +18,10 @@
 
     <select id="getSearchConditionsList" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultSearchConditionsDTO">
         SELECT
+        id as searchId,
         select_type as selectType,
-        CASE search_type
-        WHEN '0' THEN '收入形式'
-        WHEN '1' THEN '客户资质'
-        ELSE '未知' END as searchType,
-        name
+        search_title as searchTitle,
+        search_name as searchName
         FROM
         t_search_conditions
         <where>

@@ -38,9 +38,14 @@ public class SearchConditions extends Model<SearchConditions> {
     private Integer selectType;
 
     /**
-     * 搜索类型（0:收入形式，1:客户资质）
+     * 搜索标题
      */
-    private Integer searchType;
+    private String searchTitle;
+
+    /**
+     * 搜索名称
+     */
+    private String searchName;
 
     /**
      * 是否有效（0:无效，1:有效）

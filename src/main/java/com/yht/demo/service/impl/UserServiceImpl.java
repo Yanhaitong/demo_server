@@ -103,11 +103,11 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result loginOut(ParameterUserInfoDTO parameterAPPInfoDTO) {
+    public Result loginOut(ParameterBaseDTO parameterBaseDTO) {
         try {
-            String mobileNo = stringRedisTemplate.opsForValue().get(parameterAPPInfoDTO.getToken());
+            String mobileNo = stringRedisTemplate.opsForValue().get(parameterBaseDTO.getToken());
             stringRedisTemplate.delete("SMS" + mobileNo);
-            stringRedisTemplate.delete(parameterAPPInfoDTO.getToken());
+            stringRedisTemplate.delete(parameterBaseDTO.getToken());
             return Result.success("退出成功");
         } catch (Exception e) {
             log.error("loginOut===========" + e.getMessage());
@@ -119,31 +119,17 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Override
     public Result getAppInfo(ParameterBaseDTO parameterBaseDTO) {
         Map<String, Object> parameterMap = new HashMap<>();
-
-        //城市列表
-        List<String> cityList = cityMapper.selectAllCityList();
-        parameterMap.put("cityList", cityList);
-
-        Client client = clientMapper.selectClientByName(parameterBaseDTO.getClientName());
-        if (client == null){
-            return Result.error(500, MsgConstant.CLIENT_IS_NULL);
-        }
         //获取首页导航栏信息
-        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(String.valueOf(client.getId()));
+        List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterBaseDTO.getClientId());
         parameterMap.put("navigationTabList", resultNavigationTabDTOList);
-
-        //获取搜索条件信息
-        List<ResultSearchConditionsDTO> resultSearchConditionsDTOList = searchConditionsMapper.getSearchConditionsList(String.valueOf(client.getId()));
-        parameterMap.put("searchConditionsList", resultSearchConditionsDTOList);
-
         return Result.success(parameterMap);
     }
 
     @Override
-    public Result getUserInfo(ParameterUserInfoDTO parameterUserInfoDTO) {
+    public Result getUserInfo(ParameterBaseDTO parameterBaseDTO) {
 
         //获取用户信息
-        String userId = RedisUtils.getUserIdByToken(parameterUserInfoDTO.getToken());
+        String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
         if (StringUtils.isEmpty(userId)) {
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
@@ -156,7 +142,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     }
 
     @Override
-    public Result getUserPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO) {
+    public Result getPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO) {
 
         String bucket = parameterBaseDTO.getClientName();
         // 密钥配置

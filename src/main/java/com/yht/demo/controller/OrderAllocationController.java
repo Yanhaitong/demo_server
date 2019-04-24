@@ -35,7 +35,7 @@ public class OrderAllocationController {
     @PostMapping("/vieForOrder")
     @ApiOperation(value = "经理抢单接口")
     public Result vieForOrder(@RequestBody ParameterVieForOrderDTO parameterVieForOrderDTO) {
-        if (StringUtils.isEmpty(parameterVieForOrderDTO.getToken()) || StringUtils.isEmpty(parameterVieForOrderDTO.getOrderId())){
+        if (StringUtils.isEmpty(parameterVieForOrderDTO.getOrderId())){
             return Result.error(500, "请求参数错误");
         }
         return orderAllocationService.vieForOrder(parameterVieForOrderDTO);
