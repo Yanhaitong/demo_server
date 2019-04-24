@@ -186,9 +186,9 @@
             <if test="parameterOrderListDTO.incomeAmountEnd != null">
                 and income_amount &lt;= #{parameterOrderListDTO.incomeAmountEnd}
             </if>
-            <if test="parameterOrderListDTO.incomeTypes != null">
+            <if test="parameterOrderListDTO.incomeTypeList != null">
                 and income_type in
-                <foreach item="incomeType" index="index" collection="array" open="(" separator="," close=")">
+                <foreach item="incomeType" index="index" collection="parameterOrderListDTO.incomeTypeList" open="(" separator="," close=")">
                     #{incomeType}
                 </foreach>
             </if>

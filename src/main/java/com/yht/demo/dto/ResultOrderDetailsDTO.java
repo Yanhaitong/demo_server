@@ -79,7 +79,7 @@ public class ResultOrderDetailsDTO {
     @ApiModelProperty(name = "insuranceValues", value = "保险价值", required = true)
     private String insuranceValues;
 
-    @ApiModelProperty(name = "smallLabel", value = "小标签（姓名后边的文字标记,文字逗号隔开）", required = true)
+    @ApiModelProperty(name = "smallLabel", value = "小标签（姓名后边的文字标记）", required = true)
     private String smallLabel;
 
 }

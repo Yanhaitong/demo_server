@@ -9,7 +9,6 @@
         <result column="search_title" property="searchTitle" />
         <result column="search_name" property="searchName" />
         <result column="is_valid" property="isValid" />
-        <result column="name" property="name" />
         <result column="client_id" property="clientId" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />

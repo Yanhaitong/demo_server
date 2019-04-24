@@ -53,11 +53,6 @@ public class SearchConditions extends Model<SearchConditions> {
     private Integer isValid;
 
     /**
-     * 搜索名称
-     */
-    private String name;
-
-    /**
      * 客户端Id
      */
     private Integer clientId;

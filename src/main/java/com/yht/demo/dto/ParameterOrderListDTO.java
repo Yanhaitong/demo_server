@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author yanht
  * @since 2019-04-19
@@ -52,5 +54,8 @@ public class ParameterOrderListDTO extends ParameterBaseDTO {
 
     @ApiModelProperty(name = "weilidai", value = "有微粒贷", hidden = true)
     private Integer weilidai;
+
+    @ApiModelProperty(name = "incomeTypeList", value = "收入形式", hidden = true)
+    private List<String> incomeTypeList;
 
 }

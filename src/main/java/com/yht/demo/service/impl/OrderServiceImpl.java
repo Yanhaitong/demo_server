@@ -18,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -50,19 +48,21 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         //首页列表
         if (!StringUtils.isEmpty(parameterOrderListDTO.getQualificationInfos())){
 
+            String[] incomeTypes = parameterOrderListDTO.getIncomeTypes().split(",");
+            List<String> incomeTypeList = Arrays.asList(incomeTypes);
+            parameterOrderListDTO.setIncomeTypeList(incomeTypeList);
             String[] strings = parameterOrderListDTO.getQualificationInfos().split(",");
             for (String id : strings) {
                 SearchConditions searchConditions = searchConditionsMapper.selectById(id);
-                if ("有社保".equals(searchConditions.getName())){
+                if ("有社保".equals(searchConditions.getSearchName())){
                     parameterOrderListDTO.setSocialSecurity(1);
-                }else if ("有公积金".equals(searchConditions.getName())){
+                }else if ("有公积金".equals(searchConditions.getSearchName())){
                     parameterOrderListDTO.setSocialSecurity(1);
-                }else if ("有微粒贷".equals(searchConditions.getName())){
+                }else if ("有微粒贷".equals(searchConditions.getSearchName())){
                     parameterOrderListDTO.setWeilidai(1);
                 }
             }
         }
-
 
         Page page = new Page();
         page.setSize(parameterOrderListDTO.getPageSize());
