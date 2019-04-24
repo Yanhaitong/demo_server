@@ -10,10 +10,8 @@ import com.yht.demo.dto.*;
 import com.yht.demo.entity.Banner;
 import com.yht.demo.entity.Order;
 import com.yht.demo.entity.OrderAllocation;
-import com.yht.demo.mapper.BannerMapper;
-import com.yht.demo.mapper.OrderAllocationMapper;
-import com.yht.demo.mapper.OrderMapper;
-import com.yht.demo.mapper.UserMapper;
+import com.yht.demo.entity.SearchConditions;
+import com.yht.demo.mapper.*;
 import com.yht.demo.service.IOrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +39,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
     private OrderAllocationMapper orderAllocationMapper;
     @Autowired
     private BannerMapper bannerMapper;
+    @Autowired
+    private SearchConditionsMapper searchConditionsMapper;
 
     @Override
     public Result getHomePageOrderList(ParameterOrderListDTO parameterOrderListDTO) {
@@ -48,6 +48,22 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         List<ResultBannerDTO> bannerList = bannerMapper.selectBannerListByMap(parameterOrderListDTO.getClientId());
 
         //首页列表
+        if (!StringUtils.isEmpty(parameterOrderListDTO.getQualificationInfos())){
+
+            String[] strings = parameterOrderListDTO.getQualificationInfos().split(",");
+            for (String id : strings) {
+                SearchConditions searchConditions = searchConditionsMapper.selectById(id);
+                if ("有社保".equals(searchConditions.getName())){
+                    parameterOrderListDTO.setSocialSecurity(1);
+                }else if ("有公积金".equals(searchConditions.getName())){
+                    parameterOrderListDTO.setSocialSecurity(1);
+                }else if ("有微粒贷".equals(searchConditions.getName())){
+                    parameterOrderListDTO.setWeilidai(1);
+                }
+            }
+        }
+
+
         Page page = new Page();
         page.setSize(parameterOrderListDTO.getPageSize());
         page.setCurrent(parameterOrderListDTO.getPageNum());

@@ -43,4 +43,14 @@ public class ParameterOrderListDTO extends ParameterBaseDTO {
     @ApiModelProperty(name = "pageNum", value = "页数", required = true)
     private Integer pageNum;
 
+    //**************************隐藏字段（搜索项使用）****************************
+    @ApiModelProperty(name = "socialSecurity", value = "有社保", hidden = true)
+    private Integer socialSecurity;
+
+    @ApiModelProperty(name = "accumulationFund", value = "有公积金", hidden = true)
+    private Integer accumulationFund;
+
+    @ApiModelProperty(name = "weilidai", value = "有微粒贷", hidden = true)
+    private Integer weilidai;
+
 }

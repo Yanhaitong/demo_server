@@ -4,46 +4,46 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.Order">
-        <id column="id" property="id" />
-        <result column="status" property="status" />
-        <result column="mobile_no" property="mobileNo" />
-        <result column="apply_time" property="applyTime" />
-        <result column="vie_for_time" property="vieForTime" />
-        <result column="name" property="name" />
-        <result column="age" property="age" />
-        <result column="sex" property="sex" />
-        <result column="loan_amount" property="loanAmount" />
-        <result column="loan_period" property="loanPeriod" />
-        <result column="loan_purpose" property="loanPurpose" />
-        <result column="id_number" property="idNumber" />
-        <result column="current_city" property="currentCity" />
-        <result column="phone_attribution" property="phoneAttribution" />
-        <result column="family_city" property="familyCity" />
-        <result column="level_education" property="levelEducation" />
-        <result column="company_name" property="companyName" />
-        <result column="professional_type" property="professionalType" />
-        <result column="income_amount" property="incomeAmount" />
-        <result column="income_type" property="incomeType" />
-        <result column="working_years" property="workingYears" />
-        <result column="social_security" property="socialSecurity" />
-        <result column="accumulation_fund" property="accumulationFund" />
-        <result column="estate_info" property="estateInfo" />
-        <result column="estate_values" property="estateValues" />
-        <result column="car_info" property="carInfo" />
-        <result column="car_values" property="carValues" />
-        <result column="insurance_info" property="insuranceInfo" />
-        <result column="insurance_values" property="insuranceValues" />
-        <result column="credit_card_limit" property="creditCardLimit" />
-        <result column="sesame_scores" property="sesameScores" />
-        <result column="weilidai_limit" property="weilidaiLimit" />
-        <result column="share_id" property="shareId" />
-        <result column="partner_id" property="partnerId" />
-        <result column="order_source" property="orderSource" />
-        <result column="order_rating" property="orderRating" />
-        <result column="apply_ip" property="applyIp" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="del_flag" property="delFlag" />
+        <id column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="mobile_no" property="mobileNo"/>
+        <result column="apply_time" property="applyTime"/>
+        <result column="vie_for_time" property="vieForTime"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <result column="loan_amount" property="loanAmount"/>
+        <result column="loan_period" property="loanPeriod"/>
+        <result column="loan_purpose" property="loanPurpose"/>
+        <result column="id_number" property="idNumber"/>
+        <result column="current_city" property="currentCity"/>
+        <result column="phone_attribution" property="phoneAttribution"/>
+        <result column="family_city" property="familyCity"/>
+        <result column="level_education" property="levelEducation"/>
+        <result column="company_name" property="companyName"/>
+        <result column="professional_type" property="professionalType"/>
+        <result column="income_amount" property="incomeAmount"/>
+        <result column="income_type" property="incomeType"/>
+        <result column="working_years" property="workingYears"/>
+        <result column="social_security" property="socialSecurity"/>
+        <result column="accumulation_fund" property="accumulationFund"/>
+        <result column="estate_info" property="estateInfo"/>
+        <result column="estate_values" property="estateValues"/>
+        <result column="car_info" property="carInfo"/>
+        <result column="car_values" property="carValues"/>
+        <result column="insurance_info" property="insuranceInfo"/>
+        <result column="insurance_values" property="insuranceValues"/>
+        <result column="credit_card_limit" property="creditCardLimit"/>
+        <result column="sesame_scores" property="sesameScores"/>
+        <result column="weilidai_limit" property="weilidaiLimit"/>
+        <result column="share_id" property="shareId"/>
+        <result column="partner_id" property="partnerId"/>
+        <result column="order_source" property="orderSource"/>
+        <result column="order_rating" property="orderRating"/>
+        <result column="apply_ip" property="applyIp"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del_flag" property="delFlag"/>
     </resultMap>
 
     <sql id="Order_Column_List">
@@ -154,6 +154,10 @@
         WHEN '4' THEN '60万以上'
         ELSE '未知' END as insuranceValues,
 
+        concat_ws(",",case when id_number is not null then '实' else null end,
+        case when social_security != 0 then '社' else null end,
+        case when accumulation_fund != 0 then '公' else null end) as smallLabel,
+
         age as age, loan_amount as loanAmount, loan_purpose as loanPurpose, current_city as currentCity,
         level_education as levelEducation,family_city as familyCity, income_amount as incomeAmount
     </sql>
@@ -183,17 +187,27 @@
                 and income_amount &lt;= #{parameterOrderListDTO.incomeAmountEnd}
             </if>
             <if test="parameterOrderListDTO.incomeTypes != null">
-                and income_type = #{parameterOrderListDTO.incomeTypes}
+                and income_type in
+                <foreach item="incomeType" index="index" collection="array" open="(" separator="," close=")">
+                    #{incomeType}
+                </foreach>
             </if>
-            <if test="parameterOrderListDTO.qualificationInfos != null">
-                and income_type = #{parameterOrderListDTO.qualificationInfos}
+            <if test="parameterOrderListDTO.weilidai == 1">
+                and weilidai_limit != 0
+            </if>
+            <if test="parameterOrderListDTO.socialSecurity == 1">
+                and social_security != 0
+            </if>
+            <if test="parameterOrderListDTO.accumulationFund == 1">
+                and accumulation_fund != 0
             </if>
         </where>
         order by apply_time desc
     </select>
 
     <!--获取订单详情-->
-    <select id="getOrderDetailsById" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultOrderDetailsDTO">
+    <select id="getOrderDetailsById" parameterType="java.lang.String"
+            resultType="com.yht.demo.dto.ResultOrderDetailsDTO">
         SELECT
         <choose>
             <when test="myOrderInt == 1">
