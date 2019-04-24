@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-public class RepeatedlyReadRequestWrapper extends HttpServletRequestWrapper {
+public class AppInterfaceWrapper extends HttpServletRequestWrapper {
     private final byte[] body;
 
-    public RepeatedlyReadRequestWrapper(HttpServletRequest request)
+    public AppInterfaceWrapper(HttpServletRequest request)
             throws IOException {
         super(request);
         body = readBytes(request.getReader(), "utf-8");

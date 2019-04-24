@@ -10,9 +10,9 @@ import java.io.IOException;
 /**
  * 复制请求数据包body
  * 以提供 拦截器下 可数次获取Body数据包*/
-public class RepeatedlyReadFilter implements Filter {
+public class AppInterfaceFilter implements Filter {
 
-    private static final Logger logger = LoggerFactory.getLogger(RepeatedlyReadFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppInterfaceFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -24,7 +24,7 @@ public class RepeatedlyReadFilter implements Filter {
         logger.debug("复制request.getInputStream流");
         ServletRequest requestWrapper = null;
         if (request instanceof HttpServletRequest) {
-            requestWrapper = new RepeatedlyReadRequestWrapper((HttpServletRequest) request);
+            requestWrapper = new AppInterfaceWrapper((HttpServletRequest) request);
         }
         if (null == requestWrapper) {
             chain.doFilter(request, response);

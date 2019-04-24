@@ -5,10 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.yht.demo.common.MsgConstant;
+import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterBaseDTO;
 import com.yht.demo.entity.Client;
-import com.yht.demo.mapper.ClientMapper;
 import com.yht.demo.service.IClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +23,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
-public class RepeatedlyReadInterceptor extends HandlerInterceptorAdapter {
+public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(RepeatedlyReadInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppInterfaceInterceptor.class);
 
     @Autowired
     private IClientService clientService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
 
         /**
          * 对来自后台的请求统一进行日志处理
@@ -53,24 +55,40 @@ public class RepeatedlyReadInterceptor extends HandlerInterceptorAdapter {
         String queryString = request.getQueryString();
         logger.info(String.format("请求参数, url: %s, method: %s, uri: %s, params: %s ", url, method, uri, queryString));*/
 
-        RepeatedlyReadRequestWrapper requestWrapper;
-        if (request instanceof RepeatedlyReadRequestWrapper) {
-            requestWrapper = (RepeatedlyReadRequestWrapper) request;
-            logger.info("请求Body: {} ", getBodyString(requestWrapper));
+        AppInterfaceWrapper appInterfaceWrapper;
+        if (request instanceof AppInterfaceWrapper) {
+            appInterfaceWrapper = (AppInterfaceWrapper) request;
+            logger.info("请求Body: {} ", getBodyString(appInterfaceWrapper));
 
-            JSONObject jsonObject = JSONObject.parseObject(getBodyString(requestWrapper));
+            JSONObject jsonObject = JSONObject.parseObject(getBodyString(appInterfaceWrapper));
             ParameterBaseDTO parameterBaseDTO = JSON.toJavaObject(jsonObject, ParameterBaseDTO.class);
-            if (StringUtils.isEmpty(parameterBaseDTO.getClientName()) || StringUtils.isEmpty(parameterBaseDTO.getClientType())) {
+
+            //过滤基础必要字段
+            if (StringUtils.isEmpty(parameterBaseDTO.getClientName()) || StringUtils.isEmpty(parameterBaseDTO.getClientType())||
+                    StringUtils.isEmpty(parameterBaseDTO.getToken())) {
                 this.sendJsonMessage(response, Result.error(500, MsgConstant.PARAMETER_IS_NULL));
                 return false;
             }
-            Client client = clientService.selectClientByName(parameterBaseDTO.getClientName());
-            if (client == null){
-                this.sendJsonMessage(response, Result.error(500, MsgConstant.CLIENT_IS_NULL));
+
+            //判断clientId和clientName是否一一对应
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("id", parameterBaseDTO.getClientId());
+            parameterMap.put("name", parameterBaseDTO.getClientName());
+            //parameterMap.put("clientType", parameterBaseDTO.getClientType());
+            List<Client> clientList = clientService.selectClientByMap(parameterMap);
+            if (clientList.size() == 0){
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.CLIENT_EXCEPTION));
                 return false;
             }
-        }
 
+            //判断用户是否存在
+            String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
+            if (StringUtils.isEmpty(userId)){
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.USER_ID_IS_NULL));
+                return false;
+            }
+
+        }
         return true;
     }
 
