@@ -130,8 +130,6 @@
             <version>1.2.32</version>
         </dependency>
 
-        <!-- ping++支付 -->
-
     </dependencies>
 
     <build>

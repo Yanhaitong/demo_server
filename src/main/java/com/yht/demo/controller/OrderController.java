@@ -5,6 +5,7 @@ import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterOrderDetailsDTO;
 import com.yht.demo.dto.ParameterOrderListDTO;
+import com.yht.demo.dto.ResultHomeOrderListDTO;
 import com.yht.demo.dto.ResultOrderDetailsDTO;
 import com.yht.demo.service.IOrderService;
 import io.swagger.annotations.Api;
@@ -35,7 +36,7 @@ public class OrderController {
 
     @PostMapping("/getHomePageOrderList")
     @ApiOperation(value = "获取首页订单列表")
-    public Result<ResultOrderDetailsDTO> getHomePageOrderList(@RequestBody ParameterOrderListDTO parameterOrderListDTO) {
+    public Result<ResultHomeOrderListDTO> getHomePageOrderList(@RequestBody ParameterOrderListDTO parameterOrderListDTO) {
         if (StringUtils.isEmpty(parameterOrderListDTO.getCitys()) || StringUtils.isEmpty(parameterOrderListDTO.getCanRobOrder()) ||
                 StringUtils.isEmpty(parameterOrderListDTO.getPageNum()) || StringUtils.isEmpty(parameterOrderListDTO.getPageSize())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);

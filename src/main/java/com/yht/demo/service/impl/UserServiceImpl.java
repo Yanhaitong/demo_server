@@ -123,6 +123,8 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         List<ResultNavigationTabDTO> resultNavigationTabDTOList = navigationTabMapper.getNavigationTabList(parameterBaseDTO.getClientId());
         parameterMap.put("navigationTabList", resultNavigationTabDTOList);
         return Result.success(parameterMap);
+
+        //
     }
 
     @Override
@@ -158,7 +160,6 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         Map<String, Object> map = new HashMap<>();
         map.put("UserPortraitToken", token);
         map.put("UserPortraitKey", key);
-
         return Result.success(map);
     }
 }

@@ -8,9 +8,9 @@ import lombok.Data;
  * @author yanht
  * @since 2019-04-19
  */
-@ApiModel(value = "返回七牛上传凭证参数")
+@ApiModel(value = "返回经理认证上传凭证数据")
 @Data
-public class ResultQiNiuCredentialsDTO {
+public class ResultAmaldarCredentialsDTO {
 
     @ApiModelProperty(name = "companyLogoToken", value = "与公司LOGO合影照片上传Token", required = true)
     private String companyLogoToken;

@@ -105,16 +105,16 @@ public class AmaldarAuthServiceImpl extends BaseServiceImpl implements IAmaldarA
         String companyLicenseToken = auth.uploadToken(bucket, companyLicenseKey, 300, new StringMap());
         String laborContractToken = auth.uploadToken(bucket, laborContractKey, 300, new StringMap());
 
-        ResultQiNiuCredentialsDTO resultQiNiuCredentialsDTO = new ResultQiNiuCredentialsDTO();
-        resultQiNiuCredentialsDTO.setCompanyLicenseKey(companyLicenseKey);
-        resultQiNiuCredentialsDTO.setCompanyLicenseToken(companyLicenseToken);
-        resultQiNiuCredentialsDTO.setCompanyLogoKey(companyLogoKey);
-        resultQiNiuCredentialsDTO.setCompanyLogoToken(companyLogoToken);
-        resultQiNiuCredentialsDTO.setCompanyWorkCardKey(companyWorkCardKey);
-        resultQiNiuCredentialsDTO.setCompanyWorkCardToken(companyWorkCardToken);
-        resultQiNiuCredentialsDTO.setLaborContractKey(laborContractKey);
-        resultQiNiuCredentialsDTO.setLaborContractToken(laborContractToken);
-        return Result.success(resultQiNiuCredentialsDTO);
+        ResultAmaldarCredentialsDTO resultAmaldarCredentialsDTO = new ResultAmaldarCredentialsDTO();
+        resultAmaldarCredentialsDTO.setCompanyLicenseKey(companyLicenseKey);
+        resultAmaldarCredentialsDTO.setCompanyLicenseToken(companyLicenseToken);
+        resultAmaldarCredentialsDTO.setCompanyLogoKey(companyLogoKey);
+        resultAmaldarCredentialsDTO.setCompanyLogoToken(companyLogoToken);
+        resultAmaldarCredentialsDTO.setCompanyWorkCardKey(companyWorkCardKey);
+        resultAmaldarCredentialsDTO.setCompanyWorkCardToken(companyWorkCardToken);
+        resultAmaldarCredentialsDTO.setLaborContractKey(laborContractKey);
+        resultAmaldarCredentialsDTO.setLaborContractToken(laborContractToken);
+        return Result.success(resultAmaldarCredentialsDTO);
     }
 
 

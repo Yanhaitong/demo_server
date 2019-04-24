@@ -83,7 +83,7 @@ public class AmaldarAuthController {
 
     @PostMapping("/getCompanyUploadCredentials")
     @ApiOperation(value = "获取公司认证上传凭证")
-    public Result<ResultQiNiuCredentialsDTO> getUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+    public Result<ResultAmaldarCredentialsDTO> getUploadCredentials(@RequestBody ParameterBaseDTO parameterBaseDTO) {
         return amaldarAuthService.getUploadCredentials(parameterBaseDTO);
     }
 }
