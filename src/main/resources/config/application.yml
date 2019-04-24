@@ -58,3 +58,4 @@ mybatis-plus:
     field-strategy: 2
     capital-mode: true
     refresh-mapper: true
+

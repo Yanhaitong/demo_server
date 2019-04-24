@@ -79,4 +79,7 @@ public class ResultOrderDetailsDTO {
     @ApiModelProperty(name = "insuranceValues", value = "保险价值", required = true)
     private String insuranceValues;
 
+    @ApiModelProperty(name = "textTag", value = "姓名后边的文字标记", required = true)
+    private String textTag;
+
 }
