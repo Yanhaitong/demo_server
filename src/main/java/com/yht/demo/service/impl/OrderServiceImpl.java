@@ -7,18 +7,22 @@ import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.RedisUtils;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.*;
-import com.yht.demo.entity.Banner;
 import com.yht.demo.entity.Order;
 import com.yht.demo.entity.OrderAllocation;
 import com.yht.demo.entity.SearchConditions;
-import com.yht.demo.mapper.*;
+import com.yht.demo.mapper.BannerMapper;
+import com.yht.demo.mapper.OrderAllocationMapper;
+import com.yht.demo.mapper.OrderMapper;
+import com.yht.demo.mapper.SearchConditionsMapper;
 import com.yht.demo.service.IOrderService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>

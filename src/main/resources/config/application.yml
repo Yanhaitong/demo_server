@@ -58,9 +58,3 @@ mybatis-plus:
     field-strategy: 2
     capital-mode: true
     refresh-mapper: true
-
-
-# LOGGING
-logging:
-  level:
-    com.ibatis: DEBUG

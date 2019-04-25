@@ -242,7 +242,7 @@
         FROM
         t_order
         <where>
-            <if test="parameterOrderListDTO.canRobOrder = 1">
+            <if test="parameterOrderListDTO.canRobOrder == 1">
                 and status = #{parameterOrderListDTO.canRobOrder}
             </if>
             <if test="parameterOrderListDTO.loanAmountStart != null ">
