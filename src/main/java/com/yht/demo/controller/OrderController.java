@@ -37,8 +37,7 @@ public class OrderController {
     @PostMapping("/getHomePageOrderList")
     @ApiOperation(value = "获取首页订单列表")
     public Result<ResultHomeOrderListDTO> getHomePageOrderList(@RequestBody ParameterOrderListDTO parameterOrderListDTO) {
-        if (StringUtils.isEmpty(parameterOrderListDTO.getCitys()) || StringUtils.isEmpty(parameterOrderListDTO.getPageNum())
-                || StringUtils.isEmpty(parameterOrderListDTO.getPageSize())){
+        if (StringUtils.isEmpty(parameterOrderListDTO.getPageNum()) || StringUtils.isEmpty(parameterOrderListDTO.getPageSize())){
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return orderService.getHomePageOrderList(parameterOrderListDTO);

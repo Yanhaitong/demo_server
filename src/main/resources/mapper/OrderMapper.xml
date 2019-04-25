@@ -54,6 +54,77 @@
         WHEN '2' THEN '1'
         ELSE '0' END as status,
 
+        CASE income_type
+        WHEN '0' THEN '银行代发'
+        WHEN '1' THEN '转账工资'
+        WHEN '2' THEN '现金发放'
+        ELSE '未知' END as incomeType,
+
+        CASE credit_card_limit
+        WHEN '0' THEN '信用额度无'
+        WHEN '1' THEN '信用额度1万以下'
+        WHEN '2' THEN '信用额度1-5万'
+        WHEN '2' THEN '信用额度5万以上'
+        ELSE '未知' END as creditCardLimit,
+
+        CASE loan_purpose
+        WHEN '0' THEN '消费'
+        WHEN '1' THEN '结婚'
+        WHEN '2' THEN '购房'
+        WHEN '3' THEN '购车'
+        WHEN '4' THEN '装修'
+        WHEN '5' THEN '旅游'
+        WHEN '6' THEN '教育培训'
+        WHEN '7' THEN '其他'
+        ELSE '未知' END as loanPurpose,
+
+        CASE social_security
+        WHEN '0' THEN '无社保'
+        ELSE '有社保' END as socialSecurity,
+
+        CASE accumulation_fund
+        WHEN '0' THEN '无公积金'
+        ELSE '有公积金' END as accumulationFund,
+
+        CASE estate_info
+        WHEN '0' THEN '无房产'
+        ELSE '有房产' END as estateInfo,
+
+        CASE car_info
+        WHEN '0' THEN '无车产'
+        ELSE '有车产' END as carInfo,
+
+        CASE insurance_info
+        WHEN '0' THEN '无保险'
+        ELSE '有保险' END as insuranceInfo,
+
+        CASE
+        WHEN TIMESTAMPDIFF(DAY, create_Time,NOW()) > 0
+        THEN CONCAT(TIMESTAMPDIFF(DAY, create_Time,NOW()),'天前')
+
+        WHEN TIMESTAMPDIFF(HOUR, create_Time,NOW()) > 0
+        THEN CONCAT(TIMESTAMPDIFF(HOUR, create_Time,NOW()),'小时前')
+
+        WHEN TIMESTAMPDIFF(MINUTE, create_Time,NOW()) > 0
+        THEN CONCAT(TIMESTAMPDIFF(MINUTE, create_Time,NOW()),'分前')
+        END as createOrderTime,
+
+        concat_ws(",",case when id_number is not null then '实' else null end,
+        case when social_security != 0 then '社' else null end,
+        case when accumulation_fund != 0 then '公' else null end) as smallLabel,
+
+        loan_amount as loanAmount, loan_period as loanPeriod, current_city as currentCity,
+        family_city as familyCity, income_amount as incomeAmount
+    </sql>
+
+    <sql id="Order_details">
+
+        CASE status
+        WHEN '0' THEN '0'
+        WHEN '1' THEN '1'
+        WHEN '2' THEN '1'
+        ELSE '0' END as status,
+
         CASE professional_type
         WHEN '0' THEN '上班族'
         WHEN '1' THEN '公务员/事业编制'
@@ -163,7 +234,7 @@
     </sql>
 
     <!--获取首页订单列表-->
-    <select id="selectOrderListByMap" parameterType="com.yht.demo.dto.ParameterOrderListDTO" resultType="com.yht.demo.dto.ResultOrderDetailsDTO">
+    <select id="selectOrderListByMap" parameterType="com.yht.demo.dto.ParameterOrderListDTO" resultType="com.yht.demo.dto.ResultOrderListDTO">
         SELECT
         CASE WHEN sex= 0 THEN CONCAT(left(name, 1),"女士") ELSE CONCAT(left(name, 1),"先生") END as name,
         concat_ws('********',substring(mobile_no, 1, 3),substring(mobile_no, 11, 0))as mobileNo,
@@ -219,7 +290,7 @@
                 mobile_no as mobileNo,
             </otherwise>
         </choose>
-        <include refid="Order_Column_List"/>
+        <include refid="Order_details"/>
         FROM
         t_order
         where

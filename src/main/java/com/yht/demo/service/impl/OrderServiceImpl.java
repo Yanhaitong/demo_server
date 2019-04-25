@@ -67,11 +67,11 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         Page page = new Page();
         page.setSize(parameterOrderListDTO.getPageSize());
         page.setCurrent(parameterOrderListDTO.getPageNum());
-        IPage<ResultOrderDetailsDTO> resultOrderDetailsDTOIPage = orderMapper.selectOrderListByMap(page, parameterOrderListDTO);
+        IPage<ResultOrderListDTO> resultOrderDetailsDTOIPage = orderMapper.selectOrderListByMap(page, parameterOrderListDTO);
 
         ResultHomeOrderListDTO resultHomeOrderListDTO = new ResultHomeOrderListDTO();
         resultHomeOrderListDTO.setBannerList(bannerList);
-        resultHomeOrderListDTO.setOrderDetailsList(resultOrderDetailsDTOIPage);
+        resultHomeOrderListDTO.setOrderList(resultOrderDetailsDTOIPage);
 
         return Result.success(resultHomeOrderListDTO);
     }

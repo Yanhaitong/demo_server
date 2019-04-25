@@ -42,14 +42,14 @@ public class UserController {
         }
     }*/
 
-    /*@PostMapping("/sendVerifyCode")
+    @PostMapping("/sendVerifyCode")
     @ApiOperation(value = "发送验证码")
     public Result sendVerificationCode(@RequestBody ParameterSendVerifyCode parameterSendVerifyCode) {
         if (StringUtils.isEmpty(parameterSendVerifyCode.getMobileNo())) {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return userService.sendVerificationCode(parameterSendVerifyCode);
-    }*/
+    }
 
     @PostMapping("/loginOrRegister")
     @ApiOperation(value = "验证码登录或注册")

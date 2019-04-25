@@ -19,8 +19,8 @@ import java.util.List;
 @Data
 public class ResultHomeOrderListDTO {
 
-    @ApiModelProperty(name = "orderDetailsList", value = "首页订单详情数据列表", required = true)
-    private IPage<ResultOrderDetailsDTO> orderDetailsList;
+    @ApiModelProperty(name = "orderList", value = "首页订单详情数据列表", required = true)
+    private IPage<ResultOrderListDTO> orderList;
 
     @ApiModelProperty(name = "bannerList", value = "轮播图数据列表", required = true)
     private List<ResultBannerDTO> bannerList;

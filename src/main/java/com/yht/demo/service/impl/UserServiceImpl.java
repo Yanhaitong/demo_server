@@ -34,10 +34,6 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Autowired
     private NavigationTabMapper navigationTabMapper;
     @Autowired
-    private SearchConditionsMapper searchConditionsMapper;
-    @Autowired
-    private CityMapper cityMapper;
-    @Autowired
     private ClientMapper clientMapper;
 
     @Override
@@ -45,10 +41,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
         try {
             String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientName());
             SMSUtils.sendVerifyLoginSMS(parameterSendVerifyCode.getMobileNo(), smsContent);
-            return Result.success("发送成功");
+            return Result.success("发送成功！");
         } catch (Exception e) {
             log.error("sendVerificationCode===========" + e.getMessage());
-            return Result.error(500, "发送失败");
+            return Result.error(500, "发送失败！");
         }
     }
 
@@ -97,7 +93,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             return Result.success(resultUserInfoDTO);
         } catch (Exception e) {
             log.error("verifyCodeLoginOrRegister===========" + e.getMessage());
-            return Result.error(500, "登录失败");
+            return Result.error(500, "登录失败！");
         }
 
     }
@@ -111,7 +107,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             return Result.success("退出成功");
         } catch (Exception e) {
             log.error("loginOut===========" + e.getMessage());
-            return Result.error(500, "退出失败");
+            return Result.error(500, "退出失败！");
         }
 
     }

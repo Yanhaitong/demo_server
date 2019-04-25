@@ -6,7 +6,7 @@ import lombok.Data;
 
 @ApiModel(value = "发送验证码参数")
 @Data
-public class ParameterSendVerifyCode extends ParameterBaseDTO {
+public class ParameterSendVerifyCode {
 
     @ApiModelProperty(name = "clientType", value = "客户端类型（0:ios，1:android）", required = true)
     private String clientType;

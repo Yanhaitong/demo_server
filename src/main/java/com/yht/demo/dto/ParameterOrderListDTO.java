@@ -14,14 +14,17 @@ import java.util.List;
 @Data
 public class ParameterOrderListDTO extends ParameterBaseDTO {
 
-    @ApiModelProperty(name = "citys", value = "城市（多个选项英文逗号隔开）", required = true)
-    private String citys;
-
-    @ApiModelProperty(name = "canRobOrder", value = "可抢订单（0:否，1:是）", required = true)
+    @ApiModelProperty(name = "canRobOrder", value = "可抢订单（0:全部，1:可抢订单）", required = true)
     private String canRobOrder;
+
+    @ApiModelProperty(name = "createOrderTime", value = "创建订单时间", required = true)
+    private String createOrderTime;
 
     @ApiModelProperty(name = "navigationId", value = "导航id", required = true)
     private String navigationId;
+
+    @ApiModelProperty(name = "citys", value = "城市（多个选项英文逗号隔开）", required = false)
+    private String citys;
 
     @ApiModelProperty(name = "loanAmountStart", value = "贷款额度开始", required = false)
     private String loanAmountStart;
