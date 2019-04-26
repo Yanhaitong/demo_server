@@ -151,6 +151,12 @@
         </dependency>
         <!-- end of log related -->
 
+        <!-- 验证码短信 -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>4.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

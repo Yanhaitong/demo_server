@@ -3,7 +3,7 @@ package com.yht.demo.service.impl;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import com.yht.demo.common.*;
-import com.yht.demo.common.sender.SMSUtils;
+import com.yht.demo.common.sendsms.SMSUtils;
 import com.yht.demo.common.utils.MD5Util;
 import com.yht.demo.dto.*;
 import com.yht.demo.entity.Client;

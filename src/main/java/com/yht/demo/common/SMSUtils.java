@@ -1,5 +1,13 @@
-package com.yht.demo.common.sender;
+package com.yht.demo.common;
 
+import com.aliyuncs.CommonRequest;
+import com.aliyuncs.CommonResponse;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.exceptions.ServerException;
+import com.aliyuncs.http.MethodType;
+import com.aliyuncs.profile.DefaultProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +15,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -25,8 +32,6 @@ public class SMSUtils {
         sMSUtils = this;
         sMSUtils.stringRedisTemplate = this.stringRedisTemplate;
     }
-
-    private static HttpSender sender = new C253Sender();//253
 
     /**
      * 验证码生成器
@@ -61,28 +66,27 @@ public class SMSUtils {
             sMSUtils.stringRedisTemplate.delete("SMS" + mobileNo);
             sMSUtils.stringRedisTemplate.opsForValue().set("SMS" + mobileNo, code, 30, TimeUnit.MINUTES);
             //msg = msg.replace("{code}", code);
-            HashMap<String, Object> result = null;
+            DefaultProfile profile = DefaultProfile.getProfile("default", "<accessKeyId>", "<accessSecret>");
+            IAcsClient client = new DefaultAcsClient(profile);
 
-           /* CCPRestSDK restAPI = new CCPRestSDK();
-            restAPI.init("app.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
-            restAPI.setAccount("8a216da86a43ea63016a5239f89f0c70", "4ecb83ec7a3e462f92ed42ead0f932b3");// 初始化主帐号和主帐号TOKEN
-            restAPI.setAppId("8a216da86a43ea63016a5239f8ef0c76");// 初始化应用ID
-            result = restAPI.sendTemplateSMS(mobileNo,"1" ,new String[]{code,"5"});
-
-            System.out.println("SDKTestSendTemplateSMS result=" + result);
-
-            if("000000".equals(result.get("statusCode"))){
-                //正常返回输出data包体信息（map）
-                HashMap<String,Object> data = (HashMap<String, Object>) result.get("data");
-                Set<String> keySet = data.keySet();
-                for(String key:keySet){
-                    Object object = data.get(key);
-                    System.out.println(key +" = "+object);
-                }
-            }else{
-                //异常返回输出错误码和错误信息
-                System.out.println("错误码=" + result.get("statusCode") +" 错误信息= "+result.get("statusMsg"));
-            }*/
+            CommonRequest request = new CommonRequest();
+            //request.setProtocol(ProtocolType.HTTPS);
+            request.setMethod(MethodType.POST);
+            request.setDomain("dysmsapi.aliyuncs.com");
+            request.setVersion("2017-05-25");
+            request.setAction("SendSms");
+            request.putQueryParameter("PhoneNumbers", mobileNo);
+            request.putQueryParameter("SignName", "1");
+            request.putQueryParameter("TemplateCode", "1");
+            request.putQueryParameter("TemplateParam", "12");
+            try {
+                CommonResponse response = client.getCommonResponse(request);
+                System.out.println(response.getData());
+            } catch (ServerException e) {
+                e.printStackTrace();
+            } catch (ClientException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             log.error("sendVerifyLoginSMS==============" + e.getMessage());
         }
