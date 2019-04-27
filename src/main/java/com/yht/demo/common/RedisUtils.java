@@ -20,6 +20,7 @@ public class RedisUtils {
     //通过该标签以及该方法实现给static属性注入  
     public static RedisUtils redisUtils;
 
+
     @PostConstruct
     public void init() {
         redisUtils = this;
@@ -83,6 +84,16 @@ public class RedisUtils {
             log.error(e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * 保存短信验证码（有效期5分钟）
+     * @param mobileNo
+     * @param code
+     */
+    public static void saveSmsCode(String mobileNo, String code) {
+        redisUtils.stringRedisTemplate.delete("SMS" + mobileNo);
+        redisUtils.stringRedisTemplate.opsForValue().set("SMS" + mobileNo, code, 5, TimeUnit.MINUTES);
     }
 
     /**

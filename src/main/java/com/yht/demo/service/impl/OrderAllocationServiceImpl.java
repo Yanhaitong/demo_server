@@ -142,14 +142,14 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
 
             try {
                 //发送短信
-                String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + parameterVieForOrderDTO.getClientName());
+                //String smsContent = smsConfigMapper.getValueByKey("QIANGDANSMS" + parameterVieForOrderDTO.getClientName());
                 /*if (StringUtils.isNotBlank(smsContent)) {
                     smsContent = smsContent.replace("{a}", order.getName());
                     smsContent = smsContent.replace("{b}", userInfo.getCompany());
                     smsContent = smsContent.replace("{c}", userInfo.getName());
                     SMSUtils.sendVerifyLoginSMS(mobileNo, smsContent);
                 }*/
-                log.info("抢单后发短信内容" + smsContent);
+                //log.info("抢单后发短信内容" + smsContent);
             } catch (Exception e) {
                 log.error("发送短信失败====================" + e.getMessage());
             }

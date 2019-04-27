@@ -6,6 +6,7 @@ import com.yht.demo.common.*;
 import com.yht.demo.common.utils.MD5Util;
 import com.yht.demo.dto.*;
 import com.yht.demo.entity.Client;
+import com.yht.demo.entity.SmsConfig;
 import com.yht.demo.entity.User;
 import com.yht.demo.mapper.ClientMapper;
 import com.yht.demo.mapper.NavigationTabMapper;
@@ -32,17 +33,17 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private SmsConfigMapper smsConfigMapper;
-    @Autowired
     private NavigationTabMapper navigationTabMapper;
     @Autowired
     private ClientMapper clientMapper;
+    @Autowired
+    private SmsConfigMapper smsConfigMapper;
 
     @Override
     public Result sendVerificationCode(ParameterSendVerifyCode parameterSendVerifyCode) {
         try {
-            String smsContent = smsConfigMapper.getValueByKey("SMS" + parameterSendVerifyCode.getClientName());
-            SMSUtils.sendVerifyLoginSMS(parameterSendVerifyCode.getMobileNo(), smsContent);
+            SmsConfig smsConfig = smsConfigMapper.selectByclientName(parameterSendVerifyCode.getClientName());
+            SMSUtils.sendVerifyLoginSMS(parameterSendVerifyCode.getMobileNo(), smsConfig);
             return Result.success("发送成功！");
         } catch (Exception e) {
             log.error("sendVerificationCode===========" + e.getMessage());
@@ -57,10 +58,10 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             //获取验证码
             String localCode = stringRedisTemplate.opsForValue().get("SMS" + parameterUserDTO.getMobileNo());
             if (StringUtils.isEmpty(localCode) || !localCode.equals(parameterUserDTO.getCode())) {
-                //return Result.error(500, "验证码错误！");
+                return Result.error(500, "验证码错误！");
             }
 
-            //redis保存token对应的UserId(永久)
+            //redis保存token对应的userId(永久)
             String token = MD5Util.md5Encrypt32Upper(UUID.randomUUID().toString());
             Client client = clientMapper.selectClientByName(parameterUserDTO.getClientName());
             //数据库操作

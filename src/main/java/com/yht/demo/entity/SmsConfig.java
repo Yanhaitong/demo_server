@@ -34,14 +34,19 @@ public class SmsConfig extends Model<SmsConfig> {
     private Integer id;
 
     /**
-     * key
+     * 短信标题
      */
-    private String smsKey;
+    private String signName;
 
     /**
-     * value
+     * 短信模板
      */
-    private String smsValue;
+    private String templateCode;
+
+    /**
+     * 客户端id
+     */
+    private String clientId;
 
     /**
      * 创建时间

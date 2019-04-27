@@ -5,19 +5,21 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.SmsConfig">
         <id column="id" property="id" />
-        <result column="sms_key" property="smsKey" />
-        <result column="sms_value" property="smsValue" />
+        <result column="sign_name" property="signName" />
+        <result column="template_code" property="templateCode" />
+        <result column="client_id" property="clientId" />
         <result column="create_time" property="createTime" />
         <result column="del_flag" property="delFlag" />
     </resultMap>
 
-    <select id="getValueByKey" resultType="java.lang.String" parameterType="java.lang.String">
+    <select id="selectByclientName" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT
-          sms_value
+          tsc.*
         FROM
-          t_sms_config
+          t_sms_config tsc
+          left join t_client tc on tc.id = tsc.client_id
         WHERE
-          sms_key = #{key}
+          tc.name = #{clientName}
           limit 1
     </select>
 

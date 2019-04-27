@@ -43,11 +43,11 @@ public class TopUpAmountServiceImpl extends BaseServiceImpl implements ITopUpAmo
         List<ResultTopUpAmountDTO> topUpAmountDTOList = topUpAmountMapper.getTopUpAmount(parameterBaseDTO.getClientId());
         parameterMap.put("topUpAmountList", topUpAmountDTOList);
 
-        String alipay = smsConfigMapper.getValueByKey("alipay");
-        parameterMap.put("alipay", alipay);
+        //String alipay = smsConfigMapper.getValueByKey("alipay");
+        //parameterMap.put("alipay", alipay);
 
-        String wxpay = smsConfigMapper.getValueByKey("wxpay");
-        parameterMap.put("wxpay", wxpay);
+        //String wxpay = smsConfigMapper.getValueByKey("wxpay");
+        //parameterMap.put("wxpay", wxpay);
 
         return Result.success(parameterMap);
     }
