@@ -135,10 +135,6 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
         ResultUserInfoDTO resultUserInfoDTO = userMapper.selectUserInfoById(userId);
-        if (resultUserInfoDTO == null) {
-            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
-        }
-
         return Result.success(resultUserInfoDTO);
     }
 
