@@ -1,8 +1,10 @@
 package com.yht.demo.service;
 
 import com.yht.demo.common.Result;
+import com.yht.demo.dto.ParameterBaseDTO;
 import com.yht.demo.dto.ParameterOrderDetailsDTO;
 import com.yht.demo.dto.ParameterOrderListDTO;
+import com.yht.demo.dto.ResultSearchConditionsDTO;
 import com.yht.demo.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -19,4 +21,6 @@ public interface IOrderService  {
     Result getHomePageOrderList(ParameterOrderListDTO parameterOrderListDTO);
 
     Result getOrderDetailsById(ParameterOrderDetailsDTO parameterOrderDetailsDTO);
+
+    Result<ResultSearchConditionsDTO> getSearchConditionsList(ParameterBaseDTO parameterBaseDTO);
 }

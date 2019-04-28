@@ -20,6 +20,4 @@ public class ResultSearchConditionsDTO {
     @ApiModelProperty(name = "searchName", value = "搜索名称", required = true)
     private String searchName;
 
-    @ApiModelProperty(name = "name", value = "名称", required = true)
-    private String name;
 }

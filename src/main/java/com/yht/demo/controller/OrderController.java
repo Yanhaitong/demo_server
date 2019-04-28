@@ -3,10 +3,7 @@ package com.yht.demo.controller;
 
 import com.yht.demo.common.MsgConstant;
 import com.yht.demo.common.Result;
-import com.yht.demo.dto.ParameterOrderDetailsDTO;
-import com.yht.demo.dto.ParameterOrderListDTO;
-import com.yht.demo.dto.ResultHomeOrderListDTO;
-import com.yht.demo.dto.ResultOrderDetailsDTO;
+import com.yht.demo.dto.*;
 import com.yht.demo.service.IOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,6 +47,12 @@ public class OrderController {
             return Result.error(500, MsgConstant.PARAMETER_IS_NULL);
         }
         return orderService.getOrderDetailsById(parameterOrderDetailsDTO);
+    }
+
+    @PostMapping("/getSearchConditionsList")
+    @ApiOperation(value = "获取订单筛选参数")
+    public Result<ResultSearchConditionsDTO> getSearchConditionsList(@RequestBody ParameterBaseDTO parameterBaseDTO) {
+        return orderService.getSearchConditionsList(parameterBaseDTO);
     }
 }
 

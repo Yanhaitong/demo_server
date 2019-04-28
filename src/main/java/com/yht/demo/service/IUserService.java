@@ -24,4 +24,5 @@ public interface IUserService {
     Result getUserInfo(ParameterBaseDTO parameterBaseDTO);
 
     Result getPortraitUploadCredentials(ParameterBaseDTO parameterBaseDTO);
+
 }

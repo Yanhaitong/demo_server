@@ -103,4 +103,10 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         ResultOrderDetailsDTO resultOrderDetailsDTO = orderMapper.getOrderDetailsById(parameterOrderDetailsDTO.getOrderId(), myOrderInt);
         return Result.success(resultOrderDetailsDTO);
     }
+
+    @Override
+    public Result<ResultSearchConditionsDTO> getSearchConditionsList(ParameterBaseDTO parameterBaseDTO) {
+        List<ResultSearchConditionsDTO> searchConditionsList = searchConditionsMapper.getSearchConditionsList(parameterBaseDTO.getClientId());
+        return Result.success(searchConditionsList);
+    }
 }
