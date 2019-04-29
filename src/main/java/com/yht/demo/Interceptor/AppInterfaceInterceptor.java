@@ -65,13 +65,19 @@ public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
 
             //过滤基础必要字段
             if (StringUtils.isEmpty(parameterBaseDTO.getToken())) {
-                this.sendJsonMessage(response, Result.error(500, MsgConstant.PARAMETER_IS_NULL));
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.TOKEN_IS_NULL));
                 return false;
             }
-
-
-            if (StringUtils.isEmpty(parameterBaseDTO.getClientName()) || StringUtils.isEmpty(parameterBaseDTO.getClientType())) {
-                this.sendJsonMessage(response, Result.error(500, MsgConstant.PARAMETER_IS_NULL));
+            if (StringUtils.isEmpty(parameterBaseDTO.getClientName())) {
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.CLIENT_NAME_IS_NULL));
+                return false;
+            }
+            if (StringUtils.isEmpty(parameterBaseDTO.getClientId())) {
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.CLIENT_ID_IS_NULL));
+                return false;
+            }
+            if (StringUtils.isEmpty(parameterBaseDTO.getClientType())) {
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.CLIENT_TYPE_IS_NULL));
                 return false;
             }
 
@@ -79,16 +85,15 @@ public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("id", parameterBaseDTO.getClientId());
             parameterMap.put("name", parameterBaseDTO.getClientName());
-            //parameterMap.put("clientType", parameterBaseDTO.getClientType());
             List<Client> clientList = clientService.selectClientByMap(parameterMap);
-            if (clientList.size() == 0){
+            if (clientList.size() == 0) {
                 this.sendJsonMessage(response, Result.error(500, MsgConstant.CLIENT_EXCEPTION));
                 return false;
             }
 
             //判断用户是否存在
             String userId = RedisUtils.getUserIdByToken(parameterBaseDTO.getToken());
-            if (StringUtils.isEmpty(userId)){
+            if (StringUtils.isEmpty(userId)) {
                 this.sendJsonMessage(response, Result.error(500, MsgConstant.USER_ID_IS_NULL));
                 return false;
             }
@@ -101,7 +106,6 @@ public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
      * 获取请求Body
      *
      * @param request
-     *
      * @return
      */
     public static String getBodyString(final ServletRequest request) {
@@ -140,7 +144,6 @@ public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
      * Description: 复制输入流</br>
      *
      * @param inputStream
-     *
      * @return</br>
      */
     public static InputStream cloneInputStream(ServletInputStream inputStream) {
@@ -161,6 +164,7 @@ public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * 将某个对象转换成json格式并发送到客户端
+     *
      * @param response
      * @param obj
      * @throws Exception

@@ -28,6 +28,12 @@ public class ResultOrderDetailsDTO {
     @ApiModelProperty(name = "age", value = "年龄", required = true)
     private String age;
 
+    @ApiModelProperty(name = "vieForTime", value = "抢单时间", required = true)
+    private String vieForTime;
+
+    @ApiModelProperty(name = "loanPeriod", value = "贷款期限", required = true)
+    private String loanPeriod;
+
     @ApiModelProperty(name = "loanAmount", value = "贷款金额（元）", required = true)
     private String loanAmount;
 
@@ -64,22 +70,10 @@ public class ResultOrderDetailsDTO {
     @ApiModelProperty(name = "estateInfo", value = "房产信息", required = true)
     private String estateInfo;
 
-    @ApiModelProperty(name = "estateValues", value = "房产价值", required = true)
-    private String estateValues;
-
     @ApiModelProperty(name = "carInfo", value = "车产信息", required = true)
     private String carInfo;
 
-    @ApiModelProperty(name = "carValues", value = "车产估值", required = true)
-    private String carValues;
-
     @ApiModelProperty(name = "insuranceInfo", value = "保险信息", required = true)
     private String insuranceInfo;
-
-    @ApiModelProperty(name = "insuranceValues", value = "保险价值", required = true)
-    private String insuranceValues;
-
-    @ApiModelProperty(name = "smallLabel", value = "小标签（姓名后边的文字标记）", required = true)
-    private String smallLabel;
 
 }

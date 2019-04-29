@@ -36,7 +36,7 @@ public class MpGenerator {
         * */
         String subPackageName = ""; // 子包名
         String[] tablePrefix = new String[] { "t_" }; // 表前缀
-        String[] tableInclude = new String[] {"t_banner"}; // 需要生成的表 ,"t_order","t_order_trigger"
+        String[] tableInclude = new String[] {"t_order_copy"}; // 需要生成的表 ,"t_order","t_order_trigger"
 //        String pack = "orderOverdue"; //Service子包
 
         AutoGenerator mpg = new AutoGenerator();

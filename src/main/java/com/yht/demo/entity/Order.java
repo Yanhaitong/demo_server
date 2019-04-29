@@ -1,14 +1,15 @@
 package com.yht.demo.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.util.Date;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -16,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author generator
- * @since 2019-04-22
+ * @since 2019-04-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -103,17 +104,17 @@ public class Order extends Model<Order> {
     private String familyCity;
 
     /**
-     * 文化程度
-     */
-    private String levelEducation;
-
-    /**
      * 公司名称
      */
     private String companyName;
 
     /**
-     * 职业类型（0:上班族，1:公务员/事业编制，2:自由职业，3:个体户，4:企业主）
+     * 文化程度（0.高中，1:大专，2:本科，3:研究生）
+     */
+    private Integer levelEducation;
+
+    /**
+     * 职业类型（0:上班族，1:公务员/事业编制，2:个体户，3:企业主）
      */
     private Integer professionalType;
 
@@ -143,37 +144,22 @@ public class Order extends Model<Order> {
     private Integer accumulationFund;
 
     /**
-     * 房产信息（0:无，1:商品住宅，2:商铺，3:办公楼，4:厂房，5:经济适用房，6:其他）
+     * 房产信息（0:无，1:有）
      */
     private Integer estateInfo;
 
     /**
-     * 房产价值（0:无，1:50万以下，2:50万-100万，3:100万-200万，4:200万以上）
-     */
-    private Integer estateValues;
-
-    /**
-     * 车产信息（0:无，1:无车准备购买，2:有车不接受抵押，3:有车可接受抵押 ）
+     * 车产信息（0:无，1:有 ）
      */
     private Integer carInfo;
 
     /**
-     * 车产估值（0:无，1:10万以下，2:10-20万，3:20-40万，4:40万以上）
-     */
-    private Integer carValues;
-
-    /**
-     * 保险信息（0:无，1:中国人寿，2:中国平安，3:太平洋保险，4:中国太平，5:阳光保险，6:安邦保险，7:前海人寿，8:泰康人寿，9:新华保险，10:其他）
+     * 保险信息（0:无，1:有）
      */
     private Integer insuranceInfo;
 
     /**
-     * 保险价值（0:无，1:10万以下，2:10-30万，3:30-60万，4:60万以上）
-     */
-    private Integer insuranceValues;
-
-    /**
-     * 信用卡额度（0:无，1:1万以下，2:1-5万，3:5万以上）
+     * 信用卡（0:无，1:有）
      */
     private Integer creditCardLimit;
 

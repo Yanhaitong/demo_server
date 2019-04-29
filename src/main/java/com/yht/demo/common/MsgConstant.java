@@ -12,6 +12,12 @@ public class MsgConstant {
 
     public static String TOKEN_IS_NULL = "登录失效，请重新登录！";
 
+    public static String CLIENT_NAME_IS_NULL = "请传入客户端名称字段！";
+
+    public static String CLIENT_ID_IS_NULL = "请传入客户端ID字段！";
+
+    public static String CLIENT_TYPE_IS_NULL = "请传入客户端类型字段！";
+
     public static String CLIENT_EXCEPTION = "客户端异常！";
 
 }

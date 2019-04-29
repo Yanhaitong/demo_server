@@ -4,46 +4,43 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.yht.demo.entity.Order">
-        <id column="id" property="id"/>
-        <result column="status" property="status"/>
-        <result column="mobile_no" property="mobileNo"/>
-        <result column="apply_time" property="applyTime"/>
-        <result column="vie_for_time" property="vieForTime"/>
-        <result column="name" property="name"/>
-        <result column="age" property="age"/>
-        <result column="sex" property="sex"/>
-        <result column="loan_amount" property="loanAmount"/>
-        <result column="loan_period" property="loanPeriod"/>
-        <result column="loan_purpose" property="loanPurpose"/>
-        <result column="id_number" property="idNumber"/>
-        <result column="current_city" property="currentCity"/>
-        <result column="phone_attribution" property="phoneAttribution"/>
-        <result column="family_city" property="familyCity"/>
-        <result column="level_education" property="levelEducation"/>
-        <result column="company_name" property="companyName"/>
-        <result column="professional_type" property="professionalType"/>
-        <result column="income_amount" property="incomeAmount"/>
-        <result column="income_type" property="incomeType"/>
-        <result column="working_years" property="workingYears"/>
-        <result column="social_security" property="socialSecurity"/>
-        <result column="accumulation_fund" property="accumulationFund"/>
-        <result column="estate_info" property="estateInfo"/>
-        <result column="estate_values" property="estateValues"/>
-        <result column="car_info" property="carInfo"/>
-        <result column="car_values" property="carValues"/>
-        <result column="insurance_info" property="insuranceInfo"/>
-        <result column="insurance_values" property="insuranceValues"/>
-        <result column="credit_card_limit" property="creditCardLimit"/>
-        <result column="sesame_scores" property="sesameScores"/>
-        <result column="weilidai_limit" property="weilidaiLimit"/>
-        <result column="share_id" property="shareId"/>
-        <result column="partner_id" property="partnerId"/>
-        <result column="order_source" property="orderSource"/>
-        <result column="order_rating" property="orderRating"/>
-        <result column="apply_ip" property="applyIp"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag"/>
+        <id column="id" property="id" />
+        <result column="status" property="status" />
+        <result column="mobile_no" property="mobileNo" />
+        <result column="apply_time" property="applyTime" />
+        <result column="vie_for_time" property="vieForTime" />
+        <result column="name" property="name" />
+        <result column="age" property="age" />
+        <result column="sex" property="sex" />
+        <result column="loan_amount" property="loanAmount" />
+        <result column="loan_period" property="loanPeriod" />
+        <result column="loan_purpose" property="loanPurpose" />
+        <result column="id_number" property="idNumber" />
+        <result column="current_city" property="currentCity" />
+        <result column="phone_attribution" property="phoneAttribution" />
+        <result column="family_city" property="familyCity" />
+        <result column="company_name" property="companyName" />
+        <result column="level_education" property="levelEducation" />
+        <result column="professional_type" property="professionalType" />
+        <result column="income_amount" property="incomeAmount" />
+        <result column="income_type" property="incomeType" />
+        <result column="working_years" property="workingYears" />
+        <result column="social_security" property="socialSecurity" />
+        <result column="accumulation_fund" property="accumulationFund" />
+        <result column="estate_info" property="estateInfo" />
+        <result column="car_info" property="carInfo" />
+        <result column="insurance_info" property="insuranceInfo" />
+        <result column="credit_card_limit" property="creditCardLimit" />
+        <result column="sesame_scores" property="sesameScores" />
+        <result column="weilidai_limit" property="weilidaiLimit" />
+        <result column="share_id" property="shareId" />
+        <result column="partner_id" property="partnerId" />
+        <result column="order_source" property="orderSource" />
+        <result column="order_rating" property="orderRating" />
+        <result column="apply_ip" property="applyIp" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="del_flag" property="delFlag" />
     </resultMap>
 
     <sql id="Order_Column_List">
@@ -128,9 +125,8 @@
         CASE professional_type
         WHEN '0' THEN '上班族'
         WHEN '1' THEN '公务员/事业编制'
-        WHEN '2' THEN '自由职业'
-        WHEN '3' THEN '个体户'
-        WHEN '4' THEN '企业主'
+        WHEN '2' THEN '个体户'
+        WHEN '3' THEN '企业主'
         ELSE '未知' END as professionalType,
 
         CASE loan_purpose
@@ -172,65 +168,28 @@
 
         CASE estate_info
         WHEN '0' THEN '无'
-        WHEN '1' THEN '商品住宅'
-        WHEN '2' THEN '商铺'
-        WHEN '3' THEN '办公楼'
-        WHEN '4' THEN '厂房'
-        WHEN '5' THEN '商铺'
-        WHEN '6' THEN '其他'
+        WHEN '1' THEN '有'
         ELSE '未知' END as estateInfo,
-
-        CASE estate_values
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '50万以下'
-        WHEN '2' THEN '50万-100万'
-        WHEN '3' THEN '100万-200万'
-        WHEN '4' THEN '200万以上'
-        ELSE '未知' END as estateValues,
 
         CASE car_info
         WHEN '0' THEN '无'
-        WHEN '1' THEN '无车准备购买'
-        WHEN '2' THEN '有车不接受抵押'
-        WHEN '3' THEN '有车可接受抵押'
+        WHEN '1' THEN '有'
         ELSE '未知' END as carInfo,
-
-        CASE car_values
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '10万以下'
-        WHEN '2' THEN '10万-20万'
-        WHEN '3' THEN '20万-40万'
-        WHEN '4' THEN '40万以上'
-        ELSE '未知' END as carValues,
 
         CASE insurance_info
         WHEN '0' THEN '无'
-        WHEN '1' THEN '中国人寿'
-        WHEN '2' THEN '中国平安'
-        WHEN '3' THEN '太平洋保险'
-        WHEN '4' THEN '中国太平'
-        WHEN '5' THEN '阳光保险'
-        WHEN '6' THEN '安邦保险'
-        WHEN '7' THEN '前海人寿'
-        WHEN '8' THEN '泰康人寿'
-        WHEN '9' THEN '新华保险'
-        WHEN '10' THEN '其他'
+        WHEN '1' THEN '有'
         ELSE '未知' END as insuranceInfo,
 
-        CASE insurance_values
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '10万以下'
-        WHEN '2' THEN '10万-30万'
-        WHEN '3' THEN '30万-60万'
-        WHEN '4' THEN '60万以上'
-        ELSE '未知' END as insuranceValues,
-
-        concat_ws(",",case when id_number is not null then '实' else null end,
-        case when social_security != 0 then '社' else null end,
-        case when accumulation_fund != 0 then '公' else null end) as smallLabel,
+        CASE level_education
+        WHEN '0' THEN '高中'
+        WHEN '1' THEN '大专'
+        WHEN '2' THEN '本科'
+        WHEN '3' THEN '研究生'
+        ELSE '未知' END as levelEducation,
 
         age as age, loan_amount as loanAmount, loan_purpose as loanPurpose, current_city as currentCity,
-        level_education as levelEducation,family_city as familyCity, income_amount as incomeAmount
+        family_city as familyCity, income_amount as incomeAmount, vie_for_time as vieForTime
     </sql>
 
     <!--获取首页订单列表-->
@@ -277,8 +236,7 @@
     </select>
 
     <!--获取订单详情-->
-    <select id="getOrderDetailsById" parameterType="java.lang.String"
-            resultType="com.yht.demo.dto.ResultOrderDetailsDTO">
+    <select id="getOrderDetailsById" parameterType="java.lang.String" resultType="com.yht.demo.dto.ResultOrderDetailsDTO">
         SELECT
         <choose>
             <when test="myOrderInt == 1">

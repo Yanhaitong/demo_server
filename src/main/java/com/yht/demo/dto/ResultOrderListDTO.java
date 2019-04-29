@@ -28,7 +28,7 @@ public class ResultOrderListDTO {
     @ApiModelProperty(name = "creditCardLimit", value = "信用额度", required = true)
     private String creditCardLimit;
 
-    @ApiModelProperty(name = "loanPurpose", value = "消费类型", required = true)
+    @ApiModelProperty(name = "loanPurpose", value = "贷款目的", required = true)
     private String loanPurpose;
 
     @ApiModelProperty(name = "socialSecurity", value = "社保信息", required = true)
@@ -63,7 +63,5 @@ public class ResultOrderListDTO {
 
     @ApiModelProperty(name = "createOrderTime", value = "创建订单时间", required = true)
     private String createOrderTime;
-
-
 
 }
