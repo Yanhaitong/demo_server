@@ -60,8 +60,8 @@
         CASE credit_card_limit
         WHEN '0' THEN '信用额度无'
         WHEN '1' THEN '信用额度1万以下'
-        WHEN '2' THEN '信用额度1-5万'
-        WHEN '2' THEN '信用额度5万以上'
+        WHEN '2' THEN '信用额度1-3万'
+        WHEN '3' THEN '信用额度3万以上'
         ELSE '未知' END as creditCardLimit,
 
         CASE loan_purpose
@@ -129,6 +129,13 @@
         WHEN '3' THEN '企业主'
         ELSE '未知' END as professionalType,
 
+        CASE credit_card_limit
+        WHEN '0' THEN '信用额度无'
+        WHEN '1' THEN '信用额度1万以下'
+        WHEN '2' THEN '信用额度1-3万'
+        WHEN '3' THEN '信用额度3万以上'
+        ELSE '未知' END as creditCardLimit,
+
         CASE loan_purpose
         WHEN '0' THEN '消费贷款'
         WHEN '1' THEN '结婚贷款'
@@ -188,8 +195,10 @@
         WHEN '3' THEN '研究生'
         ELSE '未知' END as levelEducation,
 
-        age as age, loan_amount as loanAmount, loan_purpose as loanPurpose, current_city as currentCity,
-        family_city as familyCity, income_amount as incomeAmount, vie_for_time as vieForTime
+        '8' as browseNumber,
+
+        age as age, loan_amount as loanAmount, loan_period as loanPeriod, loan_purpose as loanPurpose, current_city as currentCity, company_name as companyName,
+        family_city as familyCity, income_amount as incomeAmount, vie_for_time as vieForTime, sesame_scores as sesameScores, weilidai_limit as weilidaiLimit
     </sql>
 
     <!--获取首页订单列表-->
