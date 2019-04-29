@@ -58,7 +58,7 @@ public class UserServiceImpl extends BaseServiceImpl implements IUserService {
             //获取验证码
             String localCode = stringRedisTemplate.opsForValue().get("SMS" + parameterUserDTO.getMobileNo());
             if (StringUtils.isEmpty(localCode) || !localCode.equals(parameterUserDTO.getCode())) {
-                return Result.error(500, "验证码错误！");
+                //return Result.error(500, "验证码错误！");
             }
 
             //redis保存token对应的userId(永久)

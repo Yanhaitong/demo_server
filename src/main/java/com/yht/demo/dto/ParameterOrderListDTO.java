@@ -36,11 +36,8 @@ public class ParameterOrderListDTO extends ParameterBaseDTO {
     @ApiModelProperty(name = "incomeAmountEnd", value = "月收入结束", required = false)
     private String incomeAmountEnd;
 
-    @ApiModelProperty(name = "incomeTypes", value = "收入形式（多选英文逗号隔开）", required = false)
-    private String incomeTypes;
-
-    @ApiModelProperty(name = "qualificationInfos", value = "资质信息（多选英文逗号隔开）", required = false)
-    private String qualificationInfos;
+    @ApiModelProperty(name = "searchId", value = "动态选项的id（多个用英文逗号隔开）", required = false)
+    private String searchId;
 
     @ApiModelProperty(name = "pageSize", value = "每页个数", required = true)
     private Integer pageSize;

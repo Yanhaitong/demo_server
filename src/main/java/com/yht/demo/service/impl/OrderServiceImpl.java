@@ -50,8 +50,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
         List<ResultBannerDTO> bannerList = bannerMapper.selectBannerListByMap(parameterOrderListDTO.getClientId());
 
         //首页列表
-        if (!StringUtils.isEmpty(parameterOrderListDTO.getQualificationInfos())){
-
+       /* if (!StringUtils.isEmpty(parameterOrderListDTO.getQualificationInfos())){
             String[] incomeTypes = parameterOrderListDTO.getIncomeTypes().split(",");
             List<String> incomeTypeList = Arrays.asList(incomeTypes);
             parameterOrderListDTO.setIncomeTypeList(incomeTypeList);
@@ -66,7 +65,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements IOrderService {
                     parameterOrderListDTO.setWeilidai(1);
                 }
             }
-        }
+        }*/
 
         Page page = new Page();
         page.setSize(parameterOrderListDTO.getPageSize());

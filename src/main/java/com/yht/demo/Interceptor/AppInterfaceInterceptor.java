@@ -64,8 +64,13 @@ public class AppInterfaceInterceptor extends HandlerInterceptorAdapter {
             ParameterBaseDTO parameterBaseDTO = JSON.toJavaObject(jsonObject, ParameterBaseDTO.class);
 
             //过滤基础必要字段
-            if (StringUtils.isEmpty(parameterBaseDTO.getClientName()) || StringUtils.isEmpty(parameterBaseDTO.getClientType())||
-                    StringUtils.isEmpty(parameterBaseDTO.getToken())) {
+            if (StringUtils.isEmpty(parameterBaseDTO.getToken())) {
+                this.sendJsonMessage(response, Result.error(500, MsgConstant.PARAMETER_IS_NULL));
+                return false;
+            }
+
+
+            if (StringUtils.isEmpty(parameterBaseDTO.getClientName()) || StringUtils.isEmpty(parameterBaseDTO.getClientType())) {
                 this.sendJsonMessage(response, Result.error(500, MsgConstant.PARAMETER_IS_NULL));
                 return false;
             }

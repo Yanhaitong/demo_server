@@ -10,6 +10,8 @@ public class MsgConstant {
 
     public static String PARAMETER_IS_NULL = "参数错误！";
 
+    public static String TOKEN_IS_NULL = "登录失效，请重新登录！";
+
     public static String CLIENT_EXCEPTION = "客户端异常！";
 
 }
