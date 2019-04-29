@@ -3,8 +3,6 @@ package com.yht.demo.service;
 import com.yht.demo.common.Result;
 import com.yht.demo.dto.ParameterAmaldarOrderListDTO;
 import com.yht.demo.dto.ParameterVieForOrderDTO;
-import com.yht.demo.entity.OrderAllocation;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

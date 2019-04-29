@@ -12,6 +12,9 @@ import lombok.Data;
 @Data
 public class ParameterAmaldarOrderListDTO extends ParameterBaseDTO {
 
+    @ApiModelProperty(name = "searchContent", value = "输入的搜索内容", required = true)
+    private String searchContent;
+
     @ApiModelProperty(name = "pageSize", value = "每页个数", required = true)
     private Integer pageSize;
 

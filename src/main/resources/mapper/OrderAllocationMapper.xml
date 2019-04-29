@@ -69,60 +69,25 @@
         WHEN '3' THEN '12个月以上'
         ELSE '未知' END as accumulationFund,
 
-        CASE o.estate_info
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '商品住宅'
-        WHEN '2' THEN '商铺'
-        WHEN '3' THEN '办公楼'
-        WHEN '4' THEN '厂房'
-        WHEN '5' THEN '商铺'
-        WHEN '6' THEN '其他'
-        ELSE '未知' END as estateInfo,
+        CASE social_security
+        WHEN '0' THEN '无社保'
+        ELSE '有社保' END as socialSecurity,
 
-        CASE o.estate_values
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '50万以下'
-        WHEN '2' THEN '50万-100万'
-        WHEN '3' THEN '100万-200万'
-        WHEN '4' THEN '200万以上'
-        ELSE '未知' END as estateValues,
+        CASE accumulation_fund
+        WHEN '0' THEN '无公积金'
+        ELSE '有公积金' END as accumulationFund,
 
-        CASE o.car_info
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '无车准备购买'
-        WHEN '2' THEN '有车不接受抵押'
-        WHEN '3' THEN '有车可接受抵押'
-        ELSE '未知' END as carInfo,
+        CASE estate_info
+        WHEN '0' THEN '无房产'
+        ELSE '有房产' END as estateInfo,
 
-        CASE car_values
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '10万以下'
-        WHEN '2' THEN '10万-20万'
-        WHEN '3' THEN '20万-40万'
-        WHEN '4' THEN '40万以上'
-        ELSE '未知' END as carValues,
+        CASE car_info
+        WHEN '0' THEN '无车产'
+        ELSE '有车产' END as carInfo,
 
-        CASE o.insurance_info
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '中国人寿'
-        WHEN '2' THEN '中国平安'
-        WHEN '3' THEN '太平洋保险'
-        WHEN '4' THEN '中国太平'
-        WHEN '5' THEN '阳光保险'
-        WHEN '6' THEN '安邦保险'
-        WHEN '7' THEN '前海人寿'
-        WHEN '8' THEN '泰康人寿'
-        WHEN '9' THEN '新华保险'
-        WHEN '10' THEN '其他'
-        ELSE '未知' END as insuranceInfo,
-
-        CASE o.insurance_values
-        WHEN '0' THEN '无'
-        WHEN '1' THEN '10万以下'
-        WHEN '2' THEN '10万-30万'
-        WHEN '3' THEN '30万-60万'
-        WHEN '4' THEN '60万以上'
-        ELSE '未知' END as insuranceValues,
+        CASE insurance_info
+        WHEN '0' THEN '无保险'
+        ELSE '有保险' END as insuranceInfo,
 
         o.name, o.mobile_no as mobileNo, o.age as age, o.loan_amount as loanAmount, o.loan_purpose as loanPurpose, o.current_city as currentCity,
         o.level_education as levelEducation, o.family_city as familyCity, o.income_amount as incomeAmount

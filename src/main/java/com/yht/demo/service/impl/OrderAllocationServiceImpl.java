@@ -172,9 +172,6 @@ public class OrderAllocationServiceImpl extends BaseServiceImpl implements IOrde
             return Result.error(500, MsgConstant.USER_ID_IS_NULL);
         }
         User userInfo = userMapper.selectById(userId);
-        if (userInfo == null) {
-            return Result.error(500, MsgConstant.USER_INFO_IS_NULL);
-        }
         Page page = new Page();
         page.setSize(parameterAmaldarOrderListDTO.getPageSize());
         page.setCurrent(parameterAmaldarOrderListDTO.getPageNum());
