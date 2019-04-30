@@ -89,7 +89,8 @@
         WHEN '0' THEN '无保险'
         ELSE '有保险' END as insuranceInfo,
 
-        o.name, o.mobile_no as mobileNo, o.age as age, o.loan_amount as loanAmount, o.loan_purpose as loanPurpose, o.current_city as currentCity,
+        o.name, o.mobile_no as mobileNo, o.age as age, o.loan_amount as loanAmount, o.loan_purpose as loanPurpose,
+        concat(o.loan_period, '个月') as loanPeriod, o.current_city as currentCity, o.vie_for_time as vieForTime,
         o.level_education as levelEducation, o.family_city as familyCity, o.income_amount as incomeAmount
     </sql>
 
